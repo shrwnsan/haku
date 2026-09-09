@@ -40,7 +40,7 @@ if (dirty) {
   console.error("Working tree is dirty — commit the suite first; a baseline must name its commit.");
   process.exit(2);
 }
-const cliVersion = sh("claude", ["--version"]).stdout.trim().split(/\s+/).pop();
+const cliVersion = sh("claude", ["--version"]).stdout.trim().split(/\s+/)[1];
 
 function runSuite() {
   const res = sh("node", [join(here, "run-routing.mjs"), "--verbose", "--model", model]);

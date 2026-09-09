@@ -1,0 +1,199 @@
+{
+  "_comment": "Routing baseline (LEAN-PLAN §6 step 0). Regenerate only via a decision-citing commit (§8 D4). Gate tolerance: a single-case flip re-runs twice and fails only if confirmed — the judge is stochastic.",
+  "commit": "2bd240b345ba402520f8bed3bfa34569cc3295bc",
+  "generatedAt": "2026-09-09T11:10:30.834Z",
+  "judge": {
+    "runner": "evals/routing/run-routing.mjs",
+    "cli": "claude@2.1.128",
+    "model": "glm-5-turbo"
+  },
+  "runs": [
+    {
+      "pass": 40,
+      "total": 40,
+      "failures": [],
+      "errors": []
+    },
+    {
+      "pass": 39,
+      "total": 40,
+      "failures": [
+        "reducer-vs-discovery"
+      ],
+      "errors": []
+    },
+    {
+      "pass": 40,
+      "total": 40,
+      "failures": [],
+      "errors": []
+    }
+  ],
+  "aggregate": {
+    "perCase": {
+      "reducer-vs-discovery": {
+        "hits": 2,
+        "of": 3
+      },
+      "discovery": {
+        "hits": 3,
+        "of": 3
+      },
+      "spec-writer": {
+        "hits": 3,
+        "of": 3
+      },
+      "incident": {
+        "hits": 3,
+        "of": 3
+      },
+      "postmortem": {
+        "hits": 3,
+        "of": 3
+      },
+      "retro": {
+        "hits": 3,
+        "of": 3
+      },
+      "premortem": {
+        "hits": 3,
+        "of": 3
+      },
+      "translator": {
+        "hits": 3,
+        "of": 3
+      },
+      "status-crafter": {
+        "hits": 3,
+        "of": 3
+      },
+      "data-storyteller": {
+        "hits": 3,
+        "of": 3
+      },
+      "career-retro": {
+        "hits": 3,
+        "of": 3
+      },
+      "wins-curate": {
+        "hits": 3,
+        "of": 3
+      },
+      "self-reflect": {
+        "hits": 3,
+        "of": 3
+      },
+      "one-on-one": {
+        "hits": 3,
+        "of": 3
+      },
+      "feedback": {
+        "hits": 3,
+        "of": 3
+      },
+      "perf-mgmt": {
+        "hits": 3,
+        "of": 3
+      },
+      "coaching": {
+        "hits": 3,
+        "of": 3
+      },
+      "weekly": {
+        "hits": 3,
+        "of": 3
+      },
+      "capture": {
+        "hits": 3,
+        "of": 3
+      },
+      "commitments": {
+        "hits": 3,
+        "of": 3
+      },
+      "exec-readout": {
+        "hits": 3,
+        "of": 3
+      },
+      "demo-prep": {
+        "hits": 3,
+        "of": 3
+      },
+      "model-migration": {
+        "hits": 3,
+        "of": 3
+      },
+      "vendor-eval": {
+        "hits": 3,
+        "of": 3
+      },
+      "metrics-design": {
+        "hits": 3,
+        "of": 3
+      },
+      "eval-designer": {
+        "hits": 3,
+        "of": 3
+      },
+      "tech-strategy": {
+        "hits": 3,
+        "of": 3
+      },
+      "product-strategy": {
+        "hits": 3,
+        "of": 3
+      },
+      "visibility": {
+        "hits": 3,
+        "of": 3
+      },
+      "doctor": {
+        "hits": 3,
+        "of": 3
+      },
+      "rfc-review": {
+        "hits": 3,
+        "of": 3
+      },
+      "prompt-critic": {
+        "hits": 3,
+        "of": 3
+      },
+      "red-teamer": {
+        "hits": 3,
+        "of": 3
+      },
+      "stakeholder-register": {
+        "hits": 3,
+        "of": 3
+      },
+      "read-the-room": {
+        "hits": 3,
+        "of": 3
+      },
+      "influence": {
+        "hits": 3,
+        "of": 3
+      },
+      "none-general": {
+        "hits": 3,
+        "of": 3
+      },
+      "none-coding": {
+        "hits": 3,
+        "of": 3
+      },
+      "team-workspace": {
+        "hits": 3,
+        "of": 3
+      },
+      "team-workspace-refuse": {
+        "hits": 3,
+        "of": 3
+      }
+    },
+    "flaky": [
+      "reducer-vs-discovery"
+    ]
+  }
+}
