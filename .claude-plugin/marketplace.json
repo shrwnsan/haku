@@ -1,23 +1,23 @@
 {
-  "name": "bettersense",
-  "description": "Opinionated Claude Code skills and agents for AI PMs, Engineering Managers, TPMs, and senior ICs leading without authority.",
+  "name": "haku",
+  "description": "Lean Claude Code plugin that runs the decide → spec → evidence loop—capture the decision, pressure-test the spec, check what shipped.",
   "owner": {
-    "name": "Shwetank Dixit"
+    "name": "shrwnsan"
   },
   "plugins": [
     {
-      "name": "bettersense",
+      "name": "haku",
       "source": "./plugin",
-      "version": "0.2.0",
-      "description": "Think more clearly about your work. 40+ skills and 20+ agents for technical leaders building and leading in the age of AI. Covers AI product craft, people leadership, stakeholder reflection, program coordination, and longitudinal self-reflection.",
+      "version": "0.4.0",
+      "description": "For people who'd rather decide well than write fast: an always-on core (8 skills + 5 gate agents) plus 8 opt-in packs you bolt on per role.",
       "author": {
-        "name": "Shwetank Dixit"
+        "name": "shrwnsan"
       },
-      "homepage": "https://bettersense.ai",
-      "repository": "https://github.com/shwetank/bettersense",
+      "homepage": "https://github.com/shrwnsan/haku",
+      "repository": "https://github.com/shrwnsan/haku",
       "license": "CC-BY-SA-4.0",
       "category": "productivity",
-      "keywords": ["ai-pm", "engineering-manager", "tpm", "leadership", "reflection", "skills"]
+      "keywords": ["decision-making", "spec", "product-sense", "leadership", "lean", "skills", "lean product sense", "pm", "engineering-manager"]
     }
   ]
 }

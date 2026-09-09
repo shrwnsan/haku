@@ -1,8 +1,8 @@
-# bettersense — Claude Code plugin
+# haku — Claude Code plugin
 
-Opinionated skills and agents for **AI PMs, engineering managers, TPMs, and senior ICs leading without authority**. 42 skills + 23 agents, namespaced under `bettersense:` (e.g. `/bettersense:coaching-mode`, `/bettersense:wins-log`).
+A lean plugin for people who'd rather decide well than write fast. An always-on core—8 skills + 5 gate agents—runs the decide → spec → evidence loop; 8 opt-in packs bolt on per role. Skills are namespaced under `haku:` (e.g. `/haku:start`, `/haku:decision-log`).
 
-→ **Full documentation, install instructions, and worked examples: [root README](../readme.md)**
+→ **Full story, philosophy, and pack list: [root README](../readme.md)**
 
 ## Quick install
 
@@ -10,14 +10,14 @@ Opinionated skills and agents for **AI PMs, engineering managers, TPMs, and seni
 
 1. Click **Customize** in the left sidebar
 2. Click **+** next to "Personal plugins" → choose **Add marketplace**
-3. Enter `shwetank/bettersense` and click **Sync**
-4. Go to **Plugins → Code** tab, find Bettersense, and click **+** to install it
+3. Enter `shrwnsan/haku` and click **Sync**
+4. Go to **Plugins → Code** tab, find haku, and click **+** to install it
 
 **Claude Code CLI (terminal):**
 
 ```
-/plugin marketplace add shwetank/bettersense
-/plugin install bettersense@bettersense
+/plugin marketplace add shrwnsan/haku
+/plugin install haku@haku
 ```
 
 > The `/plugin` commands only work in the terminal CLI — pasting them into the Desktop app chat does nothing.
@@ -25,23 +25,23 @@ Opinionated skills and agents for **AI PMs, engineering managers, TPMs, and seni
 **Local development:**
 
 ```bash
-claude --plugin-dir /path/to/bettersense/plugin
+claude --plugin-dir /path/to/haku/plugin
 ```
 
 ## First-time setup
 
 ```
-/bettersense:start
+/haku:start
 ```
 
-That's it. The `start` skill orients you, walks through profile + stakeholder setup, and routes you to your first real task.
+That's it. The `start` skill orients you, walks through profile setup, and routes you to your first real task.
 
 If you prefer to run setup manually:
 
 ```
-☐ /bettersense:user-profile          — who you are (anchor file, read by 8+ skills)
-☐ /bettersense:strategy-doc          — what you're building (optional but recommended)
-☐ /bettersense:stakeholder-register  — register your first stakeholder
+☐ /haku:user-profile    — who you are (anchor file, read across the core)
+☐ /haku:strategy-doc    — what you're building (optional but recommended)
+☐ /haku:capture         — get decisions out of your head and into the log
 ```
 
 ## License
