@@ -1,5 +1,7 @@
 # bettersense
 
+> **Note:** this branch (`lean`) carries the v2 redesign — a slim 8-skill core + gate agents, built to spin out as a standalone repo named **Haku** (measure, then ship). See [docs/LEAN-PLAN.md](docs/LEAN-PLAN.md), §8 D3.
+
 A growing collection of [Claude Code](https://claude.com/claude-code) **skills** and **subagents** for the people responsible for building and leading in the age of AI — AI Product Managers, Engineering Managers, TPMs, and senior ICs leading without authority.
 
 These aren't generic productivity prompts. They encode the actual frameworks, mental models, and operational modes that technical leaders use day-to-day:
