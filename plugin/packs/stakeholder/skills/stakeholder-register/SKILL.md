@@ -1,6 +1,6 @@
 ---
 name: stakeholder-register
-description: Use when the user wants to register a new stakeholder for ongoing reflection — a manager, peer, direct report, or team. Trigger phrases include "add a new stakeholder", "register Jill in managing-across", "I just got a new manager", "I'm now leading the X team", "let me set up reflection for [name]". Creates a persistent file at `~/bettersense-work-reflections/<category>/<slug>.md` that the `stakeholder-reflect`, `stakeholder-due`, and `stakeholder-synthesize` skills will use.
+description: Use when the user wants to register a new stakeholder for ongoing reflection — manager, peer, direct report, or team. Triggers include "add a new stakeholder", "register Jill in managing-across", "I just got a new manager", "I'm now leading the X team", "let me set up reflection for [name]". Creates a persistent file at `~/haku-work-reflections/<category>/<slug>.md` used by `stakeholder-reflect`, `stakeholder-due`, and `stakeholder-synthesize`.
 ---
 
 # Stakeholder Register
@@ -9,10 +9,10 @@ Register a stakeholder so the user can reflect on them over time. This skill is 
 
 ## Data location
 
-All stakeholder data lives at `$BETTERSENSE_WORK_REFLECTIONS_HOME` (default: `~/bettersense-work-reflections/`), **outside the public repo**.
+All stakeholder data lives at `$HAKU_WORK_REFLECTIONS_HOME` (default: `~/haku-work-reflections/`), **outside the public repo**.
 
 ```
-~/bettersense-work-reflections/
+~/haku-work-reflections/
 ├── stakeholders.json        # registry: who exists in which category
 ├── managing-up/<slug>.md
 ├── managing-across/<slug>.md
@@ -23,8 +23,8 @@ All stakeholder data lives at `$BETTERSENSE_WORK_REFLECTIONS_HOME` (default: `~/
 
 ## On first run
 
-If `~/bettersense-work-reflections/` does not exist, create it silently — the full privacy ceremony belongs to `user-profile`, which is designed to run first. If for some reason `user-profile` wasn't run, issue a short notice before proceeding:
-   > I'm creating `~/bettersense-work-reflections/` to store your stakeholder files. This directory stays on your local machine only. Set `$BETTERSENSE_WORK_REFLECTIONS_HOME` if you'd prefer a different location.
+If `~/haku-work-reflections/` does not exist, create it silently — the full privacy ceremony belongs to `user-profile`, which is designed to run first. If for some reason `user-profile` wasn't run, issue a short notice before proceeding:
+   > I'm creating `~/haku-work-reflections/` to store your stakeholder files. This directory stays on your local machine only. Set `$HAKU_WORK_REFLECTIONS_HOME` if you'd prefer a different location.
 
 Whether or not the root existed already:
 
@@ -76,7 +76,7 @@ cadence_overrides: {}
 
 ## Update the registry
 
-Append to `~/bettersense-work-reflections/stakeholders.json`:
+Append to `~/haku-work-reflections/stakeholders.json`:
 
 ```json
 {
@@ -98,7 +98,7 @@ Append to `~/bettersense-work-reflections/stakeholders.json`:
 - **Don't over-collect at register time.** The registration form is a doorway, not an interview. Three questions, maybe four. The depth comes from the reflection sessions, not the intake.
 - **Confirm before writing.** Always show the user the file path and frontmatter you're about to create, and wait for a yes.
 - **Suggest the next step.** When done, tell the user how to start reflecting: *"Try `let me reflect on John` or run `stakeholder-due` to see what's on your plate. To list, edit, re-categorize, or archive stakeholders later, just describe what you want — the `stakeholder-manage` skill handles the lifecycle."*
-- **Privacy is non-negotiable.** Re-warn if you notice the user's `$BETTERSENSE_WORK_REFLECTIONS_HOME` is inside a git repo that isn't already gitignoring it.
+- **Privacy is non-negotiable.** Re-warn if you notice the user's `$HAKU_WORK_REFLECTIONS_HOME` is inside a git repo that isn't already gitignoring it.
 
 ## Anti-patterns to flag
 

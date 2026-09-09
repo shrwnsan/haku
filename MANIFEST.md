@@ -63,7 +63,7 @@ If you installed via plain `cp`, this manifest is your reference. Match folder/f
 
 The reflection-ecosystem skills create and maintain a private folder on the user's machine. These are user data, not bundle artifacts — keeping for reference:
 
-- `~/bettersense-work-reflections/` (configurable via `$BETTERSENSE_WORK_REFLECTIONS_HOME`)
+- `~/haku-work-reflections/` (configurable via `$HAKU_WORK_REFLECTIONS_HOME`; pre-rename installs may still have `~/bettersense-work-reflections/` — `doctor` check 6 offers an `mv` to the new root rather than forking the data, per LEAN-PLAN §8 D8)
   - `profile.md` — created by `user-profile`
   - `strategy/<area-slug>.md` — created by `strategy-doc`
   - `stakeholders.json`, `managing-{up,across,down}/<slug>.md`, `teams/<slug>.md`, `archive/<category>/<slug>.md` — managed by the stakeholder pack

@@ -1,6 +1,6 @@
 ---
 name: capture
-description: Use to log something from the current conversation into the user's bettersense memory without re-typing it — a decision that just got made, a win that surfaced mid-discussion, an observation about a stakeholder, a self-insight. Trigger phrases include "log this", "capture this", "save that decision", "add that to my wins", "put that in my reflections", "remember this", or when a substantive conversation just concluded and its outcome would otherwise evaporate. Distinct from decision-log / wins-log / stakeholder-reflect / self-reflect invoked directly (blank-page capture): this skill drafts the entry FROM the conversation that just happened, shows it, and files it in the right place after approval.
+description: Use to log something from the current conversation into the user's haku memory — a decision just made, a win that surfaced, a stakeholder observation, a self-insight. Triggers: "log this", "capture this", "save that decision", "remember this", or a substantive conversation just concluded. Distinct from decision-log / wins-log / stakeholder-reflect / self-reflect invoked directly: drafts FROM the conversation, files after approval.
 ---
 
 # Capture
@@ -40,7 +40,7 @@ Build the entry **entirely from what was said** — quote the user's own words f
 
 Show the drafted entry in full. The user says yes / edits / no. On yes:
 
-- Append to the correct file under `~/bettersense-work-reflections/` (respect `$BETTERSENSE_WORK_REFLECTIONS_HOME`).
+- Append to the correct file under `~/haku-work-reflections/` (respect `$HAKU_WORK_REFLECTIONS_HOME`).
 - If the target is a stakeholder who isn't registered, offer `stakeholder-register` first — don't create loose files outside the registry.
 - Confirm in one line with the file path. Done. No tour of what else could be logged.
 

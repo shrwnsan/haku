@@ -80,7 +80,7 @@ Skill/agent counts on the site are generated at build time by `site/scripts/gen-
 
 ## User data written outside the repo
 
-Skills that capture reflections write to `~/bettersense-work-reflections/` (overrideable via `$BETTERSENSE_WORK_REFLECTIONS_HOME`). This folder is user data — never touch it from code in this repo. Key paths:
+Skills that capture reflections write to `~/haku-work-reflections/` (overrideable via `$HAKU_WORK_REFLECTIONS_HOME`; stakeholder/team artifacts use `$HAKU_TEAM_HOME`, default `~/haku-team/`). Pre-rename installs may still have `~/bettersense-work-reflections/` — `doctor` check 6 and `user-profile` offer an `mv` to the new root rather than creating a second one. This folder is user data — never touch it from code in this repo. Key paths:
 
 - `profile.md` — created by `user-profile` (core; also owns root setup + privacy warning)
 - `strategy/<area-slug>.md` — created by `strategy-doc` (core)

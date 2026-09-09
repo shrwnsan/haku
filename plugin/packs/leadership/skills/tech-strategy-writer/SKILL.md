@@ -1,6 +1,6 @@
 ---
 name: tech-strategy-writer
-description: Use when a senior IC (staff/principal engineer, architect, tech lead) needs to write a technical strategy or direction doc — where a system or domain should go over 12–24 months and why. Trigger phrases include "write a tech strategy for [domain]", "I need a technical direction doc", "our platform needs a north star doc", "help me write the tech vision for [area]". The staff+ artifact: turning engineering judgment into direction others can follow without you in the room. Distinct from strategy-doc (its product/business peer) and the-rfc-reviewer (reviewing one proposal). Saves to strategy/tech-<area>.md.
+description: Use when a senior IC (staff/principal, architect, tech lead) writes a technical strategy or direction doc. Trigger phrases include "write a tech strategy for [domain]", "I need a technical direction doc", "our platform needs a north star doc", "help me write the tech vision for [area]". Distinct from strategy-doc (product/business peer) and the-rfc-reviewer (one proposal). Saves to strategy/tech-<area>.md.
 ---
 
 # Tech Strategy Writer
@@ -11,7 +11,7 @@ A strategy is not a roadmap (dates), not an RFC (one decision), and not a vision
 
 ## Before drafting
 
-- Read `~/bettersense-work-reflections/profile.md` (role, org context) and any `strategy/<area>.md` product strategy — a tech strategy that doesn't connect to the product strategy will read as a hobby. If a product strategy exists, mirror its vocabulary and cite the tracks it serves.
+- Read `~/haku-work-reflections/profile.md` (role, org context) and any `strategy/<area>.md` product strategy — a tech strategy that doesn't connect to the product strategy will read as a hobby. If a product strategy exists, mirror its vocabulary and cite the tracks it serves.
 - Ask for whatever exists: past RFCs, architecture reviews, incident history, the migration graveyard. The diagnosis section is built from evidence the user already has.
 
 ## Interview, then draft
@@ -39,7 +39,7 @@ owner: [user] · status: draft | socialized | adopted · review-by: [date ~6mo o
 ## How we'll know   — 3–5 observable indicators the direction is working
 ```
 
-Target length: two pages. A strategy nobody finishes reading sets no direction. Save to `~/bettersense-work-reflections/strategy/tech-<area-slug>.md`.
+Target length: two pages. A strategy nobody finishes reading sets no direction. Save to `~/haku-work-reflections/strategy/tech-<area-slug>.md`.
 
 ## Pressure-test before socializing
 

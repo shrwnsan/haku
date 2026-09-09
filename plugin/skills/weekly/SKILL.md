@@ -1,6 +1,6 @@
 ---
 name: weekly
-description: Use for the user's recurring weekly review ritual — one guided session (~15 minutes) that wraps the whole bettersense maintenance loop. Trigger phrases include "run my weekly review", "Friday review", "weekly check-in", "start my week", "Monday planning", "/bettersense:weekly", or any "it's been a week, what should I catch up on" moment. Runs four time-boxed segments — wins capture, most-overdue stakeholder reflection, cross-cutting patterns, pulse glance — by composing wins-due, stakeholder-due, stakeholder-reflect, and patterns-watch. Distinct from the primitives it wraps: prefer this skill when the user wants the ritual; use the individual skills when they ask for exactly one piece.
+description: Use for the user's weekly review ritual — one ~15-minute guided session wrapping the haku maintenance loop. Triggers: "run my weekly review", "Friday review", "weekly check-in", "/haku:weekly", "catch up on the week". Composes wins-due, stakeholder-due, stakeholder-reflect, patterns-watch into four time-boxed segments: wins capture, stakeholder reflection, patterns, pulse glance. Prefer this for the ritual; individual skills for one piece.
 ---
 
 # Weekly
@@ -15,9 +15,9 @@ If the user says "stop", "that's enough", "gotta go", or similar — end immedia
 
 ## Before starting
 
-1. Read `~/bettersense-work-reflections/profile.md` if it exists (calibrates tone and focus).
+1. Read `~/haku-work-reflections/profile.md` if it exists (calibrates tone and focus).
 2. Check what exists: stakeholder files, `wins.md`, `self/reflections.md`, `pulses/`.
-3. **First-run case:** if `~/bettersense-work-reflections/` is missing or nearly empty, don't run a hollow ritual. Say so plainly — *"There's not much logged yet, so a review would come up empty. Want to set up the basics first?"* — and hand off to the `start` skill.
+3. **First-run case:** if `~/haku-work-reflections/` is missing or nearly empty, don't run a hollow ritual. Say so plainly — *"There's not much logged yet, so a review would come up empty. Want to set up the basics first?"* — and hand off to the `start` skill.
 4. Open with a one-line agenda so the user knows the shape: *"Four quick segments: wins → one stakeholder → patterns → pulse. ~15 minutes, less if the week was quiet."*
 
 ## Segment 1 — Wins (~5 min)
@@ -60,7 +60,7 @@ Then stop. Don't upsell other skills at the close; the ritual earns its place by
 
   ```bash
   # Friday 3pm: compute what's due, save to a scratch note
-  0 15 * * 5  claude -p "run /haku:stakeholder-due and /haku:wins-due, write the combined output to ~/bettersense-work-reflections/due-this-week.md" --allowedTools "Read,Write,Glob,Grep"
+  0 15 * * 5  claude -p "run /haku:stakeholder-due and /haku:wins-due, write the combined output to ~/haku-work-reflections/due-this-week.md" --allowedTools "Read,Write,Glob,Grep"
   ```
 
   Cloud routines cannot access local files and won't work with haku.

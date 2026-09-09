@@ -1,11 +1,11 @@
 ---
 name: wins-log
-description: Use when the user wants to capture a "win at work" — something they shipped, judgment they exercised, someone they mentored, a fire they put out, a hard decision they got right. Trigger phrases include "I just shipped X", "log this win", "add to my brag doc", "I want to remember what I did this week", "I had a good week and want to capture it". Captures structured entries (situation, action, impact, evidence) to `~/bettersense-work-reflections/wins.md` so they can be remixed later by `wins-curate` into a promo packet, interview stories, perf-review self-eval, salary case, or year-in-review.
+description: Use when the user wants to capture a "win at work" — something shipped, judgment exercised, someone mentored, a fire put out. Triggers: "I just shipped X", "log this win", "add to my brag doc", "I had a good week". Captures structured entries (situation, action, impact, evidence) to ~/haku-work-reflections/wins.md for later remix by wins-curate into promo packets, interview stories, perf self-evals.
 ---
 
 # Wins Log
 
-Capture a single "win at work" in a structured form for later remixing — promo packet, interview stories, perf reviews, salary case, year-in-review. The output is one entry, prepended (newest first) to `~/bettersense-work-reflections/wins.md` (configurable via `$BETTERSENSE_WORK_REFLECTIONS_HOME`).
+Capture a single "win at work" in a structured form for later remixing — promo packet, interview stories, perf reviews, salary case, year-in-review. The output is one entry, prepended (newest first) to `~/haku-work-reflections/wins.md` (configurable via `$HAKU_WORK_REFLECTIONS_HOME`).
 
 Two modes: **fresh** (the user just did something and wants to capture it) and **retroactive** (logging something recent).
 

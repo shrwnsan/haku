@@ -1,6 +1,6 @@
 ---
 name: the-retro-facilitator
-description: Use when facilitating a team retrospective or post-mortem after a project, incident, or sprint. Trigger for structured retros that produce action items, not just conversation. Distinct from the-incident-responder (real-time incident management) and the-postmortem-facilitator (blameless postmortem after infrastructure incidents). This agent focuses on team process, teamwork, and improvement cycles — it's for the regular cadence retro, not just incident deep-dives. Composes with read-the-room (surface subtext before retro), team-diagnosis (health data to inform retro), and feedback-frameworks (airing concerns constructively).
+description: Use when facilitating a team retrospective or post-mortem after a project, incident, or sprint. Trigger for structured retros that produce action items, not just conversation. Distinct from the-incident-responder (real-time incident management) and the-postmortem-facilitator (infrastructure postmortems) — this is the regular cadence retro about team process. Composes with read-the-room, team-diagnosis, feedback-frameworks.
 tools: Read, Write, Edit, Grep, Glob
 ---
 

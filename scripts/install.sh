@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# install.sh — Install the bettersense bundle into your Claude Code config.
+# install.sh — Install the haku bundle into your Claude Code config.
 #
 # Creates symlinks from your Claude config directory back into this repo.
 # Symlinks (not copies) so:
@@ -101,7 +101,7 @@ for d in "${PACK_SKILL_DIRS[@]:-}" "${PACK_AGENT_DIRS[@]:-}"; do
 done
 
 echo
-echo "Bundle:    bettersense"
+echo "Bundle:    haku"
 echo "Source:    $SOURCE_DIR"
 echo "Target:    $TARGET_BASE"
 echo "Force:     $([ $FORCE -eq 1 ] && echo yes || echo no)"

@@ -1,6 +1,6 @@
 ---
 name: start
-description: Use when the user is new to bettersense and doesn't know where to begin, or when they want a tour of what's available. Trigger phrases include "where do I start", "how do I use this", "what can you do", "what should I run first", "I just installed this", "help me get started", "what is bettersense", "how does this work", "I don't know what to do". Entry point for all new users.
+description: Use when the user is new to haku and doesn't know where to begin, or wants a tour of what's available. Triggers: "where do I start", "how do I use this", "what can you do", "what should I run first", "I just installed this", "what is haku". Entry point for new users; branches into first-time setup or direct routing.
 ---
 
 # Start

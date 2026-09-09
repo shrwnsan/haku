@@ -1,15 +1,15 @@
 ---
 name: premortem
-description: Use for pre-mortem analysis of decisions, projects, or initiatives — solo and lightweight, or facilitated with a team before a launch or strategic commitment. Trigger when the user says "what could go wrong", "risk assessment", "pre-mortem this", "let's run a pre-mortem", or when evaluating risks for a plan. Applies a three-category framework (Critical, Perceived, Undiscussed risks) and, for team sessions, a facilitation flow that ends in an action plan with owners — not a brainstorm that ends in anxiety.
+description: Use for pre-mortem analysis of decisions, projects, or initiatives—solo or facilitated with a team before a launch or strategic commitment. Trigger when the user says "what could go wrong", "risk assessment", "pre-mortem this", "let's run a pre-mortem", or when evaluating risks for a plan. Three-category framework (Critical, Perceived, Undiscussed risks); team sessions end in an action plan with owners.
 ---
 
 # Premortem
 
-A pre-mortem is prospective hindsight: imagine your project or decision has failed, then work backward to identify why. This technique, developed by Gary Klein and popularized by Shreyas Doshi, helps teams and individuals surface risks that optimism bias keeps hidden.
+A pre-mortem is prospective hindsight: imagine the project or decision has failed, then work backward to why. Developed by Gary Klein and popularized by Shreyas Doshi, it surfaces risks optimism bias hides.
 
 ## When to apply this
 
-Trigger this skill for:
+Trigger for:
 - Major product launches or feature releases
 - Strategic initiatives with significant investment
 - AI feature deployments (high uncertainty)
@@ -30,22 +30,20 @@ Don't just think about it — write down at least 5 reasons.
 
 ### Step 2: Categorize the risks
 
-Organize your concerns into three buckets:
-
 | Category | What it means | How to use it |
 |----------|---------------|---------------|
-| **🎯 Critical Risks** | Clear, concrete threats that will cause real damage if not addressed | These require action items |
-| **🔍 Perceived Risks** | Potential threats others might worry about, but you're confident won't materialize | Document to reassure stakeholders |
+| **🎯 Critical Risks** | Concrete threats causing real damage if unaddressed | Require action items |
+| **🔍 Perceived Risks** | Threats others may worry about; you're confident they won't materialize | Document to reassure stakeholders |
 | **🔇 Undiscussed Risks** | Important concerns the team isn't openly addressing | Must be surfaced in team contexts |
 
 ### Step 3: Assess likelihood and impact
 
-Rate each Critical and Undiscussed risk on two dimensions:
+Rate each Critical and Undiscussed risk:
 
 - **Impact**: 1 (minor) to 5 (catastrophic)
 - **Likelihood**: 10% to 90% (avoid 0% or 100% certainty)
 
-Calculate priority score: Impact × Likelihood
+Priority score = Impact × Likelihood
 
 ### Step 4: Brainstorm mitigations
 
@@ -60,25 +58,25 @@ Not everything needs mitigation. Explicitly list what you're accepting, with rat
 
 ## Facilitating a team pre-mortem
 
-When the user is running this with a group (not just thinking alone), add the facilitation layer:
+For a group session, add the facilitation layer:
 
-1. **Set the frame out loud first.** Pre-mortems work because they flip the psychology: instead of avoiding problems to be supportive, the group actively seeks problems to be helpful. State the operating principle: *we're imagining failure to prevent it, not to criticize* — everyone gets credit for identifying real risks.
-2. **Pose the prompt vividly:** "Imagine this project has failed spectacularly six months from now. The team is debriefing: what went wrong?" Give a beat to absorb it.
-3. **Quiet brainstorm before discussion.** 5–10 minutes of silent writing, then go around the room. This stops the loudest voice from anchoring the risk list.
-4. **Use the Undiscussed category deliberately.** It creates permission: participants can flag what the team is too polite to raise without owning it as an accusation.
-5. **End in an action plan, not a mood.** Every top risk gets a specific mitigation with a **single owner** (not "the team"), a **deadline**, and **success criteria**. A pre-mortem that ends with a brainstorm and no owners isn't a pre-mortem — it's anxiety.
+1. **Set the frame out loud first.** The psychology flips: instead of avoiding problems to be supportive, the group actively seeks problems to be helpful. State it: *we're imagining failure to prevent it, not to criticize* — everyone gets credit for identifying real risks.
+2. **Pose the prompt vividly:** "Imagine this project failed spectacularly six months from now — what went wrong?"
+3. **Quiet brainstorm before discussion.** 5–10 minutes of silent writing, then go around the room — stops the loudest voice anchoring the list.
+4. **Use the Undiscussed category deliberately.** Creates permission to flag what the team is too polite to raise.
+5. **End in an action plan, not a mood.** Every top risk gets a mitigation with a **single owner** (not "the team"), a **deadline**, and **success criteria**. A pre-mortem ending in a brainstorm with no owners is anxiety, not a pre-mortem.
 
-Facilitation red flags to name in the room: too few Critical risks (safety problem or overconfidence), all Perceived and no Critical (avoiding real concerns under the guise of positivity), zero Undiscussed risks (the team isn't comfortable yet), everything rated maximum impact (force-rank).
+Red flags to name in the room: too few Critical risks (safety problem or overconfidence), all Perceived and no Critical (avoiding real concerns), zero Undiscussed risks (the team isn't comfortable yet), everything rated maximum impact (force-rank).
 
 ## Pre-mortem for AI features
 
-AI systems have unique failure modes. Add these categories:
+Add these AI-specific failure modes:
 
-- **Hallucination risk**: Model produces confident-looking but wrong output
-- **Refusal/over-refusal**: System rejects valid inputs or is too conservative
-- **Prompt injection**: Malicious inputs overriding system behavior
-- **Data leakage**: Sensitive information exposed in responses
-- **Cost explosion**: Usage spikes beyond budget
+- **Hallucination risk**: confident-looking but wrong output
+- **Refusal/over-refusal**: valid inputs rejected or too conservative
+- **Prompt injection**: malicious inputs overriding behavior
+- **Data leakage**: sensitive information exposed in responses
+- **Cost explosion**: usage spikes beyond budget
 
 ## Pre-mortem checklist
 
@@ -90,7 +88,7 @@ AI systems have unique failure modes. Add these categories:
 
 ## Output
 
-When invoked, produce a concise risk register:
+Produce a concise risk register:
 
 ```markdown
 # Pre-mortem: [Initiative Name]
@@ -120,5 +118,5 @@ When invoked, produce a concise risk register:
 
 - **False precision**: Don't rate likelihood as 73% when you mean "likely"
 - **Everything is critical**: If all risks are 5-impact, force-rank them
-- **No Undiscussed Risks in team settings**: A team comfortable with pre-mortems will surface unspoken concerns
-- **Analysis paralysis**: More than 7 Critical Risks means either over-analysis or poor scoping
+- **No Undiscussed Risks in team settings**: A comfortable team surfaces unspoken concerns
+- **Analysis paralysis**: More than 7 Critical Risks means over-analysis or poor scoping

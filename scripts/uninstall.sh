@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
-# uninstall.sh — Remove the bettersense bundle from your Claude Code config.
+# uninstall.sh — Remove the haku bundle from your Claude Code config.
 #
 # Safe by design: removes only items in ~/.claude/{skills,agents}/ that are
 # symlinks pointing into THIS repo. Will not touch:
 #   - skills/agents you wrote yourself
 #   - skills/agents installed from other sources
 #   - skills/agents installed via plain `cp` instead of symlinks (use --hard-uninstall for that)
-#   - your reflection data at ~/bettersense-work-reflections/ (your data, your call)
+#   - your reflection data at ~/haku-work-reflections/ (your data, your call)
 #
 # Usage:
 #   scripts/uninstall.sh [--scope=user|project] [--hard-uninstall] [--dry-run]
@@ -176,6 +176,36 @@ for name in "${BUNDLE_AGENT_NAMES[@]}"; do
   fi
 done
 
+# ---------- legacy bettersense links (pre-rename installs, LEAN-PLAN §8 D8) ----------
+# Old installs symlinked into a *bettersense* checkout. This repo's name-based
+# loop can't see them once the clone is gone or renamed — find and offer.
+
+for dir in "$TARGET_SKILLS" "$TARGET_AGENTS"; do
+  [ -d "$dir" ] || continue
+  while IFS= read -r -d '' link; do
+    target="$(readlink "$link")"
+    case "$target" in
+      *bettersense*)
+        [ "$target" = "$REPO_ROOT" ] && continue
+        case "$target" in "$REPO_ROOT"/*) continue ;; esac
+        if [ $DRY_RUN -eq 1 ]; then
+          echo "  would offer to remove (legacy bettersense link): $link"
+        else
+          read -p "  remove legacy bettersense link $link? [y/N] " -n 1 -r
+          echo
+          if [[ $REPLY =~ ^[Yy]$ ]]; then
+            rm -f "$link"
+            echo "  removed (legacy bettersense link): $link"
+            REMOVED_SYMLINKS=$((REMOVED_SYMLINKS + 1))
+          else
+            LEFT_ALONE=$((LEFT_ALONE + 1))
+          fi
+        fi
+        ;;
+    esac
+  done < <(find "$dir" -maxdepth 2 -type l -print0)
+done
+
 # ---------- summary ----------
 
 echo
@@ -192,5 +222,5 @@ if [ $LEFT_ALONE -gt 0 ]; then
   fi
 fi
 echo
-echo "Your reflection data at ~/bettersense-work-reflections/ was not touched."
+echo "Your reflection data at ~/haku-work-reflections/ was not touched."
 echo "If you want to remove that too, do it manually — it's your data."

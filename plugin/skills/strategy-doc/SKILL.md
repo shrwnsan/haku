@@ -1,6 +1,6 @@
 ---
 name: strategy-doc
-description: Use to create or update a product/area strategy document — target problem, approach, personas, key metrics (3-5 SMART), 2-4 multi-month strategic tracks, and an explicit "not working on" section. Trigger phrases include "draft a strategy doc for [product/area]", "I need a strategy.md for the platform team", "interview me about my strategy", "update my strategy doc", "what's in my strategy doc". Lives at `~/bettersense-work-reflections/strategy/<area-slug>.md` and is read as an anchor by `the-spec-writer`, `prioritization-frameworks`, `metrics-design`, `product-pulse`, and `pulse-synthesize`. Inspired by Every.to's `/ce:strategy` pattern but composes more deeply with the rest of the bundle and supports multiple products/areas.
+description: Use to create or update a product/area strategy document — target problem, approach, personas, 3-5 SMART metrics, 2-4 strategic tracks, explicit not-working-on section. Triggers: "draft a strategy doc for [area]", "I need a strategy.md for the platform team", "interview me about my strategy". Lives at ~/haku-work-reflections/strategy/<area-slug>.md; anchor read by the-spec-writer, prioritization-frameworks, metrics-design, product-pulse, pulse-synthesize.
 ---
 
 # Strategy Doc
@@ -9,7 +9,7 @@ A product or area strategy is the load-bearing context for everything downstream
 
 ## Where it lives
 
-`~/bettersense-work-reflections/strategy/<area-slug>.md` (configurable via `$BETTERSENSE_WORK_REFLECTIONS_HOME`).
+`~/haku-work-reflections/strategy/<area-slug>.md` (configurable via `$HAKU_WORK_REFLECTIONS_HOME`).
 
 One product → `strategy/default.md` is fine; multiple lines → one file per area. If the reflections root doesn't exist yet, hand off to `user-profile` first — it owns root setup and the privacy warning.
 
@@ -61,8 +61,8 @@ succeeds), **Inside scope**, **Out of scope**.]
 [Unanswered, with who could resolve them.]
 
 ## Cross-references
-- Profile: `~/bettersense-work-reflections/profile.md`
-- Pulses: `~/bettersense-work-reflections/pulses/<area-slug>/`
+- Profile: `~/haku-work-reflections/profile.md`
+- Pulses: `~/haku-work-reflections/pulses/<area-slug>/`
 ```
 
 ## Slug confirmation

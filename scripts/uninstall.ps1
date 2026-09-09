@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Remove the bettersense bundle from your Claude Code config on Windows.
+    Remove the haku bundle from your Claude Code config on Windows.
 
 .DESCRIPTION
     Safe by design: removes only items in $HOME\.claude\{skills,agents}\ that are
@@ -9,7 +9,7 @@
       - Skills/agents you wrote yourself
       - Skills/agents installed from other sources
       - Skills/agents installed via Copy-Item instead of symlinks (use -HardUninstall for those)
-      - Your reflection data at $HOME\bettersense-work-reflections\ (your data, your call)
+      - Your reflection data at $HOME\haku-work-reflections\ (your data, your call)
 
 .PARAMETER Scope
     'user'    — uninstall from $HOME\.claude\{skills,agents}\ (default)
@@ -63,7 +63,7 @@ if (-not (Test-Path $TargetSkills) -and -not (Test-Path $TargetAgents)) {
 }
 
 if ($WhatIf) {
-    Write-Host "[DRY RUN] Would remove the following bettersense symlinks:"
+    Write-Host "[DRY RUN] Would remove the following haku symlinks:"
 }
 
 # ── Remove symlinks ───────────────────────────────────────────────────────────
@@ -76,8 +76,22 @@ if (Test-Path $TargetSkills) { $allTargets += Get-ChildItem $TargetSkills }
 if (Test-Path $TargetAgents) { $allTargets += Get-ChildItem $TargetAgents }
 
 foreach ($item in $allTargets) {
-    if ($item.LinkType -eq 'SymbolicLink' -and $item.Target -like "*bettersense*") {
-        if ($WhatIf) {
+    if ($item.LinkType -eq 'SymbolicLink' -and ($item.Target -like "*haku*" -or $item.Target -like "*bettersense*")) {
+        # pre-rename installs linked into a *bettersense* checkout — offer, don't assume (LEAN-PLAN §8 D8)
+        if ($item.Target -like "*bettersense*") {
+            if ($WhatIf) {
+                Write-Host "  would offer to remove (legacy bettersense link): $($item.FullName)"
+            } else {
+                $confirm = Read-Host "Remove legacy bettersense link $($item.FullName)? [y/N]"
+                if ($confirm -match '^[Yy]$') {
+                    Remove-Item $item.FullName -Force
+                    Write-Host "  removed (legacy bettersense link): $($item.FullName)"
+                    $Removed++
+                } else {
+                    $Skipped++
+                }
+            }
+        } elseif ($WhatIf) {
             Write-Host "  would remove: $($item.FullName)"
             $Removed++
         } else {
@@ -140,6 +154,6 @@ if ($WhatIf) {
 }
 
 Write-Host ""
-Write-Host "Your reflection data at $HOME\bettersense-work-reflections\ was NOT touched."
+Write-Host "Your reflection data at $HOME\haku-work-reflections\ was NOT touched."
 Write-Host "Remove it manually if you want:"
-Write-Host "  Remove-Item -Recurse -Force `"$HOME\bettersense-work-reflections`""
+Write-Host "  Remove-Item -Recurse -Force `"$HOME\haku-work-reflections`""
