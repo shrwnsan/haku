@@ -70,19 +70,26 @@ jobs:
   # routing suite with the judge pinned in baseline.json; tolerance per §6
   # step 0 — a single-case flip must confirm across runs before failing.
   # Skips silently when judge credentials aren't configured (e.g. forks).
+  # D7 correction: the gate sits on each step, not on the job — job-level
+  # `if` cannot use the env context at all (GitHub rejects the whole workflow
+  # at parse time: "Unrecognized named-value: 'env'"), so a job-level gate
+  # silently killed every CI run. Step-level if sees workflow-level env.
   routing-live:
     runs-on: ubuntu-latest
-    if: env.HAS_JUDGE == 'true'
     steps:
       - uses: actions/checkout@v4
+        if: env.HAS_JUDGE == 'true'
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v4
+        if: env.HAS_JUDGE == 'true'
         with:
           node-version: 20
       - name: Install Claude CLI
+        if: env.HAS_JUDGE == 'true'
         run: npm install -g @anthropic-ai/claude-code
       - name: Judge drift check
+        if: env.HAS_JUDGE == 'true'
         env:
           ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
           ANTHROPIC_AUTH_TOKEN: ${{ secrets.ANTHROPIC_AUTH_TOKEN }}
@@ -96,6 +103,7 @@ jobs:
             echo "::warning::claude CLI version drifted from baseline.json — if flaky cases appear, this is the first suspect (regenerate baseline via a decision-citing commit)"
           fi
       - name: Run live suite (majority of 3)
+        if: env.HAS_JUDGE == 'true'
         env:
           ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
           ANTHROPIC_AUTH_TOKEN: ${{ secrets.ANTHROPIC_AUTH_TOKEN }}
