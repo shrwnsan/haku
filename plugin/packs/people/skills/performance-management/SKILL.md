@@ -11,7 +11,7 @@ This skill helps the user navigate the ladder deliberately. It is **not** for he
 
 ## Zeroth: read the documentation trail
 
-If the report is a registered stakeholder, read their `~/bettersense-work-reflections/<category>/<slug>.md` before diagnosing. It matters here more than anywhere else in the bundle:
+If the report is a registered stakeholder, read their `~/haku-work-reflections/<category>/<slug>.md` before diagnosing. It matters here more than anywhere else in the bundle:
 
 - **It corrects the recency story.** Managers arrive at this skill with the last three weeks vivid and the last six months blurred. Dated entries show whether this is a recent dip or a long pattern — which often changes the stage diagnosis.
 - **It is the contemporaneous record.** Entries written near the events are the honest answer to "when did you first raise this, and what did you say?" If the file shows the user *noticed* for months but never delivered the feedback, surface that gently — the ladder starts at Stage 1/2 regardless of how long the private worry existed. Documentation of concern is not the same as delivered clarity.

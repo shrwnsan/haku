@@ -20,7 +20,7 @@ Skip:
 
 ## Loading
 
-1. Read `~/bettersense-work-reflections/wins.md` (configurable via `$BETTERSENSE_WORK_REFLECTIONS_HOME`).
+1. Read `~/haku-work-reflections/wins.md` (configurable via `$HAKU_WORK_REFLECTIONS_HOME`).
 2. Find the most recent `## YYYY-MM-DD —` entry. Compute `days_since_last`.
 3. If the file doesn't exist, hand off to `wins-log` (which handles first-run setup).
 
@@ -91,7 +91,7 @@ When the user wants this to fire automatically, guide them based on what they're
 
 **Terminal / CLI users:** Use OS-level scheduling (cron on macOS/Linux, Task Scheduler on Windows). Session-scoped tasks created by asking Claude in the terminal expire after 7 days and are unsuitable for weekly cadences.
 
-**Never suggest cloud routines** — they run on Anthropic's servers and cannot access `~/bettersense-work-reflections/`.
+**Never suggest cloud routines** — they run on Anthropic's servers and cannot access `~/haku-work-reflections/`.
 
 Don't set up a schedule automatically — the user owns the cadence decision.
 
@@ -112,4 +112,4 @@ Don't set up a schedule automatically — the user owns the cadence decision.
 
 ## The weekly ritual
 
-This skill is one segment of the `weekly` skill — a single ~15-minute session that runs wins capture, the most-overdue stakeholder reflection, and a patterns scan together. When the user wants the recurring ritual rather than this one piece, route to `/bettersense:weekly`.
+This skill is one segment of the `weekly` skill — a single ~15-minute session that runs wins capture, the most-overdue stakeholder reflection, and a patterns scan together. When the user wants the recurring ritual rather than this one piece, route to `/haku:weekly`.

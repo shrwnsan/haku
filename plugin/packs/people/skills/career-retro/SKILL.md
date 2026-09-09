@@ -1,6 +1,6 @@
 ---
 name: career-retro
-description: Use for a periodic (quarterly / annual) career retrospective across the ENTIRE bettersense memory — producing a longitudinal self-assessment with cited growth deltas since the last retro and the honest gaps to work on next. Trigger phrases include "run my career retro", "where am I in my career", "annual self-assessment", "how have I grown this year", "it's review season, take stock of everything". Reads wins, all stakeholder reflections, self-reflections, pulses, and charters; writes a dated retro to self/retros/ so the next one can measure change. Distinct from wins-curate (which builds one audience-facing artifact like a promo packet) and self-reflect (a single in-the-moment entry). The meta-synthesis whose output compounds over years.
+description: Use for a periodic (quarterly / annual) career retrospective across the ENTIRE haku memory — producing a longitudinal self-assessment with cited growth deltas since the last retro and the honest gaps to work on next. Trigger phrases include "run my career retro", "where am I in my career", "annual self-assessment", "how have I grown this year", "it's review season, take stock of everything". Reads wins, all stakeholder reflections, self-reflections, pulses, and charters; writes a dated retro to self/retros/ so the next one can measure change. Distinct from wins-curate (which builds one audience-facing artifact like a promo packet) and self-reflect (a single in-the-moment entry). The meta-synthesis whose output compounds over years.
 ---
 
 # Career Retro
@@ -19,7 +19,7 @@ If the user wants both, run the retro first (it produces the honest internal pic
 
 ## Loading — read broadly, cite specifically
 
-Set the period first (default: since the last retro, or 12 months if none). Then read everything under `$BETTERSENSE_WORK_REFLECTIONS_HOME` (default `~/bettersense-work-reflections/`) that falls in the window:
+Set the period first (default: since the last retro, or 12 months if none). Then read everything under `$HAKU_WORK_REFLECTIONS_HOME` (default `~/haku-work-reflections/`) that falls in the window:
 
 1. **The previous retro** — `self/retros/retro-*.md`, most recent. This is the baseline for every delta. If none exists, say so: this first retro sets the baseline for all future ones.
 2. **`profile.md`** — the stated role, level, and strategic focus. The retro's sharpest question is often the gap between stated focus and where the evidence shows the time actually went.

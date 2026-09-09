@@ -1,6 +1,6 @@
 ---
 name: commitments
-description: Use to track what the user has promised — to their manager, execs, partner teams — and to keep those promises from silently going stale. Trigger phrases include "what have I committed to", "add a commitment", "I promised X by Friday", "am I overcommitted", "help me say no to this", "I need to renegotiate a deadline". Maintains a lightweight ledger at ~/bettersense-work-reflections/commitments.md: log promises when made, review what's due or slipping, renegotiate early with a script, and pressure-test new asks before saying yes. Distinct from wins-log (what you did) — this is what you owe. The saying-no support treats capacity as a trade-off conversation, not an apology.
+description: Use to track what the user has promised — to their manager, execs, partner teams — and to keep those promises from silently going stale. Trigger phrases include "what have I committed to", "add a commitment", "I promised X by Friday", "am I overcommitted", "help me say no to this", "I need to renegotiate a deadline". Maintains a lightweight ledger at ~/haku-work-reflections/commitments.md: log promises when made, review what's due or slipping, renegotiate early with a script, and pressure-test new asks before saying yes. Distinct from wins-log (what you did) — this is what you owe. The saying-no support treats capacity as a trade-off conversation, not an apology.
 ---
 
 # Commitments
@@ -9,7 +9,7 @@ Trust upward is made of kept promises and *early renegotiation* of unkeepable on
 
 ## The ledger
 
-`~/bettersense-work-reflections/commitments.md` (respect `$BETTERSENSE_WORK_REFLECTIONS_HOME`). One entry per promise:
+`~/haku-work-reflections/commitments.md` (respect `$HAKU_WORK_REFLECTIONS_HOME`). One entry per promise:
 
 ```markdown
 ## [C-014] Eval regression report to Priya (VP Eng)

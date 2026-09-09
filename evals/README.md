@@ -1,6 +1,6 @@
 # Evals
 
-bettersense preaches *evals before vibes* — so it ships with its own. This directory holds the golden-scenario suite that checks the two things that make the plugin worth more than plain Claude: that the right skill **routes** on a realistic prompt, and that a skill's **output** embodies its opinion once it fires.
+haku preaches *evals before vibes* — so it ships with its own. This directory holds the golden-scenario suite that checks the two things that make the plugin worth more than plain Claude: that the right skill **routes** on a realistic prompt, and that a skill's **output** embodies its opinion once it fires.
 
 This is dogfooding, and it doubles as CI for contributions: a new or edited skill that breaks routing (by colliding with a neighbour's trigger space) fails the suite.
 
@@ -38,7 +38,7 @@ The runner exits non-zero on any routing failure (or malformed dataset), so it d
 
 ## Output-quality rubrics
 
-`rubrics.md` holds behavioral checklists for the ten skills whose forcing-function value is the reason to install bettersense. Each has **automatic-fail** items encoding the skill's non-negotiable opinion (e.g. `the-reducer` must not endorse building the AI feature in its first response). Apply them with an LLM-as-judge over a real transcript, or as a human review checklist. They score *behavior*, not prose.
+`rubrics.md` holds behavioral checklists for the ten skills whose forcing-function value is the reason to install haku. Each has **automatic-fail** items encoding the skill's non-negotiable opinion (e.g. `the-reducer` must not endorse building the AI feature in its first response). Apply them with an LLM-as-judge over a real transcript, or as a human review checklist. They score *behavior*, not prose.
 
 ## Adding cases
 

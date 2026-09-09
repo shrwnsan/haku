@@ -13,8 +13,8 @@ This skill builds an agenda matched to **who's meeting whom** and **what's actua
 
 Before asking the user anything, check the memory:
 
-1. **Profile.** Read `~/bettersense-work-reflections/profile.md` if present — role context and communication style.
-2. **The stakeholder file.** Resolve the named person via `~/bettersense-work-reflections/stakeholders.json`; if registered, read their `<category>/<slug>.md` in full. This is the payoff for every reflection the user has logged: the agenda should arrive pre-loaded, not blank.
+1. **Profile.** Read `~/haku-work-reflections/profile.md` if present — role context and communication style.
+2. **The stakeholder file.** Resolve the named person via `~/haku-work-reflections/stakeholders.json`; if registered, read their `<category>/<slug>.md` in full. This is the payoff for every reflection the user has logged: the agenda should arrive pre-loaded, not blank.
 
 From the stakeholder file, surface a short **"worth raising"** list before drafting the agenda:
 

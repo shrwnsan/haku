@@ -12,9 +12,9 @@ Most status updates fail the same four ways: they're laundry lists of activity i
 
 Don't ask the user to recite their week from memory. Check what's already captured:
 
-1. **Recent pulses** — if `~/bettersense-work-reflections/pulses/<area>/` has entries from the reporting period, pull metrics and signals from the most recent one.
-2. **Wins log** — check `~/bettersense-work-reflections/wins.md` for entries dated in the period; these are pre-written evidence of impact.
-3. **Strategy anchor** — read `~/bettersense-work-reflections/strategy/<area>.md` if it exists. Progress only means something against stated goals; frame updates in the strategy's vocabulary.
+1. **Recent pulses** — if `~/haku-work-reflections/pulses/<area>/` has entries from the reporting period, pull metrics and signals from the most recent one.
+2. **Wins log** — check `~/haku-work-reflections/wins.md` for entries dated in the period; these are pre-written evidence of impact.
+3. **Strategy anchor** — read `~/haku-work-reflections/strategy/<area>.md` if it exists. Progress only means something against stated goals; frame updates in the strategy's vocabulary.
 4. **The user's raw notes** — whatever they paste in.
 
 If none of these exist, proceed from conversation — but mention once that logging wins and pulses makes future status updates largely self-assembling.

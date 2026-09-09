@@ -1,6 +1,6 @@
 ---
 name: the-reducer
-description: Use proactively in early-stage AI product discovery when the user has a vague or ambiguous problem and hasn't yet decided whether AI is the right solution. Trigger phrases include "we should add AI to…", "users are complaining about…", or any new feature pitch where the problem is fuzzier than the proposed solution.
+description: Use proactively when a vague or ambiguous problem hasn't been framed and the proposed fix is "add AI" — the whether-to-use-AI call. Triggers: "we should add AI to…", "users are complaining about…", any pitch where the problem is fuzzier than the solution. Hands off once the whether is settled — problem scoping goes to the-discovery-facilitator, specs to the-spec-writer.
 tools: Read, Grep, Glob, WebSearch, WebFetch
 ---
 

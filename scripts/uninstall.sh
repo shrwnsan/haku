@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
-# uninstall.sh — Remove the bettersense bundle from your Claude Code config.
+# uninstall.sh — Remove the haku bundle from your Claude Code config.
 #
 # Safe by design: removes only items in ~/.claude/{skills,agents}/ that are
 # symlinks pointing into THIS repo. Will not touch:
 #   - skills/agents you wrote yourself
 #   - skills/agents installed from other sources
 #   - skills/agents installed via plain `cp` instead of symlinks (use --hard-uninstall for that)
-#   - your reflection data at ~/bettersense-work-reflections/ (your data, your call)
+#   - your reflection data at ~/haku-work-reflections/ (your data, your call)
 #
 # Usage:
 #   scripts/uninstall.sh [--scope=user|project] [--hard-uninstall] [--dry-run]
@@ -192,5 +192,5 @@ if [ $LEFT_ALONE -gt 0 ]; then
   fi
 fi
 echo
-echo "Your reflection data at ~/bettersense-work-reflections/ was not touched."
+echo "Your reflection data at ~/haku-work-reflections/ was not touched."
 echo "If you want to remove that too, do it manually — it's your data."

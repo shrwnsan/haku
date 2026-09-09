@@ -1,6 +1,6 @@
 ---
 name: stakeholder-due
-description: Use when the user wants to know which stakeholder reflections are overdue. Trigger phrases include "what's due", "who haven't I thought about lately", "what's on my plate this week for stakeholder reflection", "stakeholder check-in", or any Monday-morning planning moment. Scans `~/bettersense-work-reflections/`, computes which question × stakeholder pairs are overdue based on `suggested_freq` and last entry date, and outputs a prioritized list. Designed to be invoked on demand or fired on a weekly Desktop scheduled task (not cloud routines — those cannot access local files).
+description: Use when the user wants to know which stakeholder reflections are overdue. Trigger phrases include "what's due", "who haven't I thought about lately", "what's on my plate this week for stakeholder reflection", "stakeholder check-in", or any Monday-morning planning moment. Scans `~/haku-work-reflections/`, computes which question × stakeholder pairs are overdue based on `suggested_freq` and last entry date, and outputs a prioritized list. Designed to be invoked on demand or fired on a weekly Desktop scheduled task (not cloud routines — those cannot access local files).
 ---
 
 # Stakeholder Due
@@ -16,7 +16,7 @@ Default: scan everything. The user can narrow:
 
 ## Loading
 
-1. Read `~/bettersense-work-reflections/stakeholders.json` for the registered list.
+1. Read `~/haku-work-reflections/stakeholders.json` for the registered list.
 2. Load `questions.json` from the `stakeholder-reflect` skill folder.
 3. For each registered stakeholder, read their file. For each question whose `stakeholder_categories` matches the stakeholder's category, find the most recent dated entry under the matching `## <prompt>` heading.
 
@@ -81,7 +81,7 @@ When the user wants this to fire automatically, guide them based on what they're
 
 **Terminal / CLI users:** Use OS-level scheduling (cron on macOS/Linux, Task Scheduler on Windows). Session-scoped tasks created by asking Claude in the terminal expire after 7 days and are unsuitable for weekly cadences.
 
-**Never suggest cloud routines** — they run on Anthropic's servers and cannot access `~/bettersense-work-reflections/`.
+**Never suggest cloud routines** — they run on Anthropic's servers and cannot access `~/haku-work-reflections/`.
 
 Don't set up a schedule automatically — the user owns the cadence decision.
 
@@ -101,4 +101,4 @@ Don't set up a schedule automatically — the user owns the cadence decision.
 
 ## The weekly ritual
 
-This skill is one segment of the `weekly` skill — a single ~15-minute session that runs wins capture, the most-overdue stakeholder reflection, and a patterns scan together. When the user wants the recurring ritual rather than this one piece, route to `/bettersense:weekly`.
+This skill is one segment of the `weekly` skill — a single ~15-minute session that runs wins capture, the most-overdue stakeholder reflection, and a patterns scan together. When the user wants the recurring ritual rather than this one piece, route to `/haku:weekly`.

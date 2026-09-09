@@ -1,21 +1,21 @@
 ---
 name: user-profile
-description: Use to create or update the user's anchor profile — a single private file (`~/bettersense-work-reflections/profile.md`) that captures who the user is, what they do, what context other skills need to know about them. Read automatically by other skills in the bundle when present, so the user doesn't re-explain themselves every session. Trigger phrases include "set up my profile", "create my user profile", "update my profile", "I changed roles, refresh my profile", "what does my profile look like". Inspired by the `SOUL.md` pattern from agents like Hermes — explain yourself once, get tailored output forever.
+description: Use to create or update the user's anchor profile — one private file (~/haku-work-reflections/profile.md) capturing who they are and the context other skills need. Read automatically by other skills when present, so the user doesn't re-explain themselves every session. Triggers: "set up my profile", "update my profile", "I changed roles, refresh my profile". Explain yourself once, get tailored output forever.
 ---
 
 # User Profile
 
 Most skills work better when they know who the user is. Without it, every session starts from a blank slate and the user re-explains themselves. This skill creates a **single anchor file** carrying standing context that other skills read automatically when present.
 
-The file lives at `~/bettersense-work-reflections/profile.md` (configurable via `$BETTERSENSE_WORK_REFLECTIONS_HOME`) — same private root, `.gitignore`, and privacy posture as the rest of the bundle.
+The file lives at `~/haku-work-reflections/profile.md` (configurable via `$HAKU_WORK_REFLECTIONS_HOME`) — same private root, `.gitignore`, and privacy posture as the rest of the bundle.
 
 ## Root directory ownership
 
 `user-profile` owns creation of the reflections root, its `.gitignore`, and the privacy warning — other skills hand off here rather than duplicating the ceremony. On first run, if the root doesn't exist, create it and the `.gitignore`, then issue the warning before writing:
 
-> I'm about to create `~/bettersense-work-reflections/`, which will hold your profile and any candid reflections you log over time. This directory lives on your local machine only. Confirm the location, or set `$BETTERSENSE_WORK_REFLECTIONS_HOME` if you'd prefer a different one (e.g. an encrypted volume).
+> I'm about to create `~/haku-work-reflections/`, which will hold your profile and any candid reflections you log over time. This directory lives on your local machine only. Confirm the location, or set `$HAKU_WORK_REFLECTIONS_HOME` if you'd prefer a different one (e.g. an encrypted volume).
 
-Wait for confirmation. If the root already exists, skip the ceremony — it only happens once.
+Wait for confirmation. If the root already exists, skip the ceremony — it only happens once. If `~/haku-work-reflections/` doesn't exist but `~/bettersense-work-reflections/` does (a pre-rename root), surface it first and offer `mv` to the new name — or `$HAKU_WORK_REFLECTIONS_HOME` pointed at the old path — before creating anything fresh; a second root silently forks the user's memory.
 
 ## When to apply
 

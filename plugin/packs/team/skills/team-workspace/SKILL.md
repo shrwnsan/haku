@@ -1,11 +1,11 @@
 ---
 name: team-workspace
-description: Use to set up or work with a SHARED, git-backed team workspace for artifacts a team co-owns — team charters, strategy docs, decision records — kept strictly separate from your private reflections, which never leave your machine. Trigger phrases include "share our team charter with the team", "set up a shared bettersense workspace", "put our strategy doc in the team repo", "how do teams use bettersense together". Establishes `$BETTERSENSE_TEAM_HOME` (a separate git repo), enforces a hard wall that personal files (reflections, wins, retros, commitments) are NEVER shared, and drafts the branch/commit/PR — but never pushes or opens a PR for you. The multiplayer layer with the privacy wall built in.
+description: Use to set up or work with a SHARED, git-backed team workspace for artifacts a team co-owns — team charters, strategy docs, decision records — kept strictly separate from your private reflections, which never leave your machine. Trigger phrases include "share our team charter with the team", "set up a shared haku workspace", "put our strategy doc in the team repo", "how do teams use haku together". Establishes `$HAKU_TEAM_HOME` (a separate git repo), enforces a hard wall that personal files (reflections, wins, retros, commitments) are NEVER shared, and drafts the branch/commit/PR — but never pushes or opens a PR for you. The multiplayer layer with the privacy wall built in.
 ---
 
 # Team Workspace
 
-bettersense is personal by default — the memory holds candid notes about real people and belongs to one person. But some artifacts are inherently collaborative: a **team charter** the whole team commits to, a **strategy doc** partners align on, **decision records** the team should be able to cite later. This skill lets a team share *those* through git and PRs, while guaranteeing the private layer stays private.
+haku is personal by default — the memory holds candid notes about real people and belongs to one person. But some artifacts are inherently collaborative: a **team charter** the whole team commits to, a **strategy doc** partners align on, **decision records** the team should be able to cite later. This skill lets a team share *those* through git and PRs, while guaranteeing the private layer stays private.
 
 The entire value of this skill rests on one boundary being absolute. State it plainly to the user the first time, every time it matters:
 
@@ -13,7 +13,7 @@ The entire value of this skill rests on one boundary being absolute. State it pl
 
 ## What is shareable vs. never-shared
 
-| Shareable (team workspace) | Never shared (stays in `~/bettersense-work-reflections/`, always local) |
+| Shareable (team workspace) | Never shared (stays in `~/haku-work-reflections/`, always local) |
 |---|---|
 | `team-charters/<team>.md` | stakeholder files (`managing-*`, `teams/`) |
 | `strategy/<area>.md`, `strategy/tech-<area>.md` | `self/reflections.md`, `self/retros/` |
@@ -24,7 +24,7 @@ This table is a hard allowlist. If the user asks to share anything in the right-
 
 ## The team workspace location
 
-`$BETTERSENSE_TEAM_HOME` (suggest `~/bettersense-team/`), a **separate git repository** from the personal reflections directory — different directory, its own remote, its own access control managed by the team on their git host. Keeping it a distinct repo is what makes accidental leakage structurally hard: personal files simply aren't in this tree.
+`$HAKU_TEAM_HOME` (suggest `~/haku-team/`), a **separate git repository** from the personal reflections directory — different directory, its own remote, its own access control managed by the team on their git host. Keeping it a distinct repo is what makes accidental leakage structurally hard: personal files simply aren't in this tree.
 
 Setup (Mode: `init`):
 1. Create the directory and `git init` it (or point at an existing clone of the team's repo).
@@ -44,7 +44,7 @@ When the user wants to move a shareable artifact into the team workspace:
 ## Working with shared artifacts (Mode: `sync` / `use`)
 
 - Shared charters and strategy docs are read by the same skills that read the local ones (`the-spec-writer`, `metrics-design`, `team-check-in`, etc.). Point those skills at the team workspace copy when the team's version is the source of truth; keep private drafts local until they're ready to propose.
-- Changes to shared artifacts go through the same branch → review → merge flow. bettersense drafts; the team's normal PR process decides.
+- Changes to shared artifacts go through the same branch → review → merge flow. haku drafts; the team's normal PR process decides.
 - Never auto-pull-and-overwrite a local working copy the user has unmerged changes in — surface the divergence and let them reconcile.
 
 ## Anti-patterns

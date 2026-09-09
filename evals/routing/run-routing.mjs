@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Routing eval: does each realistic prompt route to the skill/agent it should,
-// and do the near-neighbours stay quiet? This measures bettersense's #1 claimed
+// and do the near-neighbours stay quiet? This measures haku's #1 claimed
 // feature — auto-routing — by testing the actual descriptions as a classifier.
 //
 // The candidate list is read from plugin/ at runtime, so the eval never drifts

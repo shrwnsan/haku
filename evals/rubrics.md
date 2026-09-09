@@ -1,6 +1,6 @@
 # Output-quality rubrics
 
-Routing (does the right skill fire?) is only half of quality. The other half is whether the skill, once fired, produces output that actually embodies its opinion. These rubrics are the golden standard for the ten most load-bearing skills — the ones whose *forcing-function* value is the whole reason to install bettersense over plain Claude.
+Routing (does the right skill fire?) is only half of quality. The other half is whether the skill, once fired, produces output that actually embodies its opinion. These rubrics are the golden standard for the ten most load-bearing skills — the ones whose *forcing-function* value is the whole reason to install haku over plain Claude.
 
 ## How to use these
 

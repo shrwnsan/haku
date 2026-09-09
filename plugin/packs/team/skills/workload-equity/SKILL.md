@@ -7,7 +7,7 @@ description: Use when the user wants to analyze whether non-promotable (glue) wo
 
 Diagnose whether non-promotable (glue) work is distributed fairly across a team, with attention to demographic patterns (gender, seniority, tenure) and role boundaries. This skill combines Tanya Reilly's "glue work" framework with the HBR research on volunteerism bias (women volunteer 48% more often for non-promotable tasks; managers ask women 44% more often) to surface equity risks and recommend concrete rebalancing actions.
 
-**Output:** a private diagnostic report (`~/bettersense-work-reflections/workload-equity/<date>-team-<team>.md`) suitable for:
+**Output:** a private diagnostic report (`~/haku-work-reflections/workload-equity/<date>-team-<team>.md`) suitable for:
 - Manager self-reflection before calibration/promotion cycles
 - DEI committee review (anonymized)
 - One-on-One discussions about role clarity and expectations

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Emits one line if the user hasn't logged a win within THRESHOLD_DAYS, then
 # goes silent for another THRESHOLD_DAYS (cooldown). Designed to be run as a
-# bettersense background monitor — zero output = no nudge.
+# haku background monitor — zero output = no nudge.
 
-BETTERSENSE_HOME="${BETTERSENSE_WORK_REFLECTIONS_HOME:-$HOME/bettersense-work-reflections}"
-WINS_FILE="$BETTERSENSE_HOME/wins.md"
-COOLDOWN_FILE="$BETTERSENSE_HOME/.wins-nudge-cooldown"
+HAKU_HOME="${HAKU_WORK_REFLECTIONS_HOME:-$HOME/haku-work-reflections}"
+WINS_FILE="$HAKU_HOME/wins.md"
+COOLDOWN_FILE="$HAKU_HOME/.wins-nudge-cooldown"
 THRESHOLD_DAYS="${WINS_NUDGE_THRESHOLD_DAYS:-14}"
 
 # Nothing to check if wins.md hasn't been created yet
@@ -35,6 +35,6 @@ fi
 days_since_win=$(( (now - last_ts) / 86400 ))
 
 if [ "$days_since_win" -ge "$THRESHOLD_DAYS" ]; then
-  echo "No wins logged in $days_since_win days. Run /bettersense:wins-log to capture recent work before the details fade."
+  echo "No wins logged in $days_since_win days. Run /haku:wins-log to capture recent work before the details fade."
   echo "$now" > "$COOLDOWN_FILE"
 fi

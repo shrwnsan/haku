@@ -1,6 +1,6 @@
 ---
 name: product-pulse
-description: Use to produce a single-page dated pulse report on product health — usage metrics, system performance, AI-feature signals (hallucination, refusal, eval drift), counter-metrics, and follow-up investigation. Trigger phrases include "run a pulse on [area]", "give me a product health snapshot", "weekly product pulse", "what does the data say this week". Reads strategy.md to know what to watch and which counter-metrics matter. Saves to `~/bettersense-work-reflections/pulses/<area-slug>/pulse-YYYY-MM-DD.md` so the folder accumulates into product memory over time. Designed for daily/weekly Desktop scheduled tasks (not cloud routines — those cannot read or write local files). Privacy-first — defaults to aggregated/redacted data; surfaces provenance.
+description: Use to produce a single-page dated pulse report on product health — usage metrics, system performance, AI-feature signals (hallucination, refusal, eval drift), counter-metrics, and follow-up investigation. Trigger phrases include "run a pulse on [area]", "give me a product health snapshot", "weekly product pulse", "what does the data say this week". Reads strategy.md to know what to watch and which counter-metrics matter. Saves to `~/haku-work-reflections/pulses/<area-slug>/pulse-YYYY-MM-DD.md` so the folder accumulates into product memory over time. Designed for daily/weekly Desktop scheduled tasks (not cloud routines — those cannot read or write local files). Privacy-first — defaults to aggregated/redacted data; surfaces provenance.
 ---
 
 # Product Pulse
@@ -12,18 +12,18 @@ This skill produces one pulse. `pulse-synthesize` reads the folder over time. `s
 ## Where pulses live
 
 ```
-~/bettersense-work-reflections/pulses/<area-slug>/pulse-YYYY-MM-DD.md
+~/haku-work-reflections/pulses/<area-slug>/pulse-YYYY-MM-DD.md
 ```
 
 For single-product users, `area-slug` defaults to `default`. Multi-product users get one folder per area, mirroring the structure used by `strategy-doc`.
 
-If `~/bettersense-work-reflections/` doesn't exist, hand off to `stakeholder-register` for root setup.
+If `~/haku-work-reflections/` doesn't exist, hand off to `stakeholder-register` for root setup.
 
 ## Inputs
 
 The skill needs three things to produce a useful pulse:
 
-1. **Strategy doc** at `~/bettersense-work-reflections/strategy/<area-slug>.md` — read it for what to watch (key metrics) and what to flag against (counter-metrics). If missing, the pulse runs but with a generic "all metrics" lens; surface the gap.
+1. **Strategy doc** at `~/haku-work-reflections/strategy/<area-slug>.md` — read it for what to watch (key metrics) and what to flag against (counter-metrics). If missing, the pulse runs but with a generic "all metrics" lens; surface the gap.
 2. **Data sources** — depends on what's accessible:
    - **MCPs available** (PostHog, Mixpanel, Amplitude, Datadog, Sentry, Logfire, Stripe, Paddle, etc.) — query directly through the MCP integrations. List what was queried and when in the pulse.
    - **No MCPs** — the user pastes / dumps recent metric numbers, and the skill structures them. Less ideal but works as a starting point.
@@ -100,11 +100,11 @@ If pointed at a hosted model, the pulse contents go through that provider on eve
 
 Designed for recurring scheduled use. Guide the user based on what they're using:
 
-**Claude Code Desktop app (recommended):** Go to Routines → New routine → Local. Use these instructions: `Run /product-pulse for the default area`. Set schedule to Weekly (Monday 8am) for most teams, or Daily for fast-moving products or launch windows. Desktop Routines have full local file access, persist indefinitely, and can write pulse files to `~/bettersense-work-reflections/pulses/`.
+**Claude Code Desktop app (recommended):** Go to Routines → New routine → Local. Use these instructions: `Run /product-pulse for the default area`. Set schedule to Weekly (Monday 8am) for most teams, or Daily for fast-moving products or launch windows. Desktop Routines have full local file access, persist indefinitely, and can write pulse files to `~/haku-work-reflections/pulses/`.
 
 **Terminal / CLI users:** Use OS-level scheduling (cron on macOS/Linux, Task Scheduler on Windows). Session-scoped tasks created by asking Claude in the terminal expire after 7 days.
 
-**Never suggest cloud routines** — they run on Anthropic's servers and cannot read or write to `~/bettersense-work-reflections/`.
+**Never suggest cloud routines** — they run on Anthropic's servers and cannot read or write to `~/haku-work-reflections/`.
 
 For most users, daily is too noisy and weekly is the right cadence. Daily makes sense if the product moves fast (consumer with high event volume) or during a launch window. Quarterly makes sense for slow-moving B2B.
 

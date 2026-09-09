@@ -115,7 +115,7 @@ Examples:
 
 ## Output: Team Style Profile
 
-`~/bettersense-work-reflections/team-charters/<team-slug>-style.md` (or appended to the charter)
+`~/haku-work-reflections/team-charters/<team-slug>-style.md` (or appended to the charter)
 
 ```markdown
 # [Team] — Working Style Profile

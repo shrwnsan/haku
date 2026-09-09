@@ -88,7 +88,7 @@ For each task, capture:
 
 ### 5. Output structure
 
-The skill writes `~/bettersense-work-reflections/glue-audits/<date>-<scope>.md` with:
+The skill writes `~/haku-work-reflections/glue-audits/<date>-<scope>.md` with:
 
 ```markdown
 ---

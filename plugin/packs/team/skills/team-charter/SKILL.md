@@ -1,6 +1,6 @@
 ---
 name: team-charter
-description: Use when forming a new team, resetting an existing team after a reorg, or when a team's goals/roles/norms are unclear and causing friction. Trigger phrases include "create a team charter", "align our team on goals roles norms", "reset the team operating model", "new team kickoff", "team alignment workshop". Facilitates explicit conversation on the three foundations from Mario Moussa's 3X3 framework (Goals, Roles, Norms) and produces a living charter document stored at ~/bettersense-work-reflections/team-charters/<team-slug>.md. Especially useful for new product teams, new management layers, or after major org changes.
+description: Use when forming a new team, resetting an existing team after a reorg, or when a team's goals/roles/norms are unclear and causing friction. Trigger phrases include "create a team charter", "align our team on goals roles norms", "reset the team operating model", "new team kickoff", "team alignment workshop". Facilitates explicit conversation on the three foundations from Mario Moussa's 3X3 framework (Goals, Roles, Norms) and produces a living charter document stored at ~/haku-work-reflections/team-charters/<team-slug>.md. Especially useful for new product teams, new management layers, or after major org changes.
 ---
 
 # Team Charter
@@ -106,7 +106,7 @@ Push each norm from vague to behavioral: *"We communicate openly"* → *"We voic
 
 ## File format and location
 
-`~/bettersense-work-reflections/team-charters/<team-slug>.md`
+`~/haku-work-reflections/team-charters/<team-slug>.md`
 
 ```markdown
 ---

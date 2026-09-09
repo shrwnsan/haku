@@ -1,6 +1,6 @@
 ---
 name: the-discovery-facilitator
-description: Use when a PM or team needs structured opportunity discovery before committing to build — separating validated user needs from assumed ones, mapping evidence to gaps, and reaching informed conviction on what's worth pursuing. Trigger when the user says "we're thinking about building X", "users keep asking for Y", "I need to scope what we're really solving", or when the-reducer has pushed back on a solution and the team needs to find the real problem. Sits between the-reducer (which pushes back on the solution) and the-spec-writer (which writes the PRD).
+description: Use when the problem itself needs scoping before anything is built: separating validated user needs from assumed ones, mapping evidence, conviction on what to pursue. Trigger on "we're thinking about building X", "users keep asking for Y", "scope what we're really solving" — even when AI is already assumed. Sits between the-reducer (whether to use AI) and the-spec-writer (the PRD).
 tools: Read, Write, Edit, Grep, Glob, WebSearch, WebFetch
 ---
 

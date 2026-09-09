@@ -22,7 +22,7 @@ Skip when:
 
 ## What it scans
 
-The full reflection ecosystem at `~/bettersense-work-reflections/` (or `$BETTERSENSE_WORK_REFLECTIONS_HOME`):
+The full reflection ecosystem at `~/haku-work-reflections/` (or `$HAKU_WORK_REFLECTIONS_HOME`):
 
 - `profile.md` (if present) — for the user's stated current strategic focus, growth area, communication style
 - `managing-up/<*>.md` — all active stakeholder files in this category
@@ -118,7 +118,7 @@ Designed for weekly cadence. Guide the user based on what they're using:
 
 **Terminal / CLI users:** Use OS-level scheduling (cron on macOS/Linux, Task Scheduler on Windows). Session-scoped tasks created by asking Claude in the terminal expire after 7 days and are unsuitable for weekly cadences.
 
-**Never suggest cloud routines** — they run on Anthropic's servers and cannot read `~/bettersense-work-reflections/`.
+**Never suggest cloud routines** — they run on Anthropic's servers and cannot read `~/haku-work-reflections/`.
 
 Pair with a Sunday-evening calendar block ("Open Claude Code → review weekly patterns") so the output gets seen.
 
@@ -152,4 +152,4 @@ For users who'd rather pull than push, on-demand works too. Run before a plannin
 
 ## The weekly ritual
 
-This skill is one segment of the `weekly` skill — a single ~15-minute session that runs wins capture, the most-overdue stakeholder reflection, and a patterns scan together. When the user wants the recurring ritual rather than this one piece, route to `/bettersense:weekly`.
+This skill is one segment of the `weekly` skill — a single ~15-minute session that runs wins capture, the most-overdue stakeholder reflection, and a patterns scan together. When the user wants the recurring ritual rather than this one piece, route to `/haku:weekly`.

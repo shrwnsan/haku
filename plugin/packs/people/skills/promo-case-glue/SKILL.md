@@ -117,7 +117,7 @@ Provide the user's manager with a separate "how to tell this story" note:
 
 ## Output structure
 
-The skill creates `~/bettersense-work-reflections/promo-cases/<level>-glue-<name>-<date>.md`:
+The skill creates `~/haku-work-reflections/promo-cases/<level>-glue-<name>-<date>.md`:
 
 ```markdown
 ---

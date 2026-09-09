@@ -11,7 +11,7 @@ A strategy is not a roadmap (dates), not an RFC (one decision), and not a vision
 
 ## Before drafting
 
-- Read `~/bettersense-work-reflections/profile.md` (role, org context) and any `strategy/<area>.md` product strategy — a tech strategy that doesn't connect to the product strategy will read as a hobby. If a product strategy exists, mirror its vocabulary and cite the tracks it serves.
+- Read `~/haku-work-reflections/profile.md` (role, org context) and any `strategy/<area>.md` product strategy — a tech strategy that doesn't connect to the product strategy will read as a hobby. If a product strategy exists, mirror its vocabulary and cite the tracks it serves.
 - Ask for whatever exists: past RFCs, architecture reviews, incident history, the migration graveyard. The diagnosis section is built from evidence the user already has.
 
 ## Interview, then draft
@@ -39,7 +39,7 @@ owner: [user] · status: draft | socialized | adopted · review-by: [date ~6mo o
 ## How we'll know   — 3–5 observable indicators the direction is working
 ```
 
-Target length: two pages. A strategy nobody finishes reading sets no direction. Save to `~/bettersense-work-reflections/strategy/tech-<area-slug>.md`.
+Target length: two pages. A strategy nobody finishes reading sets no direction. Save to `~/haku-work-reflections/strategy/tech-<area-slug>.md`.
 
 ## Pressure-test before socializing
 

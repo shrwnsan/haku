@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Install the bettersense bundle into your Claude Code config on Windows.
+    Install the haku bundle into your Claude Code config on Windows.
 
 .DESCRIPTION
     Creates symlinks from your Claude config directory back into this repo.
@@ -65,8 +65,8 @@ New-Item -ItemType Directory -Force -Path $TargetAgents | Out-Null
 # ── Check symlink capability ──────────────────────────────────────────────────
 
 function Test-SymlinkCapability {
-    $testTarget = Join-Path $env:TEMP 'bettersense-symlink-test-target'
-    $testLink   = Join-Path $env:TEMP 'bettersense-symlink-test-link'
+    $testTarget = Join-Path $env:TEMP 'haku-symlink-test-target'
+    $testLink   = Join-Path $env:TEMP 'haku-symlink-test-link'
 
     New-Item -ItemType Directory -Force -Path $testTarget | Out-Null
     try {
@@ -101,7 +101,7 @@ $skillDirs  = Get-ChildItem -Path $SourceSkills -Directory
 $agentFiles = Get-ChildItem -Path $SourceAgents -Filter '*.md'
 
 Write-Host ""
-Write-Host "Bundle:  bettersense"
+Write-Host "Bundle:  haku"
 Write-Host "Source:  $SourceDir"
 Write-Host "Target:  $TargetBase"
 Write-Host "Force:   $(if ($Force) { 'yes' } else { 'no' })"
@@ -203,7 +203,7 @@ Write-Host "To uninstall: .\scripts\uninstall.ps1 -Scope $Scope"
 # ── Verify symlinks ───────────────────────────────────────────────────────────
 
 Write-Host ""
-Write-Host "Installed bettersense symlinks:"
+Write-Host "Installed haku symlinks:"
 Get-ChildItem $TargetSkills, $TargetAgents |
-    Where-Object { $_.LinkType -eq 'SymbolicLink' -and $_.Target -like "*bettersense*" } |
+    Where-Object { $_.LinkType -eq 'SymbolicLink' -and $_.Target -like "*haku*" } |
     ForEach-Object { Write-Host "  $($_.FullName) → $($_.Target)" }

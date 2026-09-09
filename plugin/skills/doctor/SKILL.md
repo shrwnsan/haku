@@ -1,6 +1,6 @@
 ---
 name: doctor
-description: Use to health-check the user's bettersense memory directory — validate the file layout, catch problems before they cost data, and set up backups. Trigger phrases include "run bettersense doctor", "check my reflection files", "is my bettersense data okay", "something seems off with my stakeholder files", "back up my reflections", "I'm moving to a new machine". Validates ~/bettersense-work-reflections/ (or $BETTERSENSE_WORK_REFLECTIONS_HOME): stakeholders.json integrity, orphaned or unregistered stakeholder files, layout drift, and backup status. Read-only by default — proposes fixes and applies them only with explicit approval per fix.
+description: Use to health-check the user's haku memory directory — validate file layout, catch problems before they cost data. Triggers: "run haku doctor", "check my reflection files", "is my data okay", "back up my reflections", "I'm moving to a new machine". Validates ~/haku-work-reflections/ (or $HAKU_WORK_REFLECTIONS_HOME): registry integrity, orphaned files, layout drift, backup status, legacy bettersense-path migration. Read-only; proposes fixes, applies with approval.
 ---
 
 # Doctor
@@ -11,7 +11,7 @@ Years of reflections, wins, and decision context live in one plaintext directory
 
 ## Locate the data
 
-Root is `$BETTERSENSE_WORK_REFLECTIONS_HOME` if set, else `~/bettersense-work-reflections/`. If it doesn't exist at all, that isn't an error — the user hasn't set up yet. Say so and point to `start`. Don't create anything.
+Root is `$HAKU_WORK_REFLECTIONS_HOME` if set, else `~/haku-work-reflections/`. If it doesn't exist at all, that isn't an error — the user hasn't set up yet. Say so and point to `start`. Don't create anything.
 
 ## The checks
 
@@ -35,9 +35,13 @@ Expected structure where content implies it: `profile.md`, `wins.md`, `strategy/
 
 ### 5. Backup status
 
-The check most likely to matter someday. Is the directory a git repo with a remote, and when did it last commit? If not: report size and age of the data ("214 entries across 9 files since 2026-01"), and offer a **snapshot** (`tar -czf ~/haku-backup-YYYY-MM-DD.tar.gz -C ~ bettersense-work-reflections`) or **versioning** (`git init` + first commit, noting any remote must be private and that pushing sends the data to that host — the user's call, stated plainly). Flag a backup older than ~30 days of new entries.
+The check most likely to matter someday. Is the directory a git repo with a remote, and when did it last commit? If not: report size and age of the data ("214 entries across 9 files since 2026-01"), and offer a **snapshot** (`tar -czf ~/haku-backup-YYYY-MM-DD.tar.gz -C ~ haku-work-reflections`) or **versioning** (`git init` + first commit, noting any remote must be private and that pushing sends the data to that host — the user's call, stated plainly). Flag a backup older than ~30 days of new entries.
 
-### 6. Plugin health (lean)
+### 6. Legacy bettersense paths
+
+If `~/bettersense-work-reflections/` exists (the pre-rename data root), flag it: haku reads `$HAKU_WORK_REFLECTIONS_HOME` (default `~/haku-work-reflections/`), so old data is invisible to every skill until migrated. Offer, with approval: `mv ~/bettersense-work-reflections ~/haku-work-reflections` — or set `$HAKU_WORK_REFLECTIONS_HOME` to the existing path if the user prefers. Move, never copy-duplicate; if the new root already exists too, stop and ask rather than merge.
+
+### 7. Plugin health (lean)
 
 - **Core intact:** the 8 core skills and 5 gate agents are present in the install. A missing gate warns loudly — the decide → spec → evidence loop can't run without it.
 - **Packs:** list detected packs (pack skills/agents present in the install). Flag a pack whose skills are installed without its eval cases, or whose routing stopped being exercised.

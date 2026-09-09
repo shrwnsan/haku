@@ -19,7 +19,7 @@ If the user can't produce this sentence, the meeting isn't ready to book. "Align
 
 For each person in the meeting, one line each: what they care about, what they'll ask, and whether you need their **yes**, their **non-objection**, or just their **awareness**.
 
-**Use the memory.** For each attendee registered as a stakeholder, read their `~/bettersense-work-reflections/<category>/<slug>.md` — past entries hold their question patterns, hot buttons, and how they've reacted to similar asks. Also read `strategy/<area>.md` if present: the ask should be framed as movement on a track leadership has already bought, in the vocabulary they already use. An ask that maps to no known priority is fighting uphill; say that to the user before they book the room.
+**Use the memory.** For each attendee registered as a stakeholder, read their `~/haku-work-reflections/<category>/<slug>.md` — past entries hold their question patterns, hot buttons, and how they've reacted to similar asks. Also read `strategy/<area>.md` if present: the ask should be framed as movement on a track leadership has already bought, in the vocabulary they already use. An ask that maps to no known priority is fighting uphill; say that to the user before they book the room.
 
 Identify the **most senior skeptic** — the prep is calibrated to them, not to the friendly sponsor.
 

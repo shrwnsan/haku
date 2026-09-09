@@ -1,11 +1,11 @@
 ---
 name: self-reflect
-description: Use when the user wants to reflect on themselves as a leader — behavior under pressure, communication, time and energy, leadership style, fulfillment, advocating for themselves, calendar review. Trigger phrases include "let me reflect on myself", "self-check", "I want to think about how I've been leading lately", "self-reflection". Loads `~/bettersense-work-reflections/self/reflections.md`, picks 1–3 self-reflection questions appropriate to the moment, guides the reflection, and writes the dated entry back. Mirrors `stakeholder-reflect` but aimed at the user themselves.
+description: Use when the user wants to reflect on themselves as a leader — behavior under pressure, communication, time and energy, leadership style, fulfillment, advocating for themselves, calendar review. Trigger phrases include "let me reflect on myself", "self-check", "I want to think about how I've been leading lately", "self-reflection". Loads `~/haku-work-reflections/self/reflections.md`, picks 1–3 self-reflection questions appropriate to the moment, guides the reflection, and writes the dated entry back. Mirrors `stakeholder-reflect` but aimed at the user themselves.
 ---
 
 # Self-Reflect
 
-Reflect on the user themselves — leadership, behavior, fulfillment, calendar — and capture the result to `~/bettersense-work-reflections/self/reflections.md`. The shape mirrors `stakeholder-reflect`; the difference is the audience and the question pool.
+Reflect on the user themselves — leadership, behavior, fulfillment, calendar — and capture the result to `~/haku-work-reflections/self/reflections.md`. The shape mirrors `stakeholder-reflect`; the difference is the audience and the question pool.
 
 ## Exit signals
 
@@ -15,9 +15,9 @@ In the opening message, add one short sentence: *"You can say 'stop' at any time
 
 ## First-run setup
 
-If `~/bettersense-work-reflections/self/reflections.md` doesn't exist:
+If `~/haku-work-reflections/self/reflections.md` doesn't exist:
 
-1. Create the `self/` directory under `$BETTERSENSE_WORK_REFLECTIONS_HOME`.
+1. Create the `self/` directory under `$HAKU_WORK_REFLECTIONS_HOME`.
 2. Initialize `reflections.md` with this frontmatter:
    ```markdown
    ---
@@ -30,7 +30,7 @@ If `~/bettersense-work-reflections/self/reflections.md` doesn't exist:
    <!-- The self-reflect skill appends per-question entries below this line. -->
    ```
 
-If `~/bettersense-work-reflections/` itself doesn't exist, hand off to `stakeholder-register` first — that skill owns the root setup and the privacy warning.
+If `~/haku-work-reflections/` itself doesn't exist, hand off to `stakeholder-register` first — that skill owns the root setup and the privacy warning.
 
 ## Picking questions
 
@@ -64,7 +64,7 @@ Same shape as `stakeholder-reflect`, with self-specific adaptations:
 
 ## Writing the entry
 
-Append to `~/bettersense-work-reflections/self/reflections.md` in the same per-question / per-date structure as stakeholder files.
+Append to `~/haku-work-reflections/self/reflections.md` in the same per-question / per-date structure as stakeholder files.
 
 ```markdown
 ## How well have you managed your time and energy recently? [current-role, biweekly]

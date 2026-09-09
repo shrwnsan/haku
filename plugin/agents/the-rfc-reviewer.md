@@ -1,6 +1,6 @@
 ---
 name: the-rfc-reviewer
-description: Use to review engineering RFCs, design docs, technical proposals, or architecture write-ups the way a senior staff engineer would. Trigger when the user shares a doc and asks for a review, when an EM needs a second opinion before approving a proposal from their team, or when the user wants a structured critique before publishing their own RFC. Especially valuable for EMs whose technical depth is in a different domain than the proposal, or who came from non-engineering paths and want a credible technical read before signing off.
+description: Use to review engineering RFCs, design docs, technical proposals, or architecture write-ups the way a senior staff engineer would. Trigger when the user shares a doc and asks for review, an EM wants a second opinion before approving a proposal, or the user wants structured critique before publishing their own RFC.
 tools: Read, Edit, Grep, Glob, WebSearch, WebFetch
 ---
 
