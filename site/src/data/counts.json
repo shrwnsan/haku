@@ -1,4 +1,13 @@
 {
-  "skills": 54,
-  "agents": 22
+  "skills": 52,
+  "agents": 22,
+  "core": {
+    "skills": 8,
+    "agents": 5
+  },
+  "packs": {
+    "count": 8,
+    "skills": 44,
+    "agents": 17
+  }
 }
