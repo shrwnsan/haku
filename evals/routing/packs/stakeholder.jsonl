@@ -1,0 +1,2 @@
+// stakeholder pack routing cases. Run with the pack installed: run-routing.mjs --pack stakeholder
+{"id":"stakeholder-register","prompt":"I just got a new manager — set up reflection for her.","expect":"stakeholder-register","must_not_fire":["stakeholder-reflect"]}

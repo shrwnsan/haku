@@ -1,0 +1,4 @@
+// engineering-ops pack routing cases. Run with the pack installed: run-routing.mjs --pack engineering-ops
+{"id":"incident","prompt":"Our summarization model's hallucination rate spiked this morning and customers are reporting wrong answers.","expect":"the-incident-responder","must_not_fire":["the-postmortem-facilitator","the-retro-facilitator"]}
+{"id":"postmortem","prompt":"The outage is resolved. I need to run a blameless postmortem with the team.","expect":"the-postmortem-facilitator","must_not_fire":["the-incident-responder","the-retro-facilitator"]}
+{"id":"vendor-eval","prompt":"We're comparing three LLM providers before we sign a contract.","expect":"the-vendor-evaluator","must_not_fire":[]}

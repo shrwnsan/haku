@@ -71,6 +71,17 @@ if [ -d "$REPO_ROOT/plugin/agents" ]; then
   done < <(find "$REPO_ROOT/plugin/agents" -maxdepth 1 -name "*.md")
 fi
 
+# Pack items installed by install.sh --pack are discovered the same way: any
+# symlink into this repo gets removed, pack or core.
+
+if [ -d "$REPO_ROOT/plugin/packs" ]; then
+  while IFS= read -r d; do
+    BUNDLE_SKILL_NAMES+=("$(basename "$d")")
+  done < <(find "$REPO_ROOT/plugin/packs" -mindepth 3 -maxdepth 3 -type d -path "*/skills/*")
+  while IFS= read -r f; do
+    BUNDLE_AGENT_NAMES+=("$(basename "$f")")
+  done < <(find "$REPO_ROOT/plugin/packs" -mindepth 3 -maxdepth 3 -name "*.md" -path "*/agents/*")
+fi
 # ---------- pre-flight ----------
 
 echo

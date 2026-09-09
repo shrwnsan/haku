@@ -30,6 +30,8 @@ const limitArg = args.indexOf("--limit");
 const limit = limitArg !== -1 ? parseInt(args[limitArg + 1], 10) : Infinity;
 const modelArg = args.indexOf("--model");
 const model = modelArg !== -1 ? args[modelArg + 1] : null;
+const packs = [];
+for (let i = 0; i < args.length; i++) if (args[i] === "--pack") packs.push(args[i + 1]);
 
 // ---- Load the candidates (skills + agents) from the plugin ---------------
 
@@ -40,28 +42,57 @@ function frontmatterDescription(text) {
   return d ? d[1].trim() : null;
 }
 
-function loadCandidates() {
+function loadCandidates(includedPacks) {
   const out = [];
-  const skillsDir = join(pluginRoot, "skills");
-  for (const name of readdirSync(skillsDir)) {
-    const f = join(skillsDir, name, "SKILL.md");
-    if (existsSync(f)) {
-      out.push({ name, kind: "skill", description: frontmatterDescription(readFileSync(f, "utf8")) });
-    }
+  const seen = new Set();
+  const roots = [{ skills: join(pluginRoot, "skills"), agents: join(pluginRoot, "agents") }];
+  for (const p of includedPacks) {
+    roots.push({ skills: join(pluginRoot, "packs", p, "skills"), agents: join(pluginRoot, "packs", p, "agents") });
   }
-  const agentsDir = join(pluginRoot, "agents");
-  for (const file of readdirSync(agentsDir)) {
-    if (!file.endsWith(".md")) continue;
-    const name = file.replace(/\.md$/, "");
-    out.push({ name, kind: "agent", description: frontmatterDescription(readFileSync(join(agentsDir, file), "utf8")) });
+  for (const root of roots) {
+    if (existsSync(root.skills)) {
+      for (const name of readdirSync(root.skills)) {
+        const f = join(root.skills, name, "SKILL.md");
+        if (existsSync(f)) {
+          if (seen.has(name)) throw new Error(`duplicate candidate '${name}' — installed twice?`);
+          seen.add(name);
+          out.push({ name, kind: "skill", description: frontmatterDescription(readFileSync(f, "utf8")) });
+        }
+      }
+    }
+    if (existsSync(root.agents)) {
+      for (const file of readdirSync(root.agents)) {
+        if (!file.endsWith(".md")) continue;
+        const name = file.replace(/\.md$/, "");
+        if (seen.has(name)) throw new Error(`duplicate candidate '${name}' — installed twice?`);
+        seen.add(name);
+        out.push({ name, kind: "agent", description: frontmatterDescription(readFileSync(join(root.agents, file), "utf8")) });
+      }
+    }
   }
   return out;
 }
 
+// Every item that exists anywhere (core or any pack). Cross-pack references in
+// must_not_fire stay valid even when that pack isn't loaded for a run.
+function loadKnownNames() {
+  const names = new Set();
+  const packsDir = join(pluginRoot, "packs");
+  if (!existsSync(packsDir)) return names;
+  for (const p of readdirSync(packsDir)) {
+    const mf = join(packsDir, p, "pack.json");
+    if (!existsSync(mf)) continue;
+    const manifest = JSON.parse(readFileSync(mf, "utf8"));
+    for (const s of manifest.skills || []) names.add(s);
+    for (const a of manifest.agents || []) names.add(a);
+  }
+  return names;
+}
+
 // ---- Load the golden dataset ---------------------------------------------
 
-function loadCases() {
-  const raw = readFileSync(join(here, "cases.jsonl"), "utf8");
+function parseJsonl(file) {
+  const raw = readFileSync(file, "utf8");
   return raw
     .split("\n")
     .map((l) => l.trim())
@@ -70,9 +101,18 @@ function loadCases() {
       try {
         return JSON.parse(l);
       } catch (e) {
-        throw new Error(`cases.jsonl line ${i + 1}: ${e.message}`);
+        throw new Error(`${file} line ${i + 1}: ${e.message}`);
       }
     });
+}
+
+function loadCases(includedPacks) {
+  const cases = parseJsonl(join(here, "cases.jsonl"));
+  for (const p of includedPacks) {
+    const f = join(here, "packs", `${p}.jsonl`);
+    if (existsSync(f)) cases.push(...parseJsonl(f));
+  }
+  return cases;
 }
 
 // ---- Build the classifier prompt -----------------------------------------
@@ -131,34 +171,46 @@ function askClaude(prompt) {
 
 // ---- Validate + score -----------------------------------------------------
 
-function validate(cases, candidates) {
+function validate(cases, candidates, knownNames) {
   const names = new Set(candidates.map((c) => c.name));
   const errors = [];
   for (const c of cases) {
     if (!c.id || !c.prompt || !c.expect) errors.push(`${c.id || "?"}: missing id/prompt/expect`);
-    if (c.expect !== "none" && !names.has(c.expect)) errors.push(`${c.id}: expect '${c.expect}' is not a real skill/agent`);
+    if (c.expect !== "none" && !names.has(c.expect) && !knownNames.has(c.expect))
+      errors.push(`${c.id}: expect '${c.expect}' is not a real skill/agent`);
     for (const n of c.must_not_fire || []) {
-      if (!names.has(n)) errors.push(`${c.id}: must_not_fire '${n}' is not a real skill/agent`);
+      if (!names.has(n) && !knownNames.has(n)) errors.push(`${c.id}: must_not_fire '${n}' is not a real skill/agent`);
     }
   }
   return errors;
 }
 
 function main() {
-  const candidates = loadCandidates();
+  const packsDir = join(pluginRoot, "packs");
+  for (const p of packs) {
+    if (!existsSync(join(packsDir, p, "pack.json"))) {
+      console.error(`Unknown pack '${p}'. Available: ${existsSync(packsDir) ? readdirSync(packsDir).join(", ") : "(none)"}`);
+      process.exit(2);
+    }
+  }
+  const candidates = loadCandidates(packs);
   const missingDesc = candidates.filter((c) => !c.description);
   if (missingDesc.length) {
     console.error("Candidates with no description:", missingDesc.map((c) => c.name).join(", "));
     process.exit(2);
   }
-  const cases = loadCases();
-  const errors = validate(cases, candidates);
+  const cases = loadCases(packs);
+  const errors = validate(cases, candidates, loadKnownNames());
   if (errors.length) {
     console.error("Dataset validation failed:\n" + errors.map((e) => "  - " + e).join("\n"));
     process.exit(2);
   }
+  const catalogNames = new Set(candidates.map((c) => c.name));
 
-  console.log(`${candidates.length} candidates, ${cases.length} cases, dataset valid.`);
+  console.log(
+    `${candidates.length} candidates, ${cases.length} cases, dataset valid.` +
+      (packs.length ? ` Packs installed: ${packs.join(", ")}.` : " Core only.")
+  );
   if (dryRun) {
     const covered = new Set(cases.map((c) => c.expect).filter((e) => e !== "none"));
     console.log(`Coverage: ${covered.size} distinct skills/agents asserted as expected routes.`);
@@ -181,7 +233,9 @@ function main() {
       continue;
     }
     const hitExpected = choice.choice === c.expect;
-    const firedForbidden = (c.must_not_fire || []).includes(choice.choice);
+    // A must-not-fire neighbour that isn't installed cannot fire — only police
+    // neighbours present in this run's catalog.
+    const firedForbidden = (c.must_not_fire || []).filter((n) => catalogNames.has(n)).includes(choice.choice);
     if (hitExpected && !firedForbidden) {
       pass++;
       if (verbose) console.log(`✓ ${c.id}: ${choice.choice}`);
