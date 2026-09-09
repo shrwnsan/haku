@@ -1,7 +1,7 @@
 {
   "_comment": "Routing baseline (LEAN-PLAN §6 step 0). Regenerate only via a decision-citing commit (§8 D4). Gate tolerance: a single-case flip re-runs twice and fails only if confirmed — the judge is stochastic.",
-  "commit": "6d004882332b44bdb4f29946358e601c09489c70",
-  "generatedAt": "2026-09-09T11:16:41.890Z",
+  "commit": "e5a524f50f612af52385afa4877c80bac2731a91",
+  "generatedAt": "2026-09-09T18:25:31.498Z",
   "judge": {
     "runner": "evals/routing/run-routing.mjs",
     "cli": "claude@2.1.128",
@@ -75,14 +75,5 @@
       }
     },
     "flaky": []
-  },
-  "knownMisses": [
-    {
-      "case": "reducer-vs-discovery",
-      "context": "--pack research (16-candidate catalog; the-discovery-facilitator competes)",
-      "observed": "3 pass / 3 fail across 6 judged runs (pre-pack baseline run 2; post-pack gate; 2 tolerance confirm runs)",
-      "status": "known miss — the-reducer vs the-discovery-facilitator description boundary to sharpen in feat/body-diet",
-      "source": "routing eval observation 2026-09-09 via LEAN-PLAN §6 step-0 tolerance policy"
-    }
-  ]
+  }
 }
