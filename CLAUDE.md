@@ -41,6 +41,19 @@ node evals/routing/run-routing.mjs --pack <name>      # pack-scoped cases
 
 `evals/routing/baseline.json` pins the pre-feat routing results and judge model; it is regenerated only by a decision-citing commit (LEAN-PLAN §8 D4) — never as a side effect of adding cases. New cases must carry a `source` field citing the failure that motivated them.
 
+## Gates and ship-review
+
+The decide → spec → evidence loop is enforced by gate contracts in `plugin/gates/<name>/gate.md` (`intent`, `spec`, `review`). Each declares seven fields — `trigger`, `agent`, `inputs`, `pass`, `rounds`, `exit`, `failure` — and `agent` must name an existing `plugin/agents/<name>.md`. `scripts/lint-gates.mjs` validates all contracts (LEAN-PLAN §5: a gate without a contract does not run); CI runs it in the `gates-lint` job.
+
+Pre-merge predicates live in `plugin/bin/ship-review.mjs` — pure code assertions, no LLM (LEAN-PLAN §4, §8 D2):
+
+- **P1** — added lines cite a decision-log entry (`--decision-pattern`, default ADR/`decisions/`; haku's CI uses `\bD[0-9]+\b` for LEAN-PLAN §8 entries)
+- **P2** — routing surface changed (`plugin/skills/*/SKILL.md`, `plugin/agents/*.md`, pack equivalents) ⇒ `evals/` changed with it
+- **P3** — `FLAG:`/`SHADOW:` tokens in added lines must appear in a doc under `decisions/` or `docs/decisions/`
+- **P4** — routing dry-run gate
+
+Run locally: `node plugin/bin/ship-review.mjs --staged` (pre-commit) or `--base origin/main` (PR-shaped). Predicates self-skip when their subject doesn't exist, so the script is safe in foreign repos; pass `--strict --require-decision` (as CI does) to make skips loud. When the plugin is installed, `plugin/hooks/hooks.json` runs the same script as a PreToolUse hook on `git commit`. CI (`.github/workflows/ci.yml`) adds the live routing suite — majority of 3, judge pinned in `baseline.json`, skipped when judge secrets are absent.
+
 ## Installation mechanics
 
 `scripts/install.sh` creates **symlinks** (not copies) from `~/.claude/skills/<name>` and `~/.claude/agents/<name>.md` into this repo — pulling updates auto-updates installed skills. `--scope=project` installs into a project's `.claude/` instead. To verify installed bundle items:
