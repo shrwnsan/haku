@@ -1,6 +1,8 @@
 # haku
 
-A lean [Claude Code](https://claude.com/claude-code) plugin for people who'd rather decide well than write fast — a small always-on core (8 skills + 5 gate agents) that runs the decide → spec → evidence loop, plus 8 opt-in packs you bolt on per role.
+**haku** is a lean [Claude Code](https://claude.com/claude-code) plugin that runs the **decide → spec → evidence** loop: an always-on core—8 skills + 5 gate agents—that captures the decision, pressure-tests the spec, and checks what actually shipped, so every session starts smarter than the last. Eight opt-in packs bolt on per role.
+
+Built for PMs, engineering leads, and small teams shipping with AI—where the bottleneck isn't writing faster, it's deciding well.
 
 **Status: under active development** on this repo's integration history. The architecture and execution plan live in [docs/LEAN-PLAN.md](docs/LEAN-PLAN.md).
 
@@ -17,6 +19,6 @@ Everything else is content, and content is opt-in: `people`, `stakeholder`, `tea
 
 Measure, then ship.
 
-## Attribution & license
+## License & attribution
 
-Haku is a redesign of [bettersense](https://github.com/shwetank/bettersense) by Shwetank Dixit, and would not exist without it. Like bettersense, Haku is licensed **CC BY-SA 4.0** — see [LICENSE](LICENSE).
+Licensed **CC BY-SA 4.0**—see [LICENSE](LICENSE). Haku began as a redesign of [bettersense](https://github.com/shwetank/bettersense) by Shwetank Dixit, and wouldn't exist without it.
