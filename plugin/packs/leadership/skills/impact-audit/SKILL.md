@@ -1,103 +1,86 @@
 ---
 name: impact-audit
-description: Use when a PM or team wants to stress-test whether their work is actually connected to something the business cares about. Runs before strategy-doc or prioritization-frameworks — it answers "are we even pointed at the right thing?" Trigger phrases include "are we doing the right work?", "I'm worried my team isn't driving real impact", "help me check if my team is aligned", "I'm worried about layoffs", or any moment of doubt about whether the team's work would survive scrutiny.
+description: Use when a PM or team stress-tests whether work connects to business outcomes—"are we even pointed at the right thing?"—before strategy-doc or prioritization-frameworks. Trigger phrases include "are we doing the right work?", "I'm worried my team isn't driving real impact", "help me check if my team is aligned", "I'm worried about layoffs", or any doubt the work would survive scrutiny.
 ---
 
 # Impact Audit
 
-This skill runs a diagnostic on whether a team's work is genuinely connected to business outcomes. It is not about *how* to build things — that's `prioritization-frameworks`, `strategy-doc`, and `metrics-design`. This runs *before* those, when the question is whether the team is pointed at the right thing at all.
+Diagnostic on whether a team's work is genuinely connected to business outcomes. Not about *how* to build things—that's `prioritization-frameworks`, `strategy-doc`, and `metrics-design`. This runs *before* those, when the question is whether the team is pointed at the right thing at all.
 
 Inspired by Matt LeMay's *Impact First Product Teams* framework.
 
 ## The audit: three questions
 
-Run these in order. Each one builds on the previous. Stop and work through whatever surfaces — don't rush to the next question.
-
----
+Run in order; each builds on the previous. Work through whatever surfaces—don't rush ahead.
 
 ### Question 1: The budget stress test
 
 > "If the person who controls your team's budget had to justify it from scratch today, could they? Would they?"
 
-Ask the user to answer this honestly, not optimistically. Watch for hedged answers: "I think so," "probably," "yeah, I mean…" — these are the signal. A confident yes means move on. Anything less means spend time here.
+Ask for an honest, not optimistic, answer. Hedged answers ("I think so," "probably") are the signal. Confident yes: move on. Anything less: spend time here.
 
 Useful follow-ups:
 - "What would you point to as the clearest evidence that this team is a good investment?"
 - "If your team disappeared tomorrow, what would the business noticeably lose?"
 
-*(In large orgs — Microsoft, Google, Philips-scale — substitute "the exec who controls your budget" for "CEO." The principle is the same: someone with authority should be able to justify the team without hesitation.)*
-
----
+*(In large orgs, substitute "the exec who controls your budget" for "CEO"—the principle is the same.)*
 
 ### Question 2: The death spiral check
 
-Teams fall into low-impact work gradually. It starts with small, safe additions — features that won't break anything, cosmetic improvements, work that invites no scrutiny. Over time this compounds: the product gets crowded, internal complexity grows, and doing anything high-impact gets harder. The safer the work feels, the more of it accumulates.
+Teams fall into low-impact work gradually: small, safe additions—features that won't break anything, cosmetic improvements—compound. The product gets crowded, complexity grows, and high-impact work gets harder. The safer the work feels, the more accumulates.
 
-Ask the user: **"What would you say your team has shipped in the last two quarters? Would those things be missed if they hadn't been built?"**
+Ask: **"What has your team shipped in the last two quarters? Would those things be missed if they hadn't been built?"**
 
 Listen for:
-- Work that was "requested" but where the business impact is unclear
-- Features that shipped but no one tracked the outcome
+- "Requested" work with unclear business impact
+- Features that shipped but nobody tracked the outcome
 - A roadmap driven by stakeholder asks rather than a business goal
-- A sense that the team is busy but not sure it matters
+- Busy, but not sure it matters
 
-If the work feels more like decorating than engine work, name it directly. The point isn't blame — it's that this pattern is self-reinforcing and the way out is deliberate.
-
----
+If the work feels like decorating rather than engine work, name it directly—not as blame, but because the pattern is self-reinforcing and the way out is deliberate.
 
 ### Question 3: The goal distance check
 
 > "Can you state your team's primary goal and connect it to a real business outcome in one step?"
 
-One step means one mathematical operator: a conversion rate, a multiplier, a percentage of a larger number. Examples of what this looks like:
+One step = one mathematical operator. Examples:
 
-- "We convert single-product users to multi-product — each conversion is worth £X in lifetime value, so our goal contributes £Y to the business." ✓
-- "We're the growth team, and the company's growth goal is 1M users — we own 100K of that." ✓
-- "We improve the onboarding experience which improves retention which improves revenue." ✗ (too many steps, too many assumptions baked in)
+- "We convert single-product users to multi-product—each conversion is worth £X in lifetime value, so our goal contributes £Y." ✓
+- "The company's growth goal is 1M users—we own 100K of that." ✓
+- "We improve onboarding which improves retention which improves revenue." ✗ (too many steps and assumptions)
 
-*(In large orgs, "real business outcome" doesn't have to be the top-line company goal — it should be the nearest goal that has genuine budget authority behind it. A platform team's one step might be to the consuming team's goal.)*
+*(In large orgs, "real business outcome" means the nearest goal with genuine budget authority—a platform team's one step might be to the consuming team's goal.)*
 
 If the user can't state this cleanly, that's the work. Don't move past it.
 
----
-
 ## If the audit surfaces problems
 
-If one or more questions landed poorly, work through the following with the user. These are Matt LeMay's three steps to becoming an impact-first team:
+Matt LeMay's three steps to becoming an impact-first team:
 
-**Step 1: Set team goals no more than one step from the nearest meaningful business goal.**
-Don't cascade goals down through five layers until the connection to anything real is invisible. Find the goal that the budget holder cares about and connect to it directly. If you can't, change the goal.
+**Step 1: Set team goals no more than one step from the nearest meaningful business goal.** Don't cascade goals down five layers until the connection is invisible. Find the goal the budget holder cares about and connect directly; if you can't, change the goal.
 
-**Step 2: Keep impact first at every stage, not just at goal-setting.**
-It's easy to set an impact-connected goal in January and lose sight of it by March. When writing epics, scoping sprints, or reviewing priorities — keep asking: how does this connect to the goal? If the answer gets fuzzy, stop.
+**Step 2: Keep impact first at every stage, not just goal-setting.** When writing epics, scoping sprints, or reviewing priorities, keep asking how this connects to the goal. If the answer gets fuzzy, stop.
 
-**Step 3: Express impact in the same unit as your goal.**
-When prioritizing work, don't use abstract scores. If the goal is users converted, estimate impact in users converted. If the goal is revenue, estimate in revenue. Rough estimates are fine — the point is to maintain the connection to what actually matters, not to be precise.
-
----
+**Step 3: Express impact in the same unit as your goal.** Users converted? Estimate in users. Revenue? Estimate in revenue. Rough is fine—the point is maintaining the connection, not precision.
 
 ## A note on practice-level alibi progress
 
-The three questions above focus on whether the *work* is aligned. There's a related check worth running occasionally on the *practices themselves* — the rituals, ceremonies, and frameworks a team runs.
+Also worth checking occasionally: the *practices themselves*. For each regular practice (OKR cycle, sprint reviews, discovery sessions), what problem does it solve, and for whom? Would the team notice if it disappeared?
 
-Ask: for each regular practice (OKR cycle, sprint reviews, discovery sessions, roadmap presentations), what problem is it solving, and for whom? Would the team notice if it disappeared?
-
-If the answer to "would we miss it?" is no, that's worth naming. A practice being done correctly is not the same as a practice being worth doing. Teams can run textbook OKR seasons that produce goals nobody looks at, or discovery rituals that generate insights that never inform a decision. The form is right; the value isn't there.
-
-This doesn't mean abandoning the practice — it means being honest about whether it's earning its place.
+A practice done correctly isn't the same as a practice worth doing—teams can run textbook OKR seasons that produce goals nobody reads. This doesn't mean abandoning the practice; it means being honest about whether it's earning its place.
 
 ## Composition with other skills
 
 Run this skill *before*:
 - `strategy-doc` — if the audit reveals misalignment, fix the goal first, then write the strategy
-- `prioritization-frameworks` — if impact estimates aren't in the same unit as the team goal, the scores will be meaningless
+- `prioritization-frameworks` — impact estimates must be in the same unit as the team goal, or scores are meaningless
 - `metrics-design` — the north star should be the goal that passed the one-step test
 
-If the user is already using those skills and something still feels disconnected, this skill is the right diagnostic to run.
+If the user is already using those skills and something still feels disconnected, this is the right diagnostic.
 
 ## Anti-patterns to flag
 
-- **Confident answers that don't hold up under one follow-up question.** Push gently.
-- **Blaming the org.** "We'd do better work if leadership had a clearer strategy." Maybe. But the audit is about what the team can do from where they sit — not waiting for the org to get better first.
+- **Confident answers that don't survive one follow-up.** Push gently.
+- **Blaming the org.** The audit is about what the team can do from where they sit—not waiting for leadership to improve first.
 - **Confusing busyness with impact.** A team shipping every sprint can still be in the death spiral.
-- **Treating this as a one-time exercise.** Run it when something feels off, when the business environment changes, or when layoffs are in the air. It's a check, not a certification.
+- **Treating this as one-time.** Run it when something feels off, the environment changes, or layoffs are in the air.

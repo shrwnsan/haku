@@ -1,111 +1,72 @@
 ---
 name: team-diagnosis
-description: Use when the user wants a structured read on the *health* of their team — beyond individual morale to delivery cadence, attrition risk, dependency tax, on-call burden, peer relationships, and cross-cutting patterns. Trigger phrases include "how is my team doing", "I want a team health check", "diagnose my team", "before my skip-level update, what should I flag", "is something off with the team that I'm missing". Reads the user's stakeholder-reflect entries on direct reports + team file + any inputs the user provides (recent retros, attrition events, eng survey scores), and produces a multi-dimensional diagnosis with patterns, risks, and concrete actions.
+description: Use when the user wants a structured read on their team's *health*, beyond individual morale. Triggers: "how is my team doing", "I want a team health check", "diagnose my team", "before my skip-level update, what should I flag", "is something off with the team that I'm missing". Reads stakeholder-reflect entries + team file; outputs patterns, risks, actions.
 ---
 
 # Team Diagnosis
 
-Individual reflection (via `stakeholder-reflect`) catches per-person signals. **Team health** is different — it shows up in patterns across people, in second-order signals (who's gone quiet, who's covering for whom), and in interactions between the team and its surroundings.
-
-This skill produces a structured health check across the dimensions that usually go unexamined until something breaks.
+Individual reflection (`stakeholder-reflect`) catches per-person signals. **Team health** shows up in patterns across people and second-order signals (who's gone quiet, who's covering for whom). This skill checks dimensions usually unexamined until something breaks.
 
 ## When to use
 
 - **Quarterly cadence**, ideally before a skip-level update or planning round.
-- **After a triggering event** — a surprise resignation, a missed delivery, an exec asking "is your team okay?", a retro that surfaced more than usual.
-- **Before a hard decision** — reorg, headcount cut, role change — that needs a calibrated read on what the team can absorb.
-- **When the user has a vague unease** but can't articulate why.
+- **After a triggering event** — surprise resignation, missed delivery, an exec asking "is your team okay?".
+- **Before a hard decision** (reorg, headcount cut) needing a calibrated read.
+- **Vague unease** the user can't articulate.
 
-Don't trigger for: routine status updates, sprint-level operational reviews, individual performance concerns (use `performance-management` or `stakeholder-reflect` instead).
+
+Don't trigger for: status updates, sprint reviews, individual performance concerns (use `performance-management` or `stakeholder-reflect`).
 
 ## Inputs to gather first
 
-1. **The user's stakeholder-reflect files** for each direct report (`~/haku-work-reflections/managing-down/<slug>.md`).
+1. **Stakeholder-reflect files** per direct report (`~/haku-work-reflections/managing-down/<slug>.md`).
 2. **The team file** if one exists (`~/haku-work-reflections/teams/<slug>.md`).
-3. **Recent retros** if the user has them or can summarize.
-4. **Eng survey scores** or equivalent (manager satisfaction, psychological safety, etc.) if available.
-5. **Recent attrition events** in the last 6–12 months.
-6. **Delivery track record** — last 2–3 quarters, did they hit / miss / cancel commitments?
+3. **Retros**, **eng survey scores**, **attrition events**, **delivery track record**.
 
-If the user has none of these except their own gut sense, the diagnosis will be qualitative — say so, and probe with the user's own observations.
+Gut sense only → say the diagnosis is qualitative; probe their observations.
 
 ## The eight dimensions
 
-Walk through each, scoring **green / yellow / red** with evidence:
+Score each **green / yellow / red** with evidence:
 
 ### 1. Delivery cadence
-Are commitments being hit on the timelines committed? Or is "we'll get to it next sprint" the recurring chorus? Look for:
-- Hit rate on quarterly goals (last 2–3 quarters)
-- Drift between plan and actual (do projects routinely take 1.5x estimate?)
-- Cancellations / re-prioritizations (signal of upstream chaos or unclear strategy)
+Quarterly-goal hit rate (2–3 quarters); plan-vs-actual drift (1.5x estimates?); cancellations (upstream chaos?).
 
 ### 2. Attrition risk
-Who's flight risk, and why? Look for:
-- Reports who've gone quiet in 1:1s
-- Reports who've started talking about "growth" or "what's next" pointedly
-- Reports who got passed over and haven't recalibrated
-- Reports whose comp is materially below market
-- Patterns of who's leaving competitor companies / accepting recruiter calls
-- Surprise resignations in the last 12 months (each one is a signal you missed)
-
-A team with 15%+ unwanted attrition over a year has a problem; you want to find the leading indicators before the next person quits.
+Quiet in 1:1s; pointed "what's next" talk; passed-over; comp below market; surprise resignations (each a missed signal). 15%+ unwanted attrition a year: find leading indicators first.
 
 ### 3. Dependency tax
-How much of the team's time is paying tax to other teams' dependencies, processes, or chaos? Look for:
-- Standing meetings that exist because something else is broken
-- Recurring "blocked on X team" patterns
-- People privately complaining about specific cross-team friction
+Time paid to other teams' chaos: meetings existing because something else is broken; recurring "blocked on X team"; private friction complaints.
 
 ### 4. On-call burden
-Who's bearing the weight, is it sustainable, is the team reducing pager load over time? Look for:
-- Pages per week per oncall (trending up or down?)
-- Concentration: is one person the de facto SME on too many systems?
-- Toil ratio: how much oncall is "real incidents" vs. "papercut alerts that should be auto-resolved"
+Pages per oncall per week (trending?); concentration (one de facto SME?); toil ratio (incidents vs. papercuts).
 
 ### 5. Peer relationships and cross-functional health
-How does the team work *with* other teams? Look for:
-- Are PMs frustrated with eng, or vice versa?
-- Are there design or research partnerships that are underleveraged?
-- Is there a peer team that resents this team for some reason (taking credit, pushing risk, etc.)?
+PMs vs. eng frustration? Underleveraged partnerships? A peer team that resents this one?
 
 ### 6. Information flow
-Does the right information reach the right people, on time? Look for:
-- Surprises in skip-level meetings (information should have flowed up earlier)
-- Decisions made without the people who needed to be in the room
-- Repeated "I didn't know X was happening" moments
+Skip-level surprises (should have flowed up earlier); decisions without needed people; "I didn't know X was happening."
 
 ### 7. Technical health
-Where is the codebase / infrastructure / ops health degrading? Look for:
-- Test coverage trends
-- Tech debt that gets discussed but not addressed
-- Velocity slowing not because of people but because of system friction
-- Specific systems people dread touching
-- **Onboarding time** — how long does it take a new hire to make their first meaningful commit? A long ramp is often the clearest signal that the engineering system is hard to navigate, not that the people are slow. A secondary check: does internal transfer onboarding take nearly as long as new-hire onboarding? If so, the tooling, docs, and context don't travel and have to be re-learned each time.
-- **Developer experience friction** — where are the manual handoffs that look automated? What do developers say it *feels like* to do the work? The places where dashboards look fine but the lived experience is painful (approval bottlenecks, broken integrations between systems, repetitive setup) often don't surface without asking directly. If a deeper diagnosis is needed here, trigger `engineering-health`.
+Coverage trends; unaddressed tech debt; velocity slowed by system friction; dreaded systems. **Onboarding time** — long ramp signals a hard-to-navigate system; if internal-transfer onboarding takes as long, tooling/docs/context don't travel. **Developer experience friction** — manual handoffs that look automated; dashboards fine but lived experience painful. For deeper diagnosis, trigger `engineering-health`.
 
 ### 8. Culture and norms
-The hardest to measure but the highest-leverage. Look for:
-- Are juniors getting their say? Or being talked over? (Compose with `stakeholder-reflect` team questions.)
-- Is psychological safety present? (Are people raising risks, or burying them until they explode?)
-- Is feedback flowing? (Do peers give peers honest signal, or is feedback only top-down?)
-- Is the team curious and learning, or in execution-only mode?
-- Is there gallows humor in retros that points at unsaid problems?
+Juniors getting their say (compose with `stakeholder-reflect` team questions)? Safety (risks raised or buried)? Peer feedback or top-down only? Learning or execution-only? Gallows humor at unsaid problems?
 
 ## Output format
 
-Produce a team health one-pager:
+A team health one-pager:
 
 ```
 # Team Diagnosis: [team] — [date]
 
 ## Top-line read
-One paragraph: the most important thing the user should walk away knowing.
-What's quietly fine, what's quietly degrading, what's flat-out broken.
+One paragraph: what's quietly fine, degrading, broken.
 
 ## Dimensions (G/Y/R, with evidence)
 | Dimension | Status | Evidence |
 |-----------|--------|----------|
-| Delivery cadence | 🟨 | [cite specific entries / events] |
+| Delivery cadence | 🟨 | [cite] |
 | Attrition risk | 🟥 | [cite] |
 | Dependency tax | 🟩 | [cite] |
 | On-call burden | 🟨 | [cite] |
@@ -115,59 +76,49 @@ What's quietly fine, what's quietly degrading, what's flat-out broken.
 | Culture and norms | 🟩 | [cite] |
 
 ## Patterns
-[Cross-cutting signals across people / dimensions. Often where the real diagnosis lives.]
-- **[Pattern]** — what you're seeing across multiple dimensions / people. (Sources: ...)
+[Cross-cutting signals — where the real diagnosis often lives.]
 
 ## Top-3 risks worth acting on
-[Specific, with the action and the owner.]
+[Specific, with action and owner.]
 
-## What's working that you should protect
-[Don't only diagnose problems. Name what's load-bearing and could be lost in a reorg or change.]
+## What's working to protect
+[Strengths a reorg could accidentally remove.]
 
 ## Open questions
-[Where the data is too thin to call. Often the most important section — surfaces what to investigate before next quarter's diagnosis.]
+[Too thin to call — investigate before next quarter.]
 ```
 
 ## Forcing functions
 
-### Cite, don't claim
-Same discipline as `stakeholder-synthesize`. Every claim cites specific entries or events. *"Three people independently mentioned X is hard to work with this quarter (cited: 2026-03-12 entry on Priya, 2026-04-02 on Sam, 2026-04-18 on Nina)."*
-
-### Patterns over people
-The most useful insights aren't "Priya is unhappy" — they're "three of my reports independently described the same external blocker." Diagnose at the *team* layer, not just sum up individuals.
-
-### Surface what you're avoiding
-Most managers have a quiet sense of where the problem is and avoid looking at it directly. The skill should ask: *"What dimension are you most reluctant to look at right now? Why?"* Often the avoidance is the diagnosis.
-
-### Name protective work
-Diagnose-and-improve culture optimizes for finding problems and underweights *protecting what works*. A team's strong code review culture, or a specific senior's mentorship pattern, or a peer relationship that's load-bearing — those need naming so they don't get reorged away accidentally.
-
-### Honest about confidence
-Rate each dimension's confidence: are you reading from real signal or guessing? Low-confidence reds and greens should both be marked — they're prep targets for the next month of observation.
+- **Cite, don't claim** — same discipline as `stakeholder-synthesize`: every claim cites entries/events (*"three people independently mentioned X — Priya, Sam, Nina"*).
+- **Patterns over people** — the insight isn't "Priya is unhappy," it's "three reports described the same blocker."
+- **Surface what you're avoiding** — ask *"What dimension are you most reluctant to look at?"* The avoidance is often the diagnosis.
+- **Name protective work** — name load-bearing strengths (review culture, mentorship, peer relationships) so reorgs don't remove them.
+- **Honest about confidence** — mark low-confidence reds and greens; next month's observation targets.
 
 ## Operating principles
 
-- **Diagnosis without action is theater.** The output's value is what gets done after — the top-3 risks worth acting on with owners and dates.
-- **The user is in the team's culture, not outside it.** A diagnosis should ask whether the user is part of the pattern being diagnosed. (Are they the bottleneck on information flow? Are they the source of pressure that's eroding psychological safety?)
-- **Patterns reveal blind spots.** If a pattern keeps showing up across reflections but never shows up in retros, the team has a topic they're not safe raising. That's signal.
-- **A green dimension isn't "no work needed."** Sometimes it's "we got lucky this quarter." Distinguish robust health from temporary calm.
-- **Don't over-diagnose.** A team showing 3 yellows and 5 greens is doing well. Resist the urge to find a problem in everything.
+- **Diagnosis without action is theater** — top-3 risks need owners and dates.
+- **The user is in the culture** — are they part of the pattern (the bottleneck? the pressure?).
+- **Patterns reveal blind spots** — in reflections but never retros means an unsafe topic.
+- **A green isn't "no work needed"** — robust health differs from temporary calm.
+- **Don't over-diagnose** — 3 yellows, 5 greens is a team doing well.
 
 ## Anti-patterns to flag
 
-- **Diagnosis as venting.** If the output reads as "my team is failing in X ways," step back — that's frustration, not diagnosis. Real diagnosis is calibrated.
-- **Aggregating individual problems into team problems prematurely.** One unhappy report is not a team morale issue.
-- **Conflating people problems with system problems.** If three people leave because their manager is failing them, that's a system problem (the manager) not "attrition risk." The fix is different.
-- **Skipping "what's working."** A diagnosis with no greens is wrong; some things are working, even on troubled teams.
-- **Action items without owners or dates.** "We should improve information flow" is not an action item.
-- **Treating eng survey scores as ground truth.** They're one data point. A team can score green on the survey and be quietly burning out, and vice versa.
+- **Diagnosis as venting** — calibrated, not a failure list.
+- **Aggregating prematurely** — one unhappy report isn't a morale issue.
+- **Conflating people with system problems** — three leave over a failing manager: a system problem, different fix.
+- **Skipping "what's working"** — no greens means the diagnosis is wrong.
+- **Actions without owners or dates.**
+- **Surveys as ground truth** — green surveys can hide burnout.
 
 ## Composition with other skills
 
-- **`stakeholder-reflect` (managing-down + teams)** — primary source. The longitudinal entries on individuals and the team file are what the diagnosis is built on.
-- **`stakeholder-synthesize`** — for the per-individual lens before zooming out to team patterns. They compose: synthesize first, then diagnose.
-- **`leadership-os` (Heat Shield, Diplomat, Triage Lead modes)** — for the conversations that follow the diagnosis. The diagnosis is the artifact; leadership-os is the action.
-- **`performance-management`** — when the diagnosis surfaces an individual underperformance issue, switch tools.
-- **`one-on-one-prep`** — top-3 risks identified should land in specific 1:1 conversations.
-- **`decision-log`** — log significant decisions arising from the diagnosis (e.g. "decided not to pursue X reorg because of Y dimension's fragility").
-- **`the-research-synthesizer`** — useful as a parallel discipline for processing the team's qualitative data (retros, surveys) the way a research synthesizer would.
+- **`stakeholder-reflect` (managing-down + teams)** — primary source
+- **`stakeholder-synthesize`** — per-individual lens first, then team patterns
+- **`leadership-os` (Heat Shield, Diplomat, Triage Lead)** — the follow-up conversations
+- **`performance-management`** — switch tools when individual underperformance surfaces
+- **`one-on-one-prep`** — top-3 risks land in specific 1:1s
+- **`decision-log`** — log decisions arising from the diagnosis
+- **`the-research-synthesizer`** — parallel discipline for qualitative data

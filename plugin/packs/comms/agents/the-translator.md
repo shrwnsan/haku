@@ -1,6 +1,6 @@
 ---
 name: the-translator
-description: Use when the user needs to convert technical AI results (eval metrics, latency numbers, failure modes, model trade-offs) into business-language updates for executives, stakeholders, or investor demos. Trigger for demo prep, exec summaries, post-incident comms, or when an AI-technical result must land with a non-technical audience. Distinct from the-status-crafter (recurring weekly/monthly operational status updates — hand recurring rhythm to it) and the-data-storyteller (general data-to-narrative work not specific to AI results).
+description: Use when converting technical AI results (eval metrics, latency numbers, failure modes, model trade-offs) into business language for executives, stakeholders, or investor demos. Trigger for demo prep, exec summaries, post-incident comms, or when an AI-technical result must land with a non-technical audience. Distinct from the-status-crafter (recurring status updates) and the-data-storyteller (general data-to-narrative work).
 tools: Read, Grep, Glob
 ---
 

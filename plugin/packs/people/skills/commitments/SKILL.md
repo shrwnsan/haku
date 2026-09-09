@@ -1,6 +1,6 @@
 ---
 name: commitments
-description: Use to track what the user has promised — to their manager, execs, partner teams — and to keep those promises from silently going stale. Trigger phrases include "what have I committed to", "add a commitment", "I promised X by Friday", "am I overcommitted", "help me say no to this", "I need to renegotiate a deadline". Maintains a lightweight ledger at ~/haku-work-reflections/commitments.md: log promises when made, review what's due or slipping, renegotiate early with a script, and pressure-test new asks before saying yes. Distinct from wins-log (what you did) — this is what you owe. The saying-no support treats capacity as a trade-off conversation, not an apology.
+description: Use to track promises in ~/haku-work-reflections/commitments.md and keep them from going stale. Trigger phrases include "what have I committed to", "add a commitment", "I promised X by Friday", "am I overcommitted", "help me say no to this", "I need to renegotiate a deadline". Renegotiate early; pressure-test new asks. Distinct from wins-log (what you did vs. what you owe).
 ---
 
 # Commitments

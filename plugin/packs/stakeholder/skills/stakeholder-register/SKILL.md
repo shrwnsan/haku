@@ -1,6 +1,6 @@
 ---
 name: stakeholder-register
-description: Use when the user wants to register a new stakeholder for ongoing reflection — a manager, peer, direct report, or team. Trigger phrases include "add a new stakeholder", "register Jill in managing-across", "I just got a new manager", "I'm now leading the X team", "let me set up reflection for [name]". Creates a persistent file at `~/haku-work-reflections/<category>/<slug>.md` that the `stakeholder-reflect`, `stakeholder-due`, and `stakeholder-synthesize` skills will use.
+description: Use when the user wants to register a new stakeholder for ongoing reflection — manager, peer, direct report, or team. Triggers include "add a new stakeholder", "register Jill in managing-across", "I just got a new manager", "I'm now leading the X team", "let me set up reflection for [name]". Creates a persistent file at `~/haku-work-reflections/<category>/<slug>.md` used by `stakeholder-reflect`, `stakeholder-due`, and `stakeholder-synthesize`.
 ---
 
 # Stakeholder Register

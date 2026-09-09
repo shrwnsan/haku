@@ -1,6 +1,6 @@
 ---
 name: tech-strategy-writer
-description: Use when a senior IC (staff/principal engineer, architect, tech lead) needs to write a technical strategy or direction doc — where a system or domain should go over 12–24 months and why. Trigger phrases include "write a tech strategy for [domain]", "I need a technical direction doc", "our platform needs a north star doc", "help me write the tech vision for [area]". The staff+ artifact: turning engineering judgment into direction others can follow without you in the room. Distinct from strategy-doc (its product/business peer) and the-rfc-reviewer (reviewing one proposal). Saves to strategy/tech-<area>.md.
+description: Use when a senior IC (staff/principal, architect, tech lead) writes a technical strategy or direction doc. Trigger phrases include "write a tech strategy for [domain]", "I need a technical direction doc", "our platform needs a north star doc", "help me write the tech vision for [area]". Distinct from strategy-doc (product/business peer) and the-rfc-reviewer (one proposal). Saves to strategy/tech-<area>.md.
 ---
 
 # Tech Strategy Writer
