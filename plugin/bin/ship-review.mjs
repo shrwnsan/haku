@@ -11,6 +11,8 @@
 //   --base <ref>            diff range <ref>...HEAD
 //   --staged                diff of staged changes (git diff --cached)
 //   --decision-pattern <re> repo's decision-ID pattern (default: ADR + decisions/)
+//   --decision-doc <path>   extra spec doc for P3 (repeatable) — for repos whose
+//                           decision log is a file, not a directory (haku: docs/LEAN-PLAN.md)
 //   --require-decision      P1 applies even without a decisions/ directory
 //   --strict                a skipped predicate is a failure, not a pass
 //
@@ -45,6 +47,18 @@ try {
 } catch {
   console.error(`ship-review: --decision-pattern is not a valid regex: ${decisionPatternSrc}`);
   process.exit(1);
+}
+
+const decisionDocs = [];
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === "--decision-doc") {
+    const path = args[++i];
+    if (!path) {
+      console.error("ship-review: --decision-doc requires a path");
+      process.exit(1);
+    }
+    decisionDocs.push(path);
+  }
 }
 
 function git(...cmdArgs) {
@@ -111,6 +125,11 @@ function p3(files) {
 
   const decisionDirs = ["decisions", "docs/decisions"].filter((d) => existsSync(d));
   const specTexts = [];
+  for (const path of decisionDocs) {
+    if (existsSync(path)) {
+      specTexts.push({ name: path, text: readFileSync(path, "utf8") });
+    }
+  }
   for (const dir of decisionDirs) {
     for (const entry of readdirSync(dir)) {
       if (entry.endsWith(".md")) {

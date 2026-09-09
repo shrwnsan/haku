@@ -31,4 +31,9 @@ const here = new URL(".", import.meta.url).pathname;
 const res = spawnSync("node", [`${here}ship-review.mjs`, "--staged"], {
   stdio: ["ignore", "ignore", "inherit"],
 });
+if (res.error) {
+  // Local hook fails open on infrastructure failure — CI is the enforced gate.
+  console.error(`ship-review-hook: could not run ship-review (${res.error.code ?? res.error}); commit proceeding`);
+  process.exit(0);
+}
 process.exit(res.status === 0 ? 0 : 2);

@@ -6,6 +6,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# HAS_JUDGE lives at workflow level: job-level env is not in scope for that
+# job's own `if:` (Gilfoyle review, feat/gates-hooks round 1, blocker 1).
+env:
+  HAS_JUDGE: ${{ secrets.ANTHROPIC_BASE_URL != '' && secrets.ANTHROPIC_AUTH_TOKEN != '' }}
+
 jobs:
   # Deterministic gates — always run, no secrets, no cost (LEAN-PLAN §4 P4).
   routing-dry:
@@ -46,7 +51,7 @@ jobs:
         with:
           node-version: 20
       - name: Ship-review predicates
-        run: node plugin/bin/ship-review.mjs --base "origin/${{ github.base_ref }}" --strict --require-decision --decision-pattern '\bD[0-9]+\b'
+        run: node plugin/bin/ship-review.mjs --base "origin/${{ github.base_ref }}" --strict --require-decision --decision-pattern '\bD[0-9]+\b' --decision-doc docs/LEAN-PLAN.md
 
   # Judgment lives in CI, not in the hook (LEAN-PLAN §8 D2). Runs the live
   # routing suite with the judge pinned in baseline.json; tolerance per §6
@@ -54,8 +59,6 @@ jobs:
   # Skips silently when judge credentials aren't configured (e.g. forks).
   routing-live:
     runs-on: ubuntu-latest
-    env:
-      HAS_JUDGE: ${{ secrets.ANTHROPIC_BASE_URL != '' && secrets.ANTHROPIC_AUTH_TOKEN != '' }}
     if: env.HAS_JUDGE == 'true'
     steps:
       - uses: actions/checkout@v4

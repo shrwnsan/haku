@@ -47,12 +47,12 @@ The decide → spec → evidence loop is enforced by gate contracts in `plugin/g
 
 Pre-merge predicates live in `plugin/bin/ship-review.mjs` — pure code assertions, no LLM (LEAN-PLAN §4, §8 D2):
 
-- **P1** — added lines cite a decision-log entry (`--decision-pattern`, default ADR/`decisions/`; haku's CI uses `\bD[0-9]+\b` for LEAN-PLAN §8 entries)
+- **P1** — added lines cite a decision-log entry (`--decision-pattern`, default ADR/`decisions/`; haku's CI uses `\bD[0-9]+\b` for LEAN-PLAN §8 entries; the match is deliberately loose — verifying the cited entry exists in the log is a known follow-up)
 - **P2** — routing surface changed (`plugin/skills/*/SKILL.md`, `plugin/agents/*.md`, pack equivalents) ⇒ `evals/` changed with it
-- **P3** — `FLAG:`/`SHADOW:` tokens in added lines must appear in a doc under `decisions/` or `docs/decisions/`
+- **P3** — `FLAG:`/`SHADOW:` tokens in added lines must appear in a doc under `decisions/` or `docs/decisions/`, or a file passed via repeatable `--decision-doc`; haku's CI points at `docs/LEAN-PLAN.md` (the §8 log is the declaration home — don't fork a second one)
 - **P4** — routing dry-run gate
 
-Run locally: `node plugin/bin/ship-review.mjs --staged` (pre-commit) or `--base origin/main` (PR-shaped). Predicates self-skip when their subject doesn't exist, so the script is safe in foreign repos; pass `--strict --require-decision` (as CI does) to make skips loud. When the plugin is installed, `plugin/hooks/hooks.json` runs the same script as a PreToolUse hook on `git commit`. CI (`.github/workflows/ci.yml`) adds the live routing suite — majority of 3, judge pinned in `baseline.json`, skipped when judge secrets are absent.
+Run locally: `node plugin/bin/ship-review.mjs --staged` (pre-commit) or `--base origin/main` (PR-shaped). Predicates self-skip when their subject doesn't exist, so the script is safe in foreign repos; pass `--strict --require-decision` (as CI does) to make skips loud. When the plugin is installed, `plugin/hooks/hooks.json` runs the same script as a PreToolUse hook on `git commit` (fail-open on infrastructure errors; CI is the enforced gate). Enforcement is PR-shaped: the `ship-review` job runs on pull_request only, so merge to main via PR — direct pushes bypass the predicates. CI (`.github/workflows/ci.yml`) adds the live routing suite — majority of 3, judge pinned in `baseline.json`, skipped when judge secrets are absent.
 
 ## Installation mechanics
 
