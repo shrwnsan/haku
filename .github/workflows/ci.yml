@@ -1,0 +1,95 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  # Deterministic gates — always run, no secrets, no cost (LEAN-PLAN §4 P4).
+  routing-dry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Core dry-run
+        run: node evals/routing/run-routing.mjs --dry-run
+      - name: Pack dry-runs
+        run: |
+          for pack in plugin/packs/*/; do
+            name=$(basename "$pack")
+            echo "== pack: $name =="
+            node evals/routing/run-routing.mjs --dry-run --pack "$name"
+          done
+
+  gates-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/lint-gates.mjs
+
+  ship-review:
+    # P1–P3 are diff predicates; they only mean something against a base.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Ship-review predicates
+        run: node plugin/bin/ship-review.mjs --base "origin/${{ github.base_ref }}" --strict --require-decision --decision-pattern '\bD[0-9]+\b'
+
+  # Judgment lives in CI, not in the hook (LEAN-PLAN §8 D2). Runs the live
+  # routing suite with the judge pinned in baseline.json; tolerance per §6
+  # step 0 — a single-case flip must confirm across runs before failing.
+  # Skips silently when judge credentials aren't configured (e.g. forks).
+  routing-live:
+    runs-on: ubuntu-latest
+    env:
+      HAS_JUDGE: ${{ secrets.ANTHROPIC_BASE_URL != '' && secrets.ANTHROPIC_AUTH_TOKEN != '' }}
+    if: env.HAS_JUDGE == 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Claude CLI
+        run: npm install -g @anthropic-ai/claude-code
+      - name: Judge drift check
+        env:
+          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
+          ANTHROPIC_AUTH_TOKEN: ${{ secrets.ANTHROPIC_AUTH_TOKEN }}
+        run: |
+          MODEL=$(node -p "require('./evals/routing/baseline.json').judge.model")
+          PINNED_CLI=$(node -p "require('./evals/routing/baseline.json').judge.cli")
+          CURRENT_CLI="claude@$(claude --version 2>/dev/null | head -n1)"
+          echo "judge model (from baseline.json): $MODEL"
+          echo "cli pinned in baseline: $PINNED_CLI / installed: $CURRENT_CLI"
+          if [ "$CURRENT_CLI" != "$PINNED_CLI" ]; then
+            echo "::warning::claude CLI version drifted from baseline.json — if flaky cases appear, this is the first suspect (regenerate baseline via a decision-citing commit)"
+          fi
+      - name: Run live suite (majority of 3)
+        env:
+          ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
+          ANTHROPIC_AUTH_TOKEN: ${{ secrets.ANTHROPIC_AUTH_TOKEN }}
+        run: |
+          MODEL=$(node -p "require('./evals/routing/baseline.json').judge.model")
+          greens=0
+          for i in 1 2 3; do
+            if node evals/routing/run-routing.mjs --model "$MODEL"; then
+              greens=$((greens+1))
+            fi
+          done
+          echo "green runs: $greens/3"
+          [ "$greens" -ge 2 ] || { echo "routing regression confirmed"; exit 1; }
