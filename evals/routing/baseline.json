@@ -1,11 +1,11 @@
 {
   "_comment": "Routing baseline (LEAN-PLAN §6 step 0). Regenerate only via a decision-citing commit (§8 D4). Gate tolerance: a single-case flip re-runs twice and fails only if confirmed — the judge is stochastic.",
-  "commit": "e5a524f50f612af52385afa4877c80bac2731a91",
-  "generatedAt": "2026-09-09T18:25:31.498Z",
+  "commit": "56cc84bbe565571fdc2af7c2d4a9a6951bdadacb",
+  "generatedAt": "2026-09-09T18:36:08.998Z",
   "judge": {
     "runner": "evals/routing/run-routing.mjs",
     "cli": "claude@2.1.128",
-    "model": "glm-5-turbo"
+    "model": "glm-5.3-flash"
   },
   "runs": [
     {
