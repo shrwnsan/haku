@@ -8,7 +8,7 @@
     {
       "name": "haku",
       "source": "./plugin",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "description": "For people who'd rather decide well than write fast: an always-on core (8 skills + 5 gate agents) plus 8 opt-in packs you bolt on per role.",
       "author": {
         "name": "shrwnsan"
