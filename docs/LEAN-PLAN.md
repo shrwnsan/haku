@@ -1,4 +1,4 @@
-# LEAN-PLAN — bettersense v2 architecture
+# LEAN-PLAN — haku architecture (the bettersense v2 redesign)
 
 Status: plan v1.1 (Gilfoyle round-2 sign-off. This revision folds in amendments from Teresa Torres' "AI Evals: A Hands-On Guide for Product Teams" and the spin-out decision — see §8 for the decision log.)
 
