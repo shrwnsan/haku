@@ -17,6 +17,8 @@ Most "AI for leaders" tooling is a big library of frameworks with a context tax 
 
 Everything else is content, and content is opt-in: `people`, `stakeholder`, `team`, `comms`, `leadership`, `engineering-ops`, `research`, `evals` — installed as a unit with `scripts/install.sh --pack <name>`, each pack bringing its own eval cases.
 
+The loop's shape tracks the AI-native SDLC playbook—decide, spec, evals as gates—with one deliberate divergence: capture-is-the-sensor, no ambient telemetry.
+
 Measure, then ship.
 
 ## License & attribution

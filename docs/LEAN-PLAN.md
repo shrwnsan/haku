@@ -8,7 +8,7 @@ Branch model: `main` tracks `upstream/main` (shwetank/bettersense) — never div
 
 The plugin's value is not its 54 skills — it is four mechanisms: routing evals, compounding memory (user-profile), starter-kit onboarding, cadence monitors. Everything else is content, and content has a context tax paid on every session.
 
-The AI-native SDLC has moved the bottleneck from writing to deciding: intent → spec with acceptance criteria (= eval cases) → constrained execution → eval-gated merge → progressive delivery → telemetry → next intent. Humans sit at decision points; governance is hooks-as-gates. A leadership plugin shaped for that world is not a bigger library of frameworks — it is a small core that runs the decide→spec→evidence loop, with optional packs bolted on per role.
+The AI-native SDLC has moved the bottleneck from writing to deciding: intent → spec with acceptance criteria (= eval cases) → constrained execution → eval-gated merge → progressive delivery → telemetry → next intent. Humans sit at decision points; governance is hooks-as-gates. A leadership plugin shaped for that world is not a bigger library of frameworks — it is a small core that runs the decide→spec→evidence loop, with optional packs bolted on per role. (The shape tracks Anthropic's AI-native SDLC playbook — intent, spec, evals-as-gates — with one divergence: the telemetry stage is parked, see §9.)
 
 So: slim to an 8-skill core + 5 gate agents, convert the remaining 68 items into opt-in packs, replace process skills with deterministic hooks where possible, and put every body on a word diet.
 
