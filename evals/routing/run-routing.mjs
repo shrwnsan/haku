@@ -28,6 +28,8 @@ const dryRun = args.includes("--dry-run");
 const verbose = args.includes("--verbose");
 const limitArg = args.indexOf("--limit");
 const limit = limitArg !== -1 ? parseInt(args[limitArg + 1], 10) : Infinity;
+const modelArg = args.indexOf("--model");
+const model = modelArg !== -1 ? args[modelArg + 1] : null;
 
 // ---- Load the candidates (skills + agents) from the plugin ---------------
 
@@ -100,7 +102,7 @@ function askClaude(prompt) {
   // Pass the prompt on stdin — it's large, and giant argv strings are fragile.
   // spawnSync (unlike execFileSync) doesn't throw on nonzero exit, so we can
   // always inspect stdout for the JSON envelope, including its error form.
-  const res = spawnSync("claude", ["-p", "--output-format", "json"], {
+  const res = spawnSync("claude", ["-p", "--output-format", "json", ...(model ? ["--model", model] : [])], {
     input: prompt,
     encoding: "utf8",
     maxBuffer: 32 * 1024 * 1024,
