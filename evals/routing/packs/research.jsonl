@@ -1,2 +1,5 @@
 // research pack routing cases. Run with the pack installed: run-routing.mjs --pack research
 {"id":"discovery","prompt":"We think AI could help here, but I need to scope what problem we're actually solving before anyone writes a spec.","expect":"the-discovery-facilitator","must_not_fire":["the-spec-writer","the-reducer"]}
+// TODO(AI): reducer-vs-discovery is a known miss here (3 pass / 3 fail when the-discovery-facilitator
+// competes) — sharpen the-reducer vs the-discovery-facilitator descriptions in feat/body-diet.
+// See baseline.json knownMisses.
