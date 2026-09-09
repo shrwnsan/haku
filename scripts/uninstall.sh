@@ -176,6 +176,36 @@ for name in "${BUNDLE_AGENT_NAMES[@]}"; do
   fi
 done
 
+# ---------- legacy bettersense links (pre-rename installs, LEAN-PLAN §8 D8) ----------
+# Old installs symlinked into a *bettersense* checkout. This repo's name-based
+# loop can't see them once the clone is gone or renamed — find and offer.
+
+for dir in "$TARGET_SKILLS" "$TARGET_AGENTS"; do
+  [ -d "$dir" ] || continue
+  while IFS= read -r -d '' link; do
+    target="$(readlink "$link")"
+    case "$target" in
+      *bettersense*)
+        [ "$target" = "$REPO_ROOT" ] && continue
+        case "$target" in "$REPO_ROOT"/*) continue ;; esac
+        if [ $DRY_RUN -eq 1 ]; then
+          echo "  would offer to remove (legacy bettersense link): $link"
+        else
+          read -p "  remove legacy bettersense link $link? [y/N] " -n 1 -r
+          echo
+          if [[ $REPLY =~ ^[Yy]$ ]]; then
+            rm -f "$link"
+            echo "  removed (legacy bettersense link): $link"
+            REMOVED_SYMLINKS=$((REMOVED_SYMLINKS + 1))
+          else
+            LEFT_ALONE=$((LEFT_ALONE + 1))
+          fi
+        fi
+        ;;
+    esac
+  done < <(find "$dir" -maxdepth 2 -type l -print0)
+done
+
 # ---------- summary ----------
 
 echo
