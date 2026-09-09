@@ -5,7 +5,7 @@ description: Use for the user's recurring weekly review ritual — one guided se
 
 # Weekly
 
-One sitting, four segments, fifteen minutes. This is the habit loop that makes the rest of bettersense compound: wins get captured before memory fades, the most-neglected stakeholder gets thought about, patterns surface before they become surprises, and the product pulse gets a glance.
+One sitting, four segments, fifteen minutes. This is the habit loop that makes the rest of haku compound: wins get captured before memory fades, the most-neglected stakeholder gets thought about, patterns surface before they become surprises, and the product pulse gets a glance.
 
 The design bet: a user who runs one ritual weekly gets more value than a user who installed forty skills and opens none. Never make this session feel like homework.
 
@@ -54,16 +54,16 @@ Then stop. Don't upsell other skills at the close; the ritual earns its place by
 
 ## Scheduling the ritual
 
-- **On demand** — most users: a calendar block Friday afternoon or Monday morning, then `/bettersense:weekly`.
+- **On demand** — most users: a calendar block Friday afternoon or Monday morning, then `/haku:weekly`.
 - **Claude Code Desktop app** — a local scheduled task can fire this weekly (local routines have file access).
 - **Headless/cron** — power users can pre-compute the due lists so the interactive session starts warm:
 
   ```bash
   # Friday 3pm: compute what's due, save to a scratch note
-  0 15 * * 5  claude -p "run /bettersense:stakeholder-due and /bettersense:wins-due, write the combined output to ~/bettersense-work-reflections/due-this-week.md" --allowedTools "Read,Write,Glob,Grep"
+  0 15 * * 5  claude -p "run /haku:stakeholder-due and /haku:wins-due, write the combined output to ~/bettersense-work-reflections/due-this-week.md" --allowedTools "Read,Write,Glob,Grep"
   ```
 
-  Cloud routines cannot access local files and won't work with bettersense.
+  Cloud routines cannot access local files and won't work with haku.
 
 ## Anti-patterns
 

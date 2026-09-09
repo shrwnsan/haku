@@ -35,7 +35,7 @@ Expected structure where content implies it: `profile.md`, `wins.md`, `strategy/
 
 ### 5. Backup status
 
-The check most likely to matter someday. Is the directory a git repo with a remote, and when did it last commit? If not: report size and age of the data ("214 entries across 9 files since 2026-01"), and offer a **snapshot** (`tar -czf ~/bettersense-backup-YYYY-MM-DD.tar.gz -C ~ bettersense-work-reflections`) or **versioning** (`git init` + first commit, noting any remote must be private and that pushing sends the data to that host — the user's call, stated plainly). Flag a backup older than ~30 days of new entries.
+The check most likely to matter someday. Is the directory a git repo with a remote, and when did it last commit? If not: report size and age of the data ("214 entries across 9 files since 2026-01"), and offer a **snapshot** (`tar -czf ~/haku-backup-YYYY-MM-DD.tar.gz -C ~ bettersense-work-reflections`) or **versioning** (`git init` + first commit, noting any remote must be private and that pushing sends the data to that host — the user's call, stated plainly). Flag a backup older than ~30 days of new entries.
 
 ### 6. Plugin health (lean)
 
@@ -59,7 +59,7 @@ The check most likely to matter someday. Is the directory a git repo with a remo
 
 ## Proposed fixes (each needs your OK)
 1. Re-register alex-kim.md (keeps all 12 entries)
-2. Create tonight's snapshot: tar -czf ~/bettersense-backup-...
+2. Create tonight's snapshot: tar -czf ~/haku-backup-...
 ```
 
 Then walk fixes one at a time. End by suggesting a cadence: *"Run me again whenever something feels off, after hand-editing files, or before a machine migration."*
