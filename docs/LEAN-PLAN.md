@@ -1,8 +1,8 @@
 # LEAN-PLAN — bettersense v2 architecture
 
-Status: plan (Gilfoyle round 2 conditional sign-off; the three blocking artifacts below are now landed: §3 disposition table, §4 hook predicates, §5 gate contracts).
+Status: plan v1.1 (Gilfoyle round-2 sign-off. This revision folds in amendments from Teresa Torres' "AI Evals: A Hands-On Guide for Product Teams" and the spin-out decision — see §8 for the decision log.)
 
-Branch model: `main` tracks `upstream/main` (shwetank/bettersense) — never diverges, fast-forward only. `lean` is the integration branch for this redesign. Feature work happens on `feat/*` branches in git worktrees, merged into `lean`.
+Branch model: `main` tracks `upstream/main` (shwetank/bettersense) — never diverges, fast-forward only. `lean` is the integration branch for this redesign. Feature work happens on `feat/*` branches in git worktrees, merged into `lean`. Plan is to spin `lean` out into a standalone repo after the first feat branch merges gates-green (§8 D3) — until then this preamble stands.
 
 ## 1. Thesis
 
@@ -11,6 +11,8 @@ The plugin's value is not its 54 skills — it is four mechanisms: routing evals
 The AI-native SDLC has moved the bottleneck from writing to deciding: intent → spec with acceptance criteria (= eval cases) → constrained execution → eval-gated merge → progressive delivery → telemetry → next intent. Humans sit at decision points; governance is hooks-as-gates. A leadership plugin shaped for that world is not a bigger library of frameworks — it is a small core that runs the decide→spec→evidence loop, with optional packs bolted on per role.
 
 So: slim to an 8-skill core + 5 gate agents, convert the remaining 68 items into opt-in packs, replace process skills with deterministic hooks where possible, and put every body on a word diet.
+
+The eval mechanism is layered by cost (per Torres' eval taxonomy): deterministic code assertions wherever possible (the ship-review hook, §4); a golden dataset for routing — the canonical golden-dataset use case; judge agents only for semantic quality, and then narrow tasks with binary verdicts and a tracked error rate (§5); and user-reported outcomes (wins-log, capture) as ground truth. One honesty note: this plugin has no ambient telemetry — nobody reports a routing miss unless someone captures it. `capture` is the sensor.
 
 ## 2. Target architecture
 
@@ -35,11 +37,13 @@ So: slim to an 8-skill core + 5 gate agents, convert the remaining 68 items into
 | `research` | 3 agents (discovery, gtm, research-synthesis) |
 | `evals` | 3 agents (eval-designer, prompt-critic, scientist) |
 
-`doctor` becomes pack-aware: reports installed packs, flags packs whose eval cases stopped running, warns when a core gate is missing.
+`doctor` becomes pack-aware: reports installed packs, flags packs whose eval cases stopped running, warns when a core gate is missing, and reports error categories with zero eval coverage.
 
 **Deleted:** 2 skills (§3). Everything else has a pack home — nothing else is deleted in v2.
 
 **Monitors:** keep `check-wins-cadence` (14-day). Drop the rest until a pack needs one.
+
+**Eval feedback loop:** the-retro-facilitator inside `weekly` reviews the week's CI routing failures on the golden set (recycled — circular, but real regression value) and capture-logged misses (the human sensor), and proposes new eval cases from them. This is the loop's only telemetry; without `capture`, it only recycles its own CI failures.
 
 ## 3. Disposition table (76 rows)
 
@@ -144,7 +148,9 @@ The hook runs pre-merge (CI job + local PreToolUse on `git commit`). Determinist
 - **P3 flag/shadow tokens:** any added line containing a `FLAG:` or `SHADOW:` token must have that same token present in the spec doc referenced by the decision-log entry. Fail → "behavior behind a flag not declared in spec."
 - **P4 dry-run gate (existing):** `node evals/routing/run-routing.mjs --dry-run` exits non-zero → block.
 
-Judgment work — quality of the decision, red-team depth, RFC review substance — is NOT in the hook. It runs as CI jobs invoking the gate agents under the bounded contracts in §5.
+Judgment work — quality of the decision, red-team depth, RFC review substance — is NOT in the hook. It runs as CI jobs invoking the gate agents under the bounded contracts in §5. Nor does the hook compare eval scores or invoke any LLM — recorded as a deliberate negative decision in §8 D2: the hook is pure code assertions, and score comparison lives in CI.
+
+**Eval case provenance:** every new case added to `evals/routing/cases.jsonl` must carry a `source` field citing the observed failure that motivated it (routing miss, doctor finding, user-reported via `capture`). Presence is enforced by the dry-run schema check; the-retro-facilitator samples sourced cases monthly and kills cases with fabricated ancestry.
 
 ## 5. Gate contracts (`gates/<name>/gate.md`)
 
@@ -169,10 +175,13 @@ failure:   <path, e.g. "proceed-with-exception requires human sign-off recorded 
 
 Retro is not a merge gate — it runs inside `weekly` (the-retro-facilitator) and feeds the next intent.
 
+**Judge discipline:** gate verdicts are per-criterion binary (true/false + notes) — never holistic quality scores. Each judge gets a task narrower than the artifact under review, and the judge disagreement rate is logged per gate run: that rate is the gate's known error rate, reported alongside verdicts rather than hidden.
+
 ## 6. Execution plan
 
 Worktrees off `lean`, one feat branch per worker, merged back in order:
 
+0. **Baseline first.** Before `feat/packs` starts, commit `evals/routing/baseline.json`: an N=3-run aggregate of the routing suite at this commit, with the judge model and version pinned inside the file. Every feat branch gates against this baseline — not against `main`. Baseline mutation policy: `baseline.json` is regenerated only by a decision-citing commit (§8 D4), never as a side effect of adding cases. Tolerance: a single-case flip re-runs twice and fails only if confirmed — the judge is stochastic, so a hard zero band would flake.
 1. `feat/packs` — mechanical moves per §3; pack manifests; pack-scoped eval case splits. No prose edits.
 2. `feat/core-slim` — rewrite the 8 core skills to budget (≤800w each, ≤10K total); doctor pack-awareness.
 3. `feat/gates-hooks` — `gates/*/gate.md` contracts + ship-review hook (P1–P4) + CI wiring.
@@ -184,5 +193,15 @@ Gate for every branch: routing suite green before and after (`run-routing.mjs --
 
 - Install surface: default = 8 skills + 5 agents (was 54 + 22).
 - Word budget: core ≤ 10K words (was ~94K across skills+agents).
-- Routing: core must-fire/must-not-fire precision and recall unchanged vs `main`.
+- Routing: core must-fire/must-not-fire precision and recall within tolerance of the pre-feat baseline (§6 step 0) — baseline.json pins the judge model + version; regenerating it requires a decision-citing commit.
+- Eval provenance: every new eval case carries a `source` field; retro-facilitator audits samples monthly; judge disagreement rate logged per gate run (§5).
 - Every merge on `lean` cites a decision, passes parity + dry-run predicates.
+
+## 8. Decision log
+
+Decisions a future contributor would relightigate, recorded once:
+
+- **D1 — `weekly` and `wins-log` stay CORE.** They are the cadence and evidence anchors that gates and retro read; packing either breaks the decide→spec→evidence loop the core exists to run.
+- **D2 — the ship-review hook stays pure code assertions.** Eval-score comparison and LLM judgment are excluded from the hook and live in CI jobs with the gate agents. Rationale: cheapest-eval-that-works — code assertions are free and deterministic (§4 P1–P4); judgment is expensive and belongs behind the bounded gate contracts (§5).
+- **D3 — spin out to a standalone repo.** This product targets lean/agile teams — solo builders and teams of ≤5 — and needs its own name, README, and marketplace entry, none of which a fork can carry. License condition: upstream is CC BY-SA 4.0, so the standalone repo attributes bettersense/Shwetank and carries the same license. Timing: identity work proceeds in parallel now; the remote flip happens after the first feat branch merges gates-green; the fork then remains as an archived upstream-tracking reference. Cost acknowledged: the eval suite migrates with the repo — transitional double-green only during the migration window.
+- **D4 — routing baseline = pre-feat `lean`, not `main`.** Once packs land, this tree diverges from the upstream mirror; comparing feat branches against upstream's numbers measures the wrong thing. `baseline.json` regenerates only via a decision-citing commit, with the judge model + version pinned, so a silent model bump cannot invalidate comparisons.
