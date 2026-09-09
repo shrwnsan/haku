@@ -39,6 +39,19 @@ jobs:
           node-version: 20
       - run: node scripts/lint-gates.mjs
 
+  # D9: the committed dist/ package must match a fresh emit — catches hand-edits
+  # and skill changes made without re-running scripts/emit-portable.mjs.
+  portable-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/emit-portable.mjs --check
+
   ship-review:
     # P1–P3 are diff predicates; they only mean something against a base.
     if: github.event_name == 'pull_request'
