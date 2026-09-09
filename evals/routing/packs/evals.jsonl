@@ -1,0 +1,3 @@
+// evals pack routing cases. Run with the pack installed: run-routing.mjs --pack evals
+{"id":"eval-designer","prompt":"How do I build a golden dataset and eval harness for our classifier?","expect":"the-eval-designer","must_not_fire":["metrics-design"]}
+{"id":"prompt-critic","prompt":"Is this system prompt good enough to ship?","expect":"the-prompt-critic","must_not_fire":["the-red-teamer"]}

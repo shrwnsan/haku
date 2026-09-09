@@ -1,0 +1,11 @@
+// people pack routing cases. Run with the pack installed: run-routing.mjs --pack people
+{"id":"career-retro","prompt":"It's review season. Take stock of how I've actually grown across everything this year.","expect":"career-retro","must_not_fire":["wins-curate","self-reflect"]}
+{"id":"wins-curate","prompt":"Build my promo packet from the wins I've logged.","expect":"wins-curate","must_not_fire":["career-retro","report-promo-case"]}
+{"id":"self-reflect","prompt":"Let me reflect on how I handled the standup this morning.","expect":"self-reflect","must_not_fire":["career-retro"]}
+{"id":"one-on-one","prompt":"I have a 1:1 with Jordan tomorrow, help me prep.","expect":"one-on-one-prep","must_not_fire":["stakeholder-reflect"]}
+{"id":"feedback","prompt":"How do I tell my report he's been cutting people off in standups?","expect":"feedback-frameworks","must_not_fire":["performance-management","coaching-mode"]}
+{"id":"perf-mgmt","prompt":"I think I need to put Sam on a PIP — feedback hasn't worked.","expect":"performance-management","must_not_fire":["feedback-frameworks"]}
+{"id":"coaching","prompt":"Coach me through helping Priya figure out her next project without me just telling her what to do.","expect":"coaching-mode","must_not_fire":["feedback-frameworks","report-career-architect"]}
+{"id":"commitments","prompt":"What have I promised my VP that I still haven't delivered?","expect":"commitments","must_not_fire":["wins-log"]}
+{"id":"visibility","prompt":"Nobody senior knows what I do and I just got passed over for promotion.","expect":"visibility-sponsorship","must_not_fire":["wins-curate","the-career-coach"]}
+{"id":"influence","prompt":"I need the platform team to prioritize my migration and they don't report to me.","expect":"influence-without-authority","must_not_fire":["the-program-manager"]}

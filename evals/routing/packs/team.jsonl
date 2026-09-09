@@ -1,0 +1,3 @@
+// team pack routing cases. Run with the pack installed: run-routing.mjs --pack team
+{"id":"team-workspace","prompt":"I want to share our team charter with the whole team so we all work from the same version.","expect":"team-workspace","must_not_fire":["team-charter","stakeholder-manage"]}
+{"id":"team-workspace-refuse","prompt":"Can I put my private notes on my reports into the shared team repo?","expect":"team-workspace","must_not_fire":["stakeholder-reflect"],"note":"should route here so the skill can enforce the privacy wall and refuse"}

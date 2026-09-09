@@ -1,0 +1,7 @@
+// comms pack routing cases. Run with the pack installed: run-routing.mjs --pack comms
+{"id":"translator","prompt":"I need to brief the CEO on why our model accuracy regressed this quarter.","expect":"the-translator","must_not_fire":["the-status-crafter","the-data-storyteller"]}
+{"id":"status-crafter","prompt":"Help me write my weekly status update for leadership that actually gets read.","expect":"the-status-crafter","must_not_fire":["the-translator","the-data-storyteller"]}
+{"id":"data-storyteller","prompt":"I've got a pile of engagement metrics and need to turn them into a compelling narrative for the board.","expect":"the-data-storyteller","must_not_fire":["the-translator","the-status-crafter"]}
+{"id":"exec-readout","prompt":"I'm presenting to the C-suite next week to get two headcount approved.","expect":"exec-readout-prep","must_not_fire":["demo-prep","the-status-crafter"]}
+{"id":"demo-prep","prompt":"I'm demoing the new feature live to the board on Thursday.","expect":"demo-prep","must_not_fire":["exec-readout-prep"]}
+{"id":"read-the-room","prompt":"What was actually going on in that design review? Did anyone really object or were they just being polite?","expect":"read-the-room","must_not_fire":["the-retro-facilitator"]}

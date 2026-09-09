@@ -1,0 +1,4 @@
+// leadership pack routing cases. Run with the pack installed: run-routing.mjs --pack leadership
+{"id":"premortem","prompt":"We launch next week. Let's figure out what could go wrong before we commit.","expect":"premortem","must_not_fire":["the-postmortem-facilitator"]}
+{"id":"metrics-design","prompt":"What should we measure to know this AI feature is actually working?","expect":"metrics-design","must_not_fire":["the-eval-designer"]}
+{"id":"tech-strategy","prompt":"Help me write the technical direction doc for our platform for the next 18 months.","expect":"tech-strategy-writer","must_not_fire":["strategy-doc","the-rfc-reviewer"]}
