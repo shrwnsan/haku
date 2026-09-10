@@ -15,4 +15,14 @@ Start here:
 | [Portable emit](portable.md) | `dist/agent-plugins` for Agent Plugins spec clients |
 | [License](license.md) | CC BY-SA 4.0 and the bettersense attribution |
 
+Guides, tutorials, and by-role pages:
+
+| Path | What it covers |
+|---|---|
+| `getting-started/` | [First run](getting-started/first-run.md), [how skills work](getting-started/how-skills-work.md), [examples](getting-started/examples.md) |
+| `tutorials/` | 8 step-by-step tutorials ([index](tutorials/index.md)) |
+| `guides/` | 5 worked guides—wins + stakeholder examples, profile & strategy, team workspace, scheduling |
+| `roles/` | Starter kits by role: [TPMs](roles/tpms.md), [AI PMs](roles/ai-pms.md), [EMs](roles/engineering-managers.md), [senior ICs](roles/senior-ics.md) |
+| `reference/` | [Environment variables](reference/env-vars.md), [file locations](reference/file-locations.md) |
+
 Repo-level starting points: [readme](../readme.md) (story + why), [MANIFEST](../MANIFEST.md) (everything that ships), [`docs/LEAN-PLAN.md`](LEAN-PLAN.md) (architecture and execution history, incl. the decision log).
