@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-`haku` is a lean Claude Code plugin for AI PMs, engineering managers, TPMs, and senior ICs: an always-on core (8 skills + 5 agents) that runs the decide → spec → evidence loop, plus 8 opt-in role packs. Users install from the marketplace (`shrwnsan/haku`) or by running `scripts/install.sh` (add `--pack <name>` for packs). The repo also contains an Astro/Starlight documentation site at `site/`. Architecture and execution plan: `docs/LEAN-PLAN.md`.
+`haku` is a lean Claude Code plugin for AI PMs, engineering managers, TPMs, and senior ICs: an always-on core (8 skills + 5 agents) that runs the decide → spec → evidence loop, plus 8 opt-in role packs. Users install from the marketplace (`shrwnsan/haku`) or by running `scripts/install.sh` (add `--pack <name>` for packs). User-facing documentation is the markdown corpus in `docs/` (see `docs/README.md` for the map). Architecture and execution plan: `docs/LEAN-PLAN.md`.
 
 ## Repo structure
 
@@ -13,7 +13,6 @@ plugin/           — the installable plugin (source of truth for all skills and
   skills/         — one directory per skill; each contains at minimum a SKILL.md
   agents/         — one .md file per agent
   packs/<name>/   — one pack.json per opt-in pack (lists its skills + agents)
-site/             — Astro + Starlight docs site (astro.config.mjs configures sidebar/nav)
 scripts/          — install.sh / uninstall.sh (bash) + install.ps1 / uninstall.ps1 (Windows)
 evals/routing/    — golden routing dataset, runner, and per-pack case files
 .claude-plugin/   — marketplace.json (root) + plugin/.claude-plugin/plugin.json
@@ -62,25 +61,15 @@ Run locally: `node plugin/bin/ship-review.mjs --staged` (pre-commit) or `--base 
 find ~/.claude/skills ~/.claude/agents -maxdepth 2 -type l -lname "*haku*"
 ```
 
-## Documentation site
+## Documentation
 
-The site lives in `site/` (Astro + [Starlight](https://starlight.astro.build)):
+User-facing docs are plain markdown under `docs/`, mapped by `docs/README.md`: top-level pages (install, core, packs, evals, gates, data-and-privacy, portable, license) plus `docs/getting-started/`, `docs/tutorials/`, `docs/guides/`, `docs/roles/`, and `docs/reference/`. Engineering history and the §8 decision log live in `docs/LEAN-PLAN.md`.
 
-```bash
-# from the site/ directory
-npm install
-npm run dev      # local dev server
-npm run build    # production build → site/dist/
-npm run preview  # preview the production build locally
-```
-
-The sidebar navigation is declared in `site/astro.config.mjs`. Adding a new docs page requires both a `.md`/`.mdx` file under `site/src/content/docs/` **and** a sidebar entry.
-
-Skill/agent counts on the site are generated at build time by `site/scripts/gen-counts.mjs` (wired into `predev`/`prebuild` → `site/src/data/counts.json`). Never hard-code a count in site content; consume `counts.json` instead.
+Docs-only changes don't touch routing surface, so eval parity (P2) doesn't apply—but CI runs ship-review with `--require-decision`, so the diff must cite a decision entry (docs work cites D3/D5).
 
 ## User data written outside the repo
 
-Skills that capture reflections write to `~/haku-work-reflections/` (overrideable via `$HAKU_WORK_REFLECTIONS_HOME`; stakeholder/team artifacts use `$HAKU_TEAM_HOME`, default `~/haku-team/`). Pre-rename installs may still have `~/bettersense-work-reflections/` — `doctor` check 6 and `user-profile` offer an `mv` to the new root rather than creating a second one. This folder is user data — never touch it from code in this repo. Key paths:
+Skills that capture reflections write to `~/haku-work-reflections/` (overrideable via `$HAKU_WORK_REFLECTIONS_HOME`); stakeholder-pack files (stakeholders.json, managing-*/…) live under this root too. Shared team-workspace artifacts use `$HAKU_TEAM_HOME`, default `~/haku-team/` — a separate git repo, used by the `team-workspace` skill only. Pre-rename installs may still have `~/bettersense-work-reflections/` — `doctor` check 6 and `user-profile` offer an `mv` to the new root rather than creating a second one. This folder is user data — never touch it from code in this repo. Key paths:
 
 - `profile.md` — created by `user-profile` (core; also owns root setup + privacy warning)
 - `strategy/<area-slug>.md` — created by `strategy-doc` (core)

@@ -8,7 +8,7 @@ Built for PMs, engineering leads, and small teams shipping with AI—where the b
 
 ## Why
 
-Most "AI for leaders" tooling is a big library of frameworks with a context tax paid on every session. Haku's bet is the opposite: the value is four mechanisms, not 54 skills —
+Most "AI for leaders" tooling is a big library of frameworks with a context tax paid on every session. Haku's bet is the opposite: the value is four mechanisms, not 52 skills —
 
 1. **routing evals** — a golden dataset that tests the actual descriptions as a classifier, gating every change
 2. **compounding memory** — user-profile and decision-log that make each session smarter than the last
