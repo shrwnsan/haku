@@ -30,6 +30,7 @@ node evals/routing/run-routing.mjs
 # Options
 node evals/routing/run-routing.mjs --limit 10   # first 10 cases
 node evals/routing/run-routing.mjs --verbose     # per-case result
+node evals/routing/run-routing.mjs --router jev  # Jev System One router (D10); claude CLI is the default
 ```
 
 The runner exits non-zero on any routing failure (or malformed dataset), so it drops straight into CI. `--dry-run` is the cheap gate to run on every PR; the full run (which calls the model) is the periodic or pre-release gate.

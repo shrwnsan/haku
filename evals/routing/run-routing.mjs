@@ -32,12 +32,13 @@ const limitArg = args.indexOf("--limit");
 const limit = limitArg !== -1 ? parseInt(args[limitArg + 1], 10) : Infinity;
 const modelArg = args.indexOf("--model");
 const model = modelArg !== -1 ? args[modelArg + 1] : null;
-const routerArg = args.indexOf("--router");
-const router = routerArg !== -1 ? args[routerArg + 1] : "claude";
+const routerArg = args.findIndex((a) => a === "--router" || a.startsWith("--router="));
+const router = routerArg === -1 ? "claude" : (args[routerArg].includes("=") ? args[routerArg].split("=")[1] : args[routerArg + 1]);
 if (!["claude", "jev"].includes(router)) {
   console.error(`Unknown router '${router}'. Available: claude, jev`);
   process.exit(2);
 }
+if (router === "jev" && model) console.error("note: --model applies to the claude router only; it is ignored under --router jev");
 const packs = [];
 for (let i = 0; i < args.length; i++) if (args[i] === "--pack") packs.push(args[i + 1]);
 
@@ -185,13 +186,15 @@ function askClaude(prompt) {
 // run where there is no gateway (the value is read from the environment only,
 // never stored in this repo).
 const JEV_API = "https://api.typesafe.ai/v1/systemone";
-const JEV_MODEL = "jev-latest";
+// Pinned exact version (pinning discipline, D4/D6): "jev-latest" is a floating
+// alias, so an N-run aggregate would not be reproducible across weight bumps.
+// The API reports the served version in `model`; bump = new decision-citing run.
+const JEV_MODEL = "jev-1.13.0";
 const NONE = "none";
 
-function askJev(candidates, userMessage) {
+async function askJev(candidates, userMessage) {
   const criteria = {};
   for (const c of candidates) criteria[c.name] = `${c.kind}: ${c.description}`;
-  if (candidates.some((c) => c.name === NONE)) throw new Error(`a candidate named '${NONE}' collides with the no-match option`);
   criteria[NONE] = "No catalog item is an appropriate match for the message";
   const body = {
     state: {
@@ -210,20 +213,33 @@ function askJev(candidates, userMessage) {
   };
   const headers = { "Content-Type": "application/json" };
   if (process.env.TYPESAFE_API_KEY) headers.Authorization = `Bearer ${process.env.TYPESAFE_API_KEY}`;
-  return fetch(JEV_API, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(30000),
-  }).then(async (res) => {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    let res;
+    try {
+      res = await fetch(JEV_API, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(body),
+        signal: AbortSignal.timeout(30000),
+      });
+    } catch (e) {
+      if (attempt === 1) throw new Error(`jev router request failed: ${e.message}`);
+      await new Promise((r) => setTimeout(r, 1500));
+      continue;
+    }
     const json = await res.json().catch(() => ({}));
+    if (res.status === 429 || res.status === 529 || res.status >= 500) {
+      if (attempt === 1) throw new Error(`jev router HTTP ${res.status} after retry`);
+      await new Promise((r) => setTimeout(r, 1500)); // backoff per the API's rate-limit guidance
+      continue;
+    }
     if (!res.ok) throw new Error(`jev router HTTP ${res.status}: ${JSON.stringify(json).slice(0, 120)}`);
     const a = json.answers?.route;
     if (!a || typeof a.choice !== "string") throw new Error("jev router returned no choice answer");
-    // Same contract as askClaude: {choice, reason}. Reason carries the
-    // calibrated confidence so runs are comparable to the CLI judge's prose.
+    // Same contract as askClaude: {choice, reason}. Nothing downstream parses
+    // reason; it surfaces the calibrated confidence in --verbose output.
     return { choice: a.choice, reason: `confidence ${a.confidence ?? "?"}` };
-  });
+  }
 }
 
 const ask = router === "jev" ? askJev : (cands, msg) => Promise.resolve(askClaude(buildPrompt(cands, msg)));
@@ -233,6 +249,9 @@ const ask = router === "jev" ? askJev : (cands, msg) => Promise.resolve(askClaud
 function validate(cases, candidates, knownNames) {
   const names = new Set(candidates.map((c) => c.name));
   const errors = [];
+  if (names.has(NONE)) errors.push(`a candidate named '${NONE}' collides with the Jev router's no-match option`);
+  // Choice questions cap at 255 options; +1 for the explicit "none" option.
+  if (candidates.length + 1 > 255) errors.push(`${candidates.length} candidates exceeds the Jev choice cap (254 + none)`);
   for (const c of cases) {
     if (!c.id || !c.prompt || !c.expect) errors.push(`${c.id || "?"}: missing id/prompt/expect`);
     if (c.expect !== "none" && !names.has(c.expect) && !knownNames.has(c.expect))
@@ -317,6 +336,6 @@ async function main() {
 }
 
 main().catch((e) => {
-  console.error(e.message);
+  console.error(e.stack || e.message);
   process.exit(2);
 });
