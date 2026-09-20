@@ -10,6 +10,8 @@
 //   node run-routing.mjs               run the full eval via claude -p
 //   node run-routing.mjs --limit 5     run the first 5 cases
 //   node run-routing.mjs --verbose     print each case result
+//   node run-routing.mjs --router jev  score with the Jev System One router
+//                                      instead of the claude CLI judge
 //
 // Exit code is non-zero if any case fails (or, in --dry-run, if the dataset is
 // malformed), so this doubles as CI.
@@ -30,6 +32,13 @@ const limitArg = args.indexOf("--limit");
 const limit = limitArg !== -1 ? parseInt(args[limitArg + 1], 10) : Infinity;
 const modelArg = args.indexOf("--model");
 const model = modelArg !== -1 ? args[modelArg + 1] : null;
+const routerArg = args.findIndex((a) => a === "--router" || a.startsWith("--router="));
+const router = routerArg === -1 ? "claude" : (args[routerArg].includes("=") ? args[routerArg].split("=")[1] : args[routerArg + 1]);
+if (!["claude", "jev"].includes(router)) {
+  console.error(`Unknown router '${router}'. Available: claude, jev`);
+  process.exit(2);
+}
+if (router === "jev" && model) console.error("note: --model applies to the claude router only; it is ignored under --router jev");
 const packs = [];
 for (let i = 0; i < args.length; i++) if (args[i] === "--pack") packs.push(args[i + 1]);
 
@@ -169,11 +178,80 @@ function askClaude(prompt) {
   return JSON.parse(matches[matches.length - 1]);
 }
 
+// Jev (TypeSafe System One) router, added per LEAN-PLAN §8 D10: the same
+// pick-from-N judgment as a choice question — catalog descriptions become
+// option criteria, "none" is an explicit option rather than a convention.
+// Eval-only provider: it never replaces the pinned CI judge (D6). Auth is
+// injected by the local OneCLI gateway when present; set TYPESAFE_API_KEY to
+// run where there is no gateway (the value is read from the environment only,
+// never stored in this repo).
+const JEV_API = "https://api.typesafe.ai/v1/systemone";
+// Pinned exact version (pinning discipline, D4/D6): "jev-latest" is a floating
+// alias, so an N-run aggregate would not be reproducible across weight bumps.
+// The API reports the served version in `model`; bump = new decision-citing run.
+const JEV_MODEL = "jev-1.13.0";
+const NONE = "none";
+
+async function askJev(candidates, userMessage) {
+  const criteria = {};
+  for (const c of candidates) criteria[c.name] = `${c.kind}: ${c.description}`;
+  criteria[NONE] = "No catalog item is an appropriate match for the message";
+  const body = {
+    state: {
+      user_message: userMessage,
+      rules:
+        "Pick the single catalog option that should handle the user message, judging only on the option descriptions. Do not invent capabilities. If nothing is an appropriate match, pick 'none'.",
+    },
+    model: JEV_MODEL,
+    questions: {
+      route: {
+        type: "choice",
+        instructions: "Which catalog item should handle this user message?",
+        criteria,
+      },
+    },
+  };
+  const headers = { "Content-Type": "application/json" };
+  if (process.env.TYPESAFE_API_KEY) headers.Authorization = `Bearer ${process.env.TYPESAFE_API_KEY}`;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    let res;
+    try {
+      res = await fetch(JEV_API, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(body),
+        signal: AbortSignal.timeout(30000),
+      });
+    } catch (e) {
+      if (attempt === 1) throw new Error(`jev router request failed: ${e.message}`);
+      await new Promise((r) => setTimeout(r, 1500));
+      continue;
+    }
+    const json = await res.json().catch(() => ({}));
+    if (res.status === 429 || res.status === 529 || res.status >= 500) {
+      if (attempt === 1) throw new Error(`jev router HTTP ${res.status} after retry`);
+      await new Promise((r) => setTimeout(r, 1500)); // backoff per the API's rate-limit guidance
+      continue;
+    }
+    if (!res.ok) throw new Error(`jev router HTTP ${res.status}: ${JSON.stringify(json).slice(0, 120)}`);
+    const a = json.answers?.route;
+    if (!a || typeof a.choice !== "string") throw new Error("jev router returned no choice answer");
+    // Same contract as askClaude: {choice, reason}. Nothing downstream parses
+    // reason; it surfaces the calibrated confidence in --verbose output.
+    return { choice: a.choice, reason: `confidence ${a.confidence ?? "?"}` };
+  }
+}
+
+const ask = router === "jev" ? askJev : (cands, msg) => Promise.resolve(askClaude(buildPrompt(cands, msg)));
+
 // ---- Validate + score -----------------------------------------------------
 
 function validate(cases, candidates, knownNames) {
   const names = new Set(candidates.map((c) => c.name));
   const errors = [];
+  if (names.has(NONE)) errors.push(`a candidate named '${NONE}' collides with the Jev router's no-match option`);
+  // Choice questions cap at 255 options; +1 for the explicit "none" option.
+  if (candidates.length + 1 > 255) errors.push(`${candidates.length} candidates exceeds the Jev choice cap (254 + none)`);
   for (const c of cases) {
     if (!c.id || !c.prompt || !c.expect) errors.push(`${c.id || "?"}: missing id/prompt/expect`);
     if (c.expect !== "none" && !names.has(c.expect) && !knownNames.has(c.expect))
@@ -185,7 +263,7 @@ function validate(cases, candidates, knownNames) {
   return errors;
 }
 
-function main() {
+async function main() {
   const packsDir = join(pluginRoot, "packs");
   for (const p of packs) {
     if (!existsSync(join(packsDir, p, "pack.json"))) {
@@ -209,7 +287,8 @@ function main() {
 
   console.log(
     `${candidates.length} candidates, ${cases.length} cases, dataset valid.` +
-      (packs.length ? ` Packs installed: ${packs.join(", ")}.` : " Core only.")
+      (packs.length ? ` Packs installed: ${packs.join(", ")}.` : " Core only.") +
+      ` Router: ${router === "jev" ? `jev (${JEV_MODEL})` : `claude CLI${model ? ` (${model})` : " (default model)"}`}.`
   );
   if (dryRun) {
     const covered = new Set(cases.map((c) => c.expect).filter((e) => e !== "none"));
@@ -225,7 +304,7 @@ function main() {
   for (const c of runCases) {
     let choice;
     try {
-      choice = askClaude(buildPrompt(candidates, c.prompt));
+      choice = await ask(candidates, c.prompt);
     } catch (e) {
       fail++;
       failures.push(`${c.id}: runner error — ${e.message}`);
@@ -256,4 +335,7 @@ function main() {
   }
 }
 
-main();
+main().catch((e) => {
+  console.error(e.stack || e.message);
+  process.exit(2);
+});
