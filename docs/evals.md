@@ -17,6 +17,19 @@ node evals/routing/run-routing.mjs             # full run, needs an authenticate
 
 The runner exits non-zero on any failure—`--dry-run` is the every-PR gate, the full run is the periodic / pre-release gate.
 
+### Routers
+
+The judge is pluggable (§8 D10); the pinned claude CLI judge in `baseline.json` stays the single source of truth for CI and baseline comparisons:
+
+```bash
+node evals/routing/run-routing.mjs --router jev   # TypeSafe System One, eval-only
+```
+
+- `--router jev` poses the same pick-one-of-N judgment as a choice question: catalog descriptions become option criteria, and `none` is an explicit option rather than a prompt convention. The served version is pinned (`jev-1.13.0`), not a floating alias, so multi-run aggregates stay reproducible.
+- Jev is an **eval provider, not the judge**: it doesn't gate CI (no secret is declared for it there) and doesn't replace the claude judge until a decision-citing regen shows it winning (D6/D10).
+- It fails loud by design — a router error is a per-case error and fails the run; there is no silent fallback to the claude judge, so run provenance is never mislabeled. Transient 429/5xx get one retry with backoff.
+- Auth is environmental: the local OneCLI gateway injects it, or set `TYPESAFE_API_KEY` where no gateway exists (read from the environment only, never stored in the repo).
+
 ## Output rubrics
 
 `evals/rubrics.md` holds behavioral checklists for the ten most load-bearing skills, each with **automatic-fail** items encoding the skill's non-negotiable opinion (e.g. `the-reducer` must not endorse building the AI feature in its first response). Score behavior, not prose.
