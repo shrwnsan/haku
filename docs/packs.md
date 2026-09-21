@@ -1,3 +1,7 @@
+---
+title: "Packs"
+---
+
 # Packs
 
 Packs are opt-in and install as a unit, each with its own eval cases. Core stays installed regardless.

@@ -1,3 +1,7 @@
+---
+title: "Scheduling routines"
+---
+
 # Scheduling routines
 
 Claude Code skills are stateless—they fire when invoked, not automatically. Cadence requires either a habit or a scheduler. This guide covers the options in order of recommendation.

@@ -1,3 +1,7 @@
+---
+title: "Environment variables"
+---
+
 # Environment variables
 
 All environment variables used by haku skills, with platform-specific setup for macOS, Linux, and Windows.

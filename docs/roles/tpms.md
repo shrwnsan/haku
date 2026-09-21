@@ -1,3 +1,7 @@
+---
+title: "For TPMs"
+---
+
 # For TPMs
 
 You run the program but manage none of the people. Every outcome you own routes through teams that don't report to you, priorities you don't set, and a weekly status update that half your stakeholders skim and the other half misread. The work that makes programs succeed—unblocking, aligning, chasing the orphaned problem nobody owns—is precisely the work that's hardest to point at come review time. Being essential and being seen are, frustratingly, different problems.

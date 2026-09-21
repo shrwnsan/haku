@@ -1,3 +1,7 @@
+---
+title: "First run"
+---
+
 # First run
 
 After installation, run one command:

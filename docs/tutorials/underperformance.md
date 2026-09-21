@@ -1,3 +1,7 @@
+---
+title: "Tutorial: Navigate an underperformance situation"
+---
+
 # Tutorial: Navigate an underperformance situation
 
 **Time:** ~10 minutes

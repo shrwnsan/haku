@@ -1,3 +1,7 @@
+---
+title: "Tutorial: Set up your profile"
+---
+
 # Tutorial: Set up your profile
 
 **Time:** ~10 minutes

@@ -1,3 +1,7 @@
+---
+title: "Wins curation — worked example"
+---
+
 # Wins curation — worked example
 
 From first log entry through a promo-packet curate—what the wins system looks like in practice.

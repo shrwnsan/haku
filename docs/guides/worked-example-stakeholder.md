@@ -1,3 +1,7 @@
+---
+title: "Stakeholder reflection — worked example"
+---
+
 # Stakeholder reflection — worked example
 
 A full lifecycle walkthrough of the stakeholder pack, from first registration through synthesis.

@@ -1,3 +1,7 @@
+---
+title: "For Senior ICs"
+---
+
 # For Senior ICs
 
 You do the work that makes the team function—the design reviews, the onboarding, the "quick question" that saves someone two days—and then watch the promotion packet ask for "technical accomplishments" as if none of that happened. Staff+ progression runs on influence, visibility, and evidence, and all three are things engineers are told to feel vaguely embarrassed about pursuing. The quiet fear: doing career-defining work that no one, including future-you, can point to.

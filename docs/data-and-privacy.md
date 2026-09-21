@@ -1,3 +1,7 @@
+---
+title: "Data & privacy"
+---
+
 # Data & privacy
 
 ## Where your data lives

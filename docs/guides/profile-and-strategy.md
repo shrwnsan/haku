@@ -1,3 +1,7 @@
+---
+title: "Profile & strategy — the anchor files"
+---
+
 # Profile & strategy — the anchor files
 
 How `profile.md` and `strategy/<area>.md` work, why they matter, and how to maintain them.

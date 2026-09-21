@@ -1,3 +1,7 @@
+---
+title: "Tutorial: Log a win and turn it into a story"
+---
+
 # Tutorial: Log a win and turn it into a story
 
 **Time:** ~8 minutes

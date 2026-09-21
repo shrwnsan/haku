@@ -1,3 +1,7 @@
+---
+title: "Install"
+---
+
 # Install
 
 haku installs three ways. Skills are namespaced under `haku:` (e.g. `/haku:start`, `/haku:decision-log`).

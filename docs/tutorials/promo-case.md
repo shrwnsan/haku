@@ -1,3 +1,7 @@
+---
+title: "Tutorial: Build a promotion case"
+---
+
 # Tutorial: Build a promotion case
 
 **Time:** ~12 minutes

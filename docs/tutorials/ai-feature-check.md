@@ -1,3 +1,7 @@
+---
+title: "Tutorial: Sanity-check an AI feature before building it"
+---
+
 # Tutorial: Sanity-check an AI feature before building it
 
 **Time:** ~10 minutes
