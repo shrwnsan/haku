@@ -1,3 +1,7 @@
+---
+title: "Tutorial: The Friday leadership review"
+---
+
 # Tutorial: The Friday leadership review
 
 **Time:** ~8 minutes to follow this tutorial; ~15 minutes per week once it's a habit

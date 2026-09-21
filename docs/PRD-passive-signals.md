@@ -1,3 +1,7 @@
+---
+title: "PRD (parked): passive signals for the weekly loop"
+---
+
 # PRD (parked): passive signals for the weekly loop
 
 **Status: PARKED — what's-next bucket. Do not start until a trigger in §5 fires.**

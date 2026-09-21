@@ -1,3 +1,7 @@
+---
+title: "File locations"
+---
+
 # File locations
 
 A complete map of where haku reads from and writes to on your local machine.

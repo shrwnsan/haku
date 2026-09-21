@@ -1,3 +1,7 @@
+---
+title: "Evals"
+---
+
 # Evals
 
 haku preaches *evals before vibes*—so it ships with its own. Two layers, ordered by cost: a deterministic **routing eval** that gates every change, and **output rubrics** for judge-or-human review of real transcripts. Full detail in [`evals/README.md`](../evals/README.md).

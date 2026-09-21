@@ -1,3 +1,7 @@
+---
+title: "License"
+---
+
 # License
 
 haku is licensed **CC BY-SA 4.0**—see [`LICENSE`](../LICENSE).

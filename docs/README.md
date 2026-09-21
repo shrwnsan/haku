@@ -1,3 +1,7 @@
+---
+title: "haku documentation"
+---
+
 # haku documentation
 
 **haku** is a lean Claude Code plugin that runs the **decide → spec → evidence** loop: an always-on core—8 skills + 5 gate agents—that captures the decision, pressure-tests the spec, and checks what actually shipped. Eight opt-in packs bolt on per role.

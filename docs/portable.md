@@ -1,3 +1,7 @@
+---
+title: "Portable emit (Agent Plugins spec)"
+---
+
 # Portable emit (Agent Plugins spec)
 
 haku ships a skills-only build conforming to the [Agent Plugins specification](https://agent-plugins.org) v1.0.0, committed at `dist/agent-plugins/`—so spec-compatible clients can consume haku without the Claude Code plugin machinery.

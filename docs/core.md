@@ -1,3 +1,7 @@
+---
+title: "The core"
+---
+
 # The core
 
 An always-on core of **8 skills + 5 gate agents** runs the loop: **decide → spec → evidence**. Capture the decision, pressure-test the spec, check what shipped—so every session starts smarter than the last.

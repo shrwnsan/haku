@@ -1,3 +1,7 @@
+---
+title: "Gates & ship-review"
+---
+
 # Gates & ship-review
 
 Two gate layers: a deterministic **ship-review hook** (cheap, free, no LLM) and **gate agents** behind bounded contracts (expensive judgment, run deliberately).

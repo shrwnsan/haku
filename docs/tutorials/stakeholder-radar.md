@@ -1,3 +1,7 @@
+---
+title: "Tutorial: Set up your stakeholder radar"
+---
+
 # Tutorial: Set up your stakeholder radar
 
 **Time:** ~10 minutes

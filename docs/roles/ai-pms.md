@@ -1,3 +1,7 @@
+---
+title: "For AI Product Managers"
+---
+
 # For AI Product Managers
 
 You're responsible for shipping reliable products on top of a system that is, by design, unreliable in interesting ways. The asks arrive pre-solved ("can we add an LLM reranker?"), the demos always work, production sometimes doesn't, and when accuracy regresses you're the one explaining it to the CEO. The job is judgment under uncertainty—and the fear underneath it is shipping something that fails in public.

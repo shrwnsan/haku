@@ -1,3 +1,7 @@
+---
+title: "See it in action"
+---
+
 # See it in action
 
 Tables of skills tell you what exists. These show you what comes out. Each is a lightly anonymized example of a skill or agent doing the thing that makes it worth more than a blank Claude prompt.

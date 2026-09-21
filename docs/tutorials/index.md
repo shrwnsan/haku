@@ -1,3 +1,7 @@
+---
+title: "Tutorials"
+---
+
 # Tutorials
 
 Tutorials are different from guides. Guides explain what something does. Tutorials are scenario-driven — you follow a specific person through a specific situation, typing the same prompts they type, seeing roughly what they see.

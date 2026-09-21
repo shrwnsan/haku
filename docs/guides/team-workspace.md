@@ -1,3 +1,7 @@
+---
+title: "Using haku as a team"
+---
+
 # Using haku as a team
 
 haku is personal by default, and most of it should stay that way—your reflections on colleagues, your wins, your career retros are yours alone. But a few artifacts are inherently shared: a **team charter** the whole team commits to, a **strategy doc** partners align on, **decision records** the team cites months later. The `team-workspace` skill (team pack) lets a team share exactly those, with a privacy wall that makes leaking the private layer structurally hard.

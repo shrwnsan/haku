@@ -1,3 +1,7 @@
+---
+title: "How skills work"
+---
+
 # How skills work
 
 ## What a skill is

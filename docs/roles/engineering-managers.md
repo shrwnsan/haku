@@ -1,3 +1,7 @@
+---
+title: "For Engineering Managers"
+---
+
 # For Engineering Managers
 
 The work that defines your job never shows up in a sprint board: the feedback conversation you've been rehearsing in the shower for three weeks, the promo case that needs evidence you didn't write down, the team member whose trajectory quietly worries you. Management work is invisible by default—to your own manager, and on bad weeks, to you. The guilt of the avoided conversation is real, and so is the Sunday-night blank when the perf-review form asks what you accomplished this year.
