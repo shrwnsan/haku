@@ -12,6 +12,8 @@
 //   node run-routing.mjs --verbose     print each case result
 //   node run-routing.mjs --router jev  score with the Jev System One router
 //                                      instead of the claude CLI judge
+//   node run-routing.mjs --runs 30     judge each case N times; score the
+//                                      majority choice and report agreement
 //
 // Exit code is non-zero if any case fails (or, in --dry-run, if the dataset is
 // malformed), so this doubles as CI.
@@ -30,6 +32,8 @@ const dryRun = args.includes("--dry-run");
 const verbose = args.includes("--verbose");
 const limitArg = args.indexOf("--limit");
 const limit = limitArg !== -1 ? parseInt(args[limitArg + 1], 10) : Infinity;
+const runsArg = args.indexOf("--runs");
+const RUNS = runsArg !== -1 ? Math.max(1, parseInt(args[runsArg + 1], 10) || 1) : 1;
 const modelArg = args.indexOf("--model");
 const model = modelArg !== -1 ? args[modelArg + 1] : null;
 const routerArg = args.findIndex((a) => a === "--router" || a.startsWith("--router="));
@@ -213,7 +217,7 @@ async function askJev(candidates, userMessage) {
   };
   const headers = { "Content-Type": "application/json" };
   if (process.env.TYPESAFE_API_KEY) headers.Authorization = `Bearer ${process.env.TYPESAFE_API_KEY}`;
-  for (let attempt = 0; attempt < 2; attempt++) {
+  for (let attempt = 0; attempt < 4; attempt++) {
     let res;
     try {
       res = await fetch(JEV_API, {
@@ -223,14 +227,14 @@ async function askJev(candidates, userMessage) {
         signal: AbortSignal.timeout(30000),
       });
     } catch (e) {
-      if (attempt === 1) throw new Error(`jev router request failed: ${e.message}`);
-      await new Promise((r) => setTimeout(r, 1500));
+      if (attempt === 3) throw new Error(`jev router request failed: ${e.message}`);
+      await new Promise((r) => setTimeout(r, 1500 + attempt * 2500));
       continue;
     }
     const json = await res.json().catch(() => ({}));
     if (res.status === 429 || res.status === 529 || res.status >= 500) {
-      if (attempt === 1) throw new Error(`jev router HTTP ${res.status} after retry`);
-      await new Promise((r) => setTimeout(r, 1500)); // backoff per the API's rate-limit guidance
+      if (attempt === 3) throw new Error(`jev router HTTP ${res.status} after retry`);
+      await new Promise((r) => setTimeout(r, 1500 + attempt * 2500)); // backoff per the API's rate-limit guidance
       continue;
     }
     if (!res.ok) throw new Error(`jev router HTTP ${res.status}: ${JSON.stringify(json).slice(0, 120)}`);
@@ -297,38 +301,67 @@ async function main() {
     return;
   }
 
+  // N judgments per case, concurrency 3 with jitter — the Jev API rate-limits
+  // and has flapped under load, so stay polite and lean on askJev's retries.
+  async function askN(c, k) {
+    const out = new Array(k);
+    let next = 0;
+    await Promise.all(Array.from({ length: Math.min(3, k) }, async () => {
+      while (next < k) {
+        const my = next++;
+        try {
+          out[my] = await ask(candidates, c.prompt);
+        } catch (e) {
+          out[my] = { choice: null, reason: e.message };
+        }
+        await new Promise((r) => setTimeout(r, 120 + Math.random() * 260));
+      }
+    }));
+    return out;
+  }
+
   let pass = 0;
   let fail = 0;
+  let judgments = 0;
+  let agreementSum = 0;
   const failures = [];
   const runCases = cases.slice(0, limit);
   for (const c of runCases) {
-    let choice;
-    try {
-      choice = await ask(candidates, c.prompt);
-    } catch (e) {
+    const results = await askN(c, RUNS);
+    const valid = results.filter((r) => r.choice);
+    judgments += valid.length;
+    if (!valid.length) {
       fail++;
-      failures.push(`${c.id}: runner error — ${e.message}`);
-      if (verbose) console.log(`✗ ${c.id}: ERROR ${e.message}`);
+      failures.push(`${c.id}: runner error — ${results[0].reason}`);
+      if (verbose) console.log(`✗ ${c.id}: ERROR ${results[0].reason}`);
       continue;
     }
-    const hitExpected = choice.choice === c.expect;
+    const tally = {};
+    for (const r of valid) tally[r.choice] = (tally[r.choice] || 0) + 1;
+    const majority = Object.entries(tally).sort((a, b) => b[1] - a[1])[0][0];
+    const agreement = tally[majority] / valid.length;
+    agreementSum += agreement;
+    const hitExpected = majority === c.expect;
     // A must-not-fire neighbour that isn't installed cannot fire — only police
     // neighbours present in this run's catalog.
-    const firedForbidden = (c.must_not_fire || []).filter((n) => catalogNames.has(n)).includes(choice.choice);
+    const firedForbidden = (c.must_not_fire || []).filter((n) => catalogNames.has(n)).includes(majority);
     if (hitExpected && !firedForbidden) {
       pass++;
-      if (verbose) console.log(`✓ ${c.id}: ${choice.choice}`);
+      if (verbose) console.log(`✓ ${c.id}: ${majority}${RUNS > 1 ? ` (${tally[majority]}/${valid.length}, agreement ${(agreement * 100).toFixed(0)}%)` : ""}`);
     } else {
       fail++;
       const why = firedForbidden
-        ? `fired a must-not-fire neighbour (${choice.choice})`
-        : `got ${choice.choice}, expected ${c.expect}`;
-      failures.push(`${c.id}: ${why} — "${c.prompt.slice(0, 60)}..."`);
-      if (verbose) console.log(`✗ ${c.id}: ${why}`);
+        ? `majority fired a must-not-fire neighbour (${majority})`
+        : `got ${majority}, expected ${c.expect}`;
+      const detail = RUNS > 1 ? ` [${valid.map((r) => r.choice).join(", ")}]` : "";
+      failures.push(`${c.id}: ${why}${detail} — "${c.prompt.slice(0, 60)}..."`);
+      if (verbose) console.log(`✗ ${c.id}: ${why}${detail}`);
     }
   }
 
-  console.log(`\nRouting: ${pass}/${pass + fail} passed.`);
+  const scored = pass + fail;
+  const extra = RUNS > 1 ? ` over ${judgments} judgments (${RUNS}/case, mean agreement ${scored ? ((agreementSum / scored) * 100).toFixed(0) : 0}%)` : "";
+  console.log(`\nRouting: ${pass}/${scored} passed.${extra}`);
   if (failures.length) {
     console.log("Failures:\n" + failures.map((f) => "  - " + f).join("\n"));
     process.exit(1);
