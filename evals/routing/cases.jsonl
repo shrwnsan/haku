@@ -7,7 +7,7 @@
 {"id":"spec-writer","prompt":"Draft a PRD for the contract-summarization feature we've now validated.","expect":"the-spec-writer","must_not_fire":["the-discovery-facilitator"]}
 {"id":"retro","prompt":"Facilitate our end-of-sprint team retrospective and get real action items out of it.","expect":"the-retro-facilitator","must_not_fire":["the-postmortem-facilitator"]}
 {"id":"weekly","prompt":"Run my weekly review.","expect":"weekly","must_not_fire":["wins-due","stakeholder-due"]}
-{"id":"capture","prompt":"Log that decision we just made about going with the smaller model.","expect":"capture","must_not_fire":["decision-log"]}
+{"id":"capture","prompt":"Log that decision we just made about going with the smaller model.","expect":"capture","must_not_fire":["decision-log"],"note":"boundary case: 'log that decision' collides with decision-log's trigger surface; decidable because the decision was made in this very conversation — capture drafts from the session","source":"D10 N=30 regen: Jev picked decision-log 30/30 (deterministic miss) while the claude judge flaked the same case 1-of-3 in the pinned baseline — the descriptions did not teach the conversation-local boundary; fixed editorially in the capture and decision-log descriptions"}
 {"id":"product-strategy","prompt":"I need a product strategy doc for the onboarding area.","expect":"strategy-doc","must_not_fire":["tech-strategy-writer"]}
 {"id":"doctor","prompt":"Something seems off with my stakeholder files — can you check them?","expect":"doctor","must_not_fire":["stakeholder-manage"]}
 {"id":"rfc-review","prompt":"Review this design doc the way a staff engineer would before I publish it.","expect":"the-rfc-reviewer","must_not_fire":["the-prompt-critic"]}
