@@ -33,6 +33,9 @@ const verbose = args.includes("--verbose");
 const limitArg = args.indexOf("--limit");
 const limit = limitArg !== -1 ? parseInt(args[limitArg + 1], 10) : Infinity;
 const runsArg = args.indexOf("--runs");
+// --runs N (D10 close-out): judge each case N times, score by majority, report
+// per-case agreement — built for the N=30 Jev stability regen; RUNS=1 is
+// byte-identical to the old single-shot behavior.
 const RUNS = runsArg !== -1 ? Math.max(1, parseInt(args[runsArg + 1], 10) || 1) : 1;
 const modelArg = args.indexOf("--model");
 const model = modelArg !== -1 ? args[modelArg + 1] : null;
