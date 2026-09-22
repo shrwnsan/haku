@@ -1,6 +1,6 @@
 ---
 name: decision-log
-description: Use when the user makes or revisits a meaningful product, technical, or organizational decision and wants it captured ADR-style. Triggers: "we decided to…", "let's go with X over Y", "write up the call we made on…", or reconstructing a past decision. Especially AI-product decisions — model choice, eval threshold, fallback design — whose rationale is easy to lose.
+description: Use when the user makes or revisits a meaningful product, technical, or organizational decision and wants it captured ADR-style. Triggers: "we decided to…", "let's go with X over Y", "write up the call we made on…", or reconstructing a past decision. Especially AI-product decisions — model choice, eval threshold, fallback design — whose rationale is easy to lose. When the decision was made in the current conversation and the ask is conversational ("log that decision we just made"), that is capture's job — it drafts from the session and files here.
 ---
 
 # Decision Log

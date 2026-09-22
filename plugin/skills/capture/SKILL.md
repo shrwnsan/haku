@@ -1,6 +1,6 @@
 ---
 name: capture
-description: Use to log something from the current conversation into the user's haku memory — a decision just made, a win that surfaced, a stakeholder observation, a self-insight. Triggers: "log this", "capture this", "save that decision", "remember this", or a substantive conversation just concluded. Distinct from decision-log / wins-log / stakeholder-reflect / self-reflect invoked directly: drafts FROM the conversation, files after approval.
+description: Use to log something from the current conversation into the user's haku memory — a decision just made here, a win that surfaced, a stakeholder observation, a self-insight. Triggers: "log this", "log that decision we just made", "capture this", "save that decision", "remember this", or a substantive conversation just concluded. Drafts FROM the live conversation, files into the right target skill (decision-log / wins-log / stakeholder-reflect / self-reflect) after approval — invoke those directly only when the content comes from outside this session or the user names the format explicitly.
 ---
 
 # Capture
