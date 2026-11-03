@@ -21,6 +21,19 @@ The loop's shape tracks the AI-native SDLC playbook—decide, spec, evals as gat
 
 Measure, then ship.
 
+## Agent Plugins
+
+`haku` also ships as an [Agent Plugins](https://agent-plugins.org/) v1.0.0
+package: [`dist/agent-plugins/`](dist/agent-plugins/) is committed and holds
+the core 8 skills plus a generated `plugin.json` whose version pins to the
+latest git tag. Regenerate after changing skills with
+`node scripts/emit-portable.mjs`; CI re-emits with `--check` and fails on any
+drift (LEAN-PLAN [D9](docs/LEAN-PLAN.md)). The emit is skills-only by design:
+gate agents, hooks, and monitors are client-specific and have no v1
+representation, so cross-client installs get the skills and the loop's
+gates stay here. `--pack <name>` flattens a pack's skills alongside the core
+when you want one.
+
 ## License & attribution
 
 Licensed **CC BY-SA 4.0**—see [LICENSE](LICENSE). Haku began as a redesign of [bettersense](https://github.com/shwetank/bettersense) by Shwetank Dixit, and wouldn't exist without it.
